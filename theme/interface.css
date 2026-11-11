@@ -1,0 +1,276 @@
+/* Shared interface skin. Content tabs must opt in by document URL. */
+@import url("tokens.css");
+@import url("components/menus.css");
+@import url("pages/settings.css");
+@import url("pages/address-book.css");
+@import url("pages/tools.css");
+
+@-moz-document regexp("^(chrome://(messenger|calendar|chat|global|mozapps|openpgp|pippki)/content/.*|about:(3pane|message|addressbook|preferences|accountsettings|import|addons|downloads|config|support|profiles|policies|certificate|logging)([?#].*)?)$") {
+  :root {
+    color-scheme: light dark !important;
+    background-color: var(--mdbird-canvas) !important;
+    color: var(--md-sys-color-on-surface) !important;
+    font-family: var(--mdbird-font) !important;
+    accent-color: var(--md-sys-color-primary) !important;
+    scrollbar-color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) 42%, transparent)
+      transparent !important;
+
+    /* Thunderbird surfaces, text and selection */
+    --layout-background-0: var(--mdbird-pane) !important;
+    --layout-background-1: var(--mdbird-canvas) !important;
+    --layout-background-2: var(--md-sys-color-surface-container) !important;
+    --layout-background-3: var(--md-sys-color-surface-container-high) !important;
+    --layout-background-4: var(--md-sys-color-surface-container-highest) !important;
+    --layout-color-0: var(--md-sys-color-on-surface) !important;
+    --layout-color-1: var(--md-sys-color-on-surface) !important;
+    --layout-color-2: var(--md-sys-color-on-surface-variant) !important;
+    --layout-color-3: var(--md-sys-color-on-surface-variant) !important;
+    --layout-border-0: var(--md-sys-color-outline-variant) !important;
+    --layout-border-1: var(--layout-border-0) !important;
+    --layout-border-2: var(--md-sys-color-outline) !important;
+    --selected-item-color: var(--md-sys-color-primary) !important;
+    --selected-item-text-color: var(--md-sys-color-on-primary) !important;
+    --item-focus-selected-border-color: var(--focus-outline-color) !important;
+
+    --sidebar-background-color: var(--mdbird-canvas) !important;
+    --sidebar-text-color: var(--md-sys-color-on-surface) !important;
+    --sidebar-border-color: var(--layout-border-0) !important;
+    --toolbar-background-color: var(--mdbird-canvas) !important;
+    --toolbar-text-color: var(--md-sys-color-on-surface) !important;
+    --chrome-content-separator-color: transparent !important;
+
+    /* Gecko design tokens used by internal pages and shadow controls */
+    --color-accent-primary: var(--md-sys-color-primary) !important;
+    --color-accent-primary-hover: var(--button-primary-hover-background-color) !important;
+    --color-accent-primary-active: var(--button-primary-active-background-color) !important;
+    --color-accent-primary-selected: var(--mdbird-selected-container) !important;
+    --color-surface-base: var(--mdbird-pane) !important;
+    --color-surface-lower: var(--mdbird-canvas) !important;
+    --color-surface-subtle: var(--md-sys-color-surface-container) !important;
+    --color-surface-border: var(--md-sys-color-outline-variant) !important;
+    --color-surface-border-intense: var(--md-sys-color-outline) !important;
+    --color-text-base: var(--md-sys-color-on-surface) !important;
+    --text-color: var(--md-sys-color-on-surface) !important;
+    --text-color-deemphasized: var(--md-sys-color-on-surface-variant) !important;
+    --background-color-canvas: var(--mdbird-canvas) !important;
+    --background-color-box: var(--mdbird-pane) !important;
+    --background-color-box-info: var(--md-sys-color-surface-container) !important;
+    --border-radius-small: var(--md-sys-shape-corner-small) !important;
+    --border-radius-medium: var(--md-sys-shape-corner-medium) !important;
+    --border-radius-large: var(--md-sys-shape-corner-large) !important;
+    --card-border-radius: var(--mdbird-pane-radius) !important;
+    --card-background-color: var(--mdbird-pane) !important;
+    --card-box-shadow: var(--md-sys-elevation-1) !important;
+    --font-family: var(--mdbird-font) !important;
+    --link-color: var(--md-sys-color-primary) !important;
+    --link-color-hover: var(--link-color) !important;
+    --link-color-active: var(--link-color) !important;
+    --link-color-visited: var(--link-color) !important;
+
+    /* Buttons and form fields */
+    --button-border-radius: var(--md-sys-shape-corner-full) !important;
+    --button-border-color: transparent !important;
+    --button-text-color: var(--md-sys-color-on-surface) !important;
+    --button-background-color: var(--md-sys-color-surface-container-high) !important;
+    --button-hover-background-color: var(--md-sys-color-surface-container-highest) !important;
+    --button-active-background-color: color-mix(
+      in srgb, var(--button-background-color) 84%, var(--button-text-color)
+    ) !important;
+    --button-background-color-hover: var(--button-hover-background-color) !important;
+    --button-background-color-active: var(--button-active-background-color) !important;
+    --button-primary-background-color: var(--md-sys-color-primary) !important;
+    --button-primary-text-color: var(--md-sys-color-on-primary) !important;
+    --button-primary-border-color: transparent !important;
+    --button-primary-hover-background-color: color-mix(
+      in srgb, var(--button-primary-background-color) 92%, var(--button-primary-text-color)
+    ) !important;
+    --button-primary-active-background-color: color-mix(
+      in srgb, var(--button-primary-background-color) 86%, var(--button-primary-text-color)
+    ) !important;
+    --button-background-color-primary: var(--button-primary-background-color) !important;
+    --button-text-color-primary: var(--button-primary-text-color) !important;
+    --button-destructive-background-color: var(--md-sys-color-error) !important;
+    --button-destructive-text-color: var(--md-sys-color-on-error) !important;
+    --button-background-color-destructive: var(--button-destructive-background-color) !important;
+    --button-text-color-destructive: var(--button-destructive-text-color) !important;
+    --button-link-text-color: var(--link-color) !important;
+
+    --focus-outline-color: var(--md-sys-color-primary) !important;
+    --focus-outline: 2px solid var(--focus-outline-color) !important;
+    --in-content-focus-outline-color: var(--focus-outline-color) !important;
+    --in-content-accent-color: var(--md-sys-color-primary) !important;
+    --in-content-deemphasized-text: var(--md-sys-color-on-surface-variant) !important;
+    --input-bgcolor: var(--md-sys-color-surface-container-high) !important;
+    --input-background-color: var(--input-bgcolor) !important;
+    --input-color: var(--md-sys-color-on-surface) !important;
+    --input-text-color: var(--input-color) !important;
+    --input-border-color: var(--md-sys-color-outline) !important;
+    --input-search-border-radius: var(--md-sys-shape-corner-full) !important;
+
+    --search-bar-color: var(--md-sys-color-on-surface) !important;
+    --search-bar-border-color: transparent !important;
+    --search-bar-background: var(--md-sys-color-surface-container-high) !important;
+    --search-bar-focus-background: var(--md-sys-color-surface-container-highest) !important;
+    --search-field-placeholder: var(--md-sys-color-on-surface-variant) !important;
+    --toolbar-field-color: var(--search-bar-color) !important;
+    --toolbar-field-background-color: var(--search-bar-background) !important;
+    --toolbar-field-focus-border-color: var(--focus-outline-color) !important;
+
+    --toolbar-button-hover-background-color: var(--mdbird-state-hover) !important;
+    --toolbar-button-active-background-color: var(--mdbird-state-pressed) !important;
+    --toolbar-button-hover-checked-color: var(--mdbird-selected-container) !important;
+    --toolbarbutton-background-color: transparent !important;
+    --toolbarbutton-background-color-hover: var(--mdbird-state-hover) !important;
+    --toolbarbutton-background-color-active: var(--mdbird-state-pressed) !important;
+    --toolbarbutton-checked-background: var(--mdbird-selected-container) !important;
+
+    /* Lists, popups, notices */
+    --listbox-border-radius: var(--mdbird-row-radius) !important;
+    --listbox-hover: var(--md-sys-color-surface-container-high) !important;
+    --listbox-selected-bg: var(--mdbird-selected-container) !important;
+    --listbox-focused-selected-bg: var(--listbox-selected-bg) !important;
+    --listbox-selected-color: var(--mdbird-on-selected-container) !important;
+    --list-container-background-hover: var(--listbox-hover) !important;
+    --list-container-background-selected: var(--listbox-selected-bg) !important;
+    --list-container-background-selected-current: var(--listbox-selected-bg) !important;
+    --list-container-background-selected-focused: var(--listbox-selected-bg) !important;
+    --list-container-background-selected-current-focused: var(--listbox-selected-bg) !important;
+    --tree-view-bg: var(--mdbird-pane) !important;
+    --tree-view-color: var(--md-sys-color-on-surface) !important;
+    --tree-pane-background: var(--mdbird-pane) !important;
+    --tree-view-header-hover-bg: var(--md-sys-color-surface-container-high) !important;
+    --tree-view-header-hover-active-bg: var(--md-sys-color-surface-container-highest) !important;
+    --panel-separator-color: var(--md-sys-color-outline-variant) !important;
+    --panel-border-radius: var(--md-sys-shape-corner-large) !important;
+  }
+
+  body,
+  button,
+  toolbarbutton,
+  input,
+  textarea,
+  select,
+  menulist {
+    font-family: var(--mdbird-font) !important;
+  }
+
+  :is(button, toolbarbutton, menulist, input, select, textarea, summary):focus-visible {
+    outline: var(--focus-outline) !important;
+    outline-offset: 2px !important;
+  }
+
+  /* Keep the native checkboxes, switches, color pickers and number steppers. */
+  input:where(:not([type]), [type="text"], [type="email"], [type="url"], [type="tel"], [type="password"]),
+  textarea,
+  select {
+    border-radius: var(--md-sys-shape-corner-medium) !important;
+  }
+
+  input[type="search"] {
+    border-radius: var(--md-sys-shape-corner-full) !important;
+  }
+
+  a:any-link:not(.button, [role="button"]) {
+    color: var(--link-color) !important;
+  }
+
+  ::selection {
+    background-color: var(--mdbird-selected-container);
+    color: var(--mdbird-on-selected-container);
+  }
+
+  #categories > .category,
+  .sidebar-panel-scroll li > .container,
+  .sidebar-footer-link {
+    border-radius: var(--mdbird-nav-radius) !important;
+  }
+
+  #categories > .category:is([selected], .selected),
+  .sidebar-panel-scroll li.selected > .container {
+    background-color: var(--mdbird-selected-container) !important;
+    color: var(--mdbird-on-selected-container) !important;
+  }
+
+  .sidebar-panel-scroll:focus-visible li.current > .container {
+    outline: var(--focus-outline) !important;
+    outline-offset: -2px !important;
+  }
+
+  moz-page-nav-button {
+    --page-nav-button-border-radius: var(--mdbird-nav-radius) !important;
+    --page-nav-button-border-radius-focused: var(--mdbird-nav-radius) !important;
+    --page-nav-button-background-color-selected: var(--mdbird-selected-container) !important;
+    --page-nav-button-text-color-selected: var(--mdbird-on-selected-container) !important;
+    --page-nav-button-indicator-background-color: var(--md-sys-color-primary) !important;
+  }
+
+  /* The add-ons manager and other HTML pages use web component menus. */
+  panel-list {
+    --panel-list-background-color: var(--md-sys-color-surface-container) !important;
+    --panel-list-text-color: var(--md-sys-color-on-surface) !important;
+    --panel-list-border-color: var(--md-sys-color-outline-variant) !important;
+    --panel-list-box-shadow: var(--md-sys-elevation-3) !important;
+    font-family: var(--mdbird-font) !important;
+  }
+
+  panel-item {
+    --panel-item-button-border-radius: var(--md-sys-shape-corner-small) !important;
+    --panel-item-button-margin: 1px 4px !important;
+    --button-background-color-menu-hover: var(--mdbird-state-hover) !important;
+    --button-background-color-menu-active: var(--mdbird-state-pressed) !important;
+  }
+
+  /* Native dialog windows, in-tab subdialogs and HTML modal dialogs */
+  dialog,
+  .dialogBox {
+    --background-color-box: var(--md-sys-color-surface-container) !important;
+    background-color: var(--md-sys-color-surface-container) !important;
+    color: var(--md-sys-color-on-surface) !important;
+    border-color: var(--md-sys-color-outline-variant) !important;
+    border-radius: var(--mdbird-pane-radius) !important;
+  }
+
+  dialog:modal,
+  .dialogBox {
+    box-shadow: var(--md-sys-elevation-3) !important;
+  }
+
+  dialog:modal::backdrop,
+  .dialogOverlay[topmost="true"] {
+    background-color: rgb(0 0 0 / 40%) !important;
+  }
+
+  .dialogTitleBar {
+    padding-block: 8px !important;
+    padding-inline: 12px !important;
+  }
+
+  .dialogTitle {
+    font-size: var(--md-sys-typescale-title-medium-size) !important;
+    font-weight: 600 !important;
+  }
+
+  moz-message-bar {
+    --message-bar-border-radius: var(--md-sys-shape-corner-medium) !important;
+    --message-bar-background-color: var(--md-sys-color-secondary-container) !important;
+    --message-bar-text-color: var(--md-sys-color-on-secondary-container) !important;
+    --message-bar-background-color-critical: var(--md-sys-color-error-container) !important;
+    --message-bar-text-color-critical: var(--md-sys-color-on-error-container) !important;
+    --message-bar-background-color-warning: var(--md-sys-color-warning-container) !important;
+    --message-bar-text-color-warning: var(--md-sys-color-on-warning-container) !important;
+    --message-bar-background-color-success: var(--md-sys-color-success-container) !important;
+    --message-bar-text-color-success: var(--md-sys-color-on-success-container) !important;
+  }
+
+  @media (forced-colors: active) {
+    :root {
+      --focus-outline-color: Highlight !important;
+      --selected-item-color: SelectedItem !important;
+      --selected-item-text-color: SelectedItemText !important;
+      --button-border-color: ButtonText !important;
+      --button-primary-border-color: ButtonText !important;
+      --search-bar-border-color: ButtonText !important;
+      scrollbar-color: auto !important;
+    }
+  }
+}

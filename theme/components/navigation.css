@@ -1,0 +1,112 @@
+/* Mail panes and the application rail */
+#paneLayout {
+  box-sizing: border-box !important;
+  background-color: var(--mdbird-canvas) !important;
+  padding: var(--mdbird-pane-gap) !important;
+}
+
+#threadPane,
+#messagePane,
+#accountCentralBrowser {
+  background-color: var(--mdbird-pane) !important;
+  border-radius: var(--mdbird-pane-radius) !important;
+  box-shadow: var(--md-sys-elevation-1) !important;
+}
+
+#folderPaneSplitter,
+#messagePaneSplitter {
+  --splitter-content-size: max(10px, var(--mdbird-pane-gap)) !important;
+  border-color: transparent !important;
+}
+
+:is(#folderPaneSplitter, #messagePaneSplitter):not(.splitter-collapsed) {
+  --splitter-occupy-size: var(--mdbird-pane-gap) !important;
+}
+
+:is(#folderPaneSplitter, #messagePaneSplitter)::after {
+  border-radius: var(--md-sys-shape-corner-full) !important;
+  background-color: var(--md-sys-color-primary) !important;
+}
+
+#spacesToolbar {
+  --spaces-bg-color: var(--mdbird-canvas) !important;
+  --spaces-bg-image: none !important;
+  --spaces-button-text-color: var(--md-sys-color-on-surface-variant) !important;
+  --spaces-button-active-text-color: var(--mdbird-on-selected-container) !important;
+  --spaces-button-active-bg-color: var(--mdbird-selected-container) !important;
+  border-inline-end-color: transparent !important;
+}
+
+.spaces-toolbar-button {
+  border-radius: var(--md-sys-shape-corner-large) !important;
+}
+
+.spaces-toolbar-button.current {
+  background-color: var(--mdbird-selected-container) !important;
+  color: var(--mdbird-on-selected-container) !important;
+  border-radius: var(--md-sys-shape-corner-full) !important;
+}
+
+.spaces-toolbar-button:not(.current, :disabled):hover {
+  background-color: var(--mdbird-state-hover) !important;
+}
+
+#folderPane {
+  --folderpane-unread-count-background: var(--md-sys-color-primary) !important;
+  --folderpane-unread-count-text: var(--md-sys-color-on-primary) !important;
+  --folderpane-unread-new-count-background: var(--md-sys-color-primary) !important;
+  --folderpane-total-count-background: var(--md-sys-color-secondary-container) !important;
+  --folderpane-total-count-text: var(--md-sys-color-on-secondary-container) !important;
+}
+
+#folderPaneWriteMessage {
+  --button-primary-background-color: var(--mdbird-selected-container) !important;
+  --button-primary-text-color: var(--mdbird-on-selected-container) !important;
+  --button-primary-hover-background-color: color-mix(
+    in srgb, var(--mdbird-selected-container) 92%, var(--mdbird-on-selected-container)
+  ) !important;
+  --button-primary-active-background-color: color-mix(
+    in srgb, var(--mdbird-selected-container) 86%, var(--mdbird-on-selected-container)
+  ) !important;
+  flex: 1 1 auto !important;
+  min-inline-size: 0 !important;
+  min-block-size: max(var(--button-min-height), 2.8em) !important;
+  border-radius: var(--md-sys-shape-corner-large) !important;
+  box-shadow: var(--md-sys-elevation-1) !important;
+  font-weight: 650 !important;
+}
+
+#folderPaneWriteMessage:enabled:is(:hover, :focus-visible) {
+  border-radius: var(--md-sys-shape-corner-full) !important;
+}
+
+#folderTree {
+  --listbox-border-radius: var(--mdbird-nav-radius) !important;
+  --treeitem-text-active: var(--mdbird-on-selected-container) !important;
+}
+
+#folderTree .mode-name {
+  font-size: var(--md-sys-typescale-label-medium-size) !important;
+  font-weight: 600 !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+#folderTree :is(.unread, .new-messages) > .container > .name {
+  font-weight: 700 !important;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #folderPaneWriteMessage,
+  .spaces-toolbar-button {
+    transition: border-radius var(--mdbird-motion-fast) var(--mdbird-motion-easing),
+      background-color var(--mdbird-motion-fast) var(--mdbird-motion-easing) !important;
+  }
+}
+
+@media (forced-colors: active) {
+  #threadPane,
+  #messagePane,
+  #accountCentralBrowser {
+    border: 1px solid CanvasText !important;
+  }
+}

@@ -1,0 +1,28 @@
+/* Material 3 mint */
+@-moz-document url-prefix("chrome://"), regexp("^about:(?!blank|srcdoc).*"),
+  url("about:blank?compose"), url-prefix("mailbox:"), url-prefix("imap:"),
+  url-prefix("news:"), url-prefix("snews:") {
+  :root {
+    --md-sys-color-primary: light-dark(#00696d, #80d5d6);
+    --md-sys-color-on-primary: light-dark(#ffffff, #003737);
+    --md-sys-color-primary-container: light-dark(#9cf1f1, #004f51);
+    --md-sys-color-on-primary-container: light-dark(#002020, #9cf1f1);
+    --md-sys-color-secondary-container: light-dark(#cce8e8, #324b4b);
+    --md-sys-color-on-secondary-container: light-dark(#051f20, #cce8e8);
+    --md-sys-color-error: light-dark(#ba1a1a, #ffb4ab);
+    --md-sys-color-on-error: light-dark(#ffffff, #690005);
+    --md-sys-color-error-container: light-dark(#ffdad6, #93000a);
+    --md-sys-color-on-error-container: light-dark(#410002, #ffdad6);
+    --md-sys-color-surface: light-dark(#fafdfb, #0e1513);
+    --md-sys-color-on-surface: light-dark(#191c1b, #dde4e1);
+    --md-sys-color-surface-container-low: light-dark(#f4fbf8, #161d1b);
+    --md-sys-color-surface-container: light-dark(#edf5f1, #1a211f);
+    --md-sys-color-surface-container-high: light-dark(#e5efea, #242b29);
+    --md-sys-color-surface-container-highest: light-dark(#dde8e2, #2f3634);
+    --md-sys-color-on-surface-variant: light-dark(#3f4948, #bec9c7);
+    --md-sys-color-outline: light-dark(#6f7978, #889392);
+    --md-sys-color-outline-variant: light-dark(#bec9c7, #3f4948);
+    --md-sys-color-inverse-surface: light-dark(#2b3230, #dde4e1);
+    --md-sys-color-inverse-on-surface: light-dark(#ecf2ef, #2b3230);
+  }
+}

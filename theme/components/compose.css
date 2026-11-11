@@ -1,0 +1,123 @@
+/* Compose keeps the original toolbar modes, splitters and formatting commands. */
+#compose-toolbox,
+#composeToolbar2,
+#composeContentBox {
+  background-color: var(--mdbird-canvas) !important;
+  box-shadow: none !important;
+}
+
+#composeToolbar2 {
+  padding: 4px 8px !important;
+}
+
+#composeToolbar2 .toolbarbutton-1 {
+  border-radius: var(--md-sys-shape-corner-full) !important;
+}
+
+#composeToolbar2 #button-send {
+  background-color: var(--button-primary-background-color) !important;
+  color: var(--button-primary-text-color) !important;
+  padding-inline: 14px !important;
+}
+
+#composeToolbar2 #button-send:not([disabled]):hover {
+  background-color: var(--button-primary-hover-background-color) !important;
+}
+
+#composeToolbar2 #button-send[disabled] {
+  background-color: var(--md-sys-color-surface-container-high) !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+#composeContentBox {
+  margin-inline: 0 !important;
+  padding: var(--mdbird-pane-gap) !important;
+}
+
+#MsgHeadersToolbar,
+#messageArea,
+#attachmentArea,
+#contactsSidebar {
+  background-color: var(--mdbird-pane) !important;
+  border-radius: var(--mdbird-pane-radius) !important;
+}
+
+#MsgHeadersToolbar {
+  padding: 8px clamp(6px, 1.8vw, 20px) !important;
+}
+
+#messageArea {
+  overflow: clip !important;
+}
+
+#messageEditor,
+#attachmentBucket,
+#contactsBrowser {
+  background-color: var(--mdbird-pane) !important;
+}
+
+#msgIdentity,
+#msgSubject,
+#MsgHeadersToolbar .address-container {
+  border: 0 !important;
+  border-block-end: 1px solid var(--md-sys-color-outline-variant) !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+#msgSubject {
+  min-block-size: 1.8em !important;
+  font-size: var(--md-sys-typescale-title-medium-size) !important;
+  font-weight: 600 !important;
+}
+
+#MsgHeadersToolbar :is(#msgIdentity, #msgSubject, .address-container):focus-within {
+  border-block-end-color: var(--md-sys-color-primary) !important;
+  box-shadow: inset 0 -1px var(--md-sys-color-primary) !important;
+}
+
+#MsgHeadersToolbar .address-input {
+  background-color: transparent !important;
+}
+
+#MsgHeadersToolbar .address-input:focus-visible {
+  outline-offset: -2px !important;
+}
+
+#recipientsContainer .address-pill:not(.editing, .invalid-address, .key-issue) {
+  border-radius: var(--md-sys-shape-corner-full) !important;
+  background-color: var(--md-sys-color-secondary-container) !important;
+  color: var(--md-sys-color-on-secondary-container) !important;
+}
+
+#recipientsContainer .address-pill[selected]:not(.editing, .invalid-address, .key-issue) {
+  background-color: var(--mdbird-selected-container) !important;
+  color: var(--mdbird-on-selected-container) !important;
+}
+
+#FormatToolbox {
+  background-color: var(--mdbird-canvas) !important;
+  margin-block-start: 4px !important;
+}
+
+#FormatToolbar {
+  padding: 3px 6px !important;
+  border-radius: var(--md-sys-shape-corner-large) !important;
+  background-color: var(--md-sys-color-surface-container) !important;
+}
+
+#FormatToolbar :is(toolbarbutton, menulist) {
+  border-radius: var(--md-sys-shape-corner-full) !important;
+}
+
+#attachmentArea > summary {
+  padding-inline: 12px !important;
+  border-radius: inherit !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+#contactsSidebar > .sidebar-header {
+  background-color: var(--md-sys-color-surface-container) !important;
+  border-radius: var(--mdbird-pane-radius) var(--mdbird-pane-radius) 0 0 !important;
+}

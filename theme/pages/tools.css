@@ -1,0 +1,131 @@
+/* Folder home and account onboarding */
+@-moz-document url("chrome://messenger/content/msgAccountCentral.xhtml") {
+  body {
+    background: var(--mdbird-pane) !important;
+  }
+
+  .account-central-section {
+    border-radius: var(--mdbird-pane-radius) !important;
+    background-color: var(--md-sys-color-surface-container-low) !important;
+  }
+
+  .section-title {
+    color: var(--md-sys-color-on-surface) !important;
+    font-weight: 600 !important;
+  }
+}
+
+/* Global search and the multi-message reader */
+@-moz-document url("chrome://messenger/content/glodaFacetView.xhtml") {
+  #body {
+    --linkColor: var(--md-sys-color-primary) !important;
+    --dateColor: var(--md-sys-color-surface-container-high) !important;
+    --dateTextColor: var(--md-sys-color-on-surface) !important;
+  }
+
+  #gloda-facet-view {
+    background-color: var(--mdbird-canvas) !important;
+    grid-template-columns: minmax(min-content, 16em) minmax(0, 1fr) !important;
+  }
+
+  #main-column {
+    background-color: var(--mdbird-pane) !important;
+    border-radius: var(--mdbird-pane-radius) !important;
+    box-sizing: border-box !important;
+    margin: var(--mdbird-pane-gap) !important;
+  }
+
+  #results .message {
+    padding: 10px 14px !important;
+    margin-block-end: 4px !important;
+    border: 1px solid var(--md-sys-color-outline-variant) !important;
+    border-radius: var(--mdbird-row-radius) !important;
+    font: inherit !important;
+  }
+
+  #results .message:hover {
+    background-color: var(--md-sys-color-surface-container-low) !important;
+    box-shadow: none !important;
+  }
+
+  #results .message:focus-visible {
+    outline: var(--focus-outline) !important;
+    outline-offset: -2px !important;
+  }
+}
+
+@-moz-document url("chrome://messenger/content/multimessageview.xhtml") {
+  :root {
+    --mdbird-canvas: var(--mdbird-pane);
+  }
+
+  #summaryTitle {
+    font-size: var(--md-sys-typescale-title-large-size) !important;
+    font-weight: 600 !important;
+  }
+
+  #messageList > li {
+    border-radius: var(--mdbird-row-radius) !important;
+    background-color: var(--md-sys-color-surface-container-low) !important;
+  }
+}
+
+/* Add-ons, import, downloads and activity */
+@-moz-document url-prefix("about:addons"), url("chrome://mozapps/content/extensions/aboutaddons.html") {
+  .addon.card {
+    border-radius: var(--mdbird-pane-radius) !important;
+  }
+}
+
+@-moz-document url-prefix("about:import"), url("chrome://messenger/content/aboutImport.xhtml") {
+  .tabPane {
+    border-radius: var(--mdbird-pane-radius) !important;
+    background-color: var(--mdbird-pane) !important;
+    padding: clamp(16px, 3vw, 28px) !important;
+  }
+}
+
+@-moz-document url-prefix("about:downloads"),
+  url("chrome://messenger/content/downloads/aboutDownloads.xhtml"),
+  url("chrome://messenger/content/activity.xhtml"),
+  url("chrome://messenger/content/FilterListDialog.xhtml"),
+  url("chrome://messenger/content/SearchDialog.xhtml") {
+  #msgDownloadsRichListBox,
+  #activityView,
+  #filterList,
+  #searchResultListBox {
+    background-color: var(--mdbird-pane) !important;
+    border: 1px solid var(--md-sys-color-outline-variant) !important;
+    border-radius: var(--mdbird-pane-radius) !important;
+  }
+
+  #msgDownloadsRichListBox > richlistitem[selected="true"],
+  #filterList > richlistitem[selected="true"] {
+    background-color: var(--mdbird-selected-container) !important;
+    color: var(--mdbird-on-selected-container) !important;
+  }
+}
+
+/* Troubleshooting, profiles and advanced preferences */
+@-moz-document url-prefix("about:support"), url-prefix("about:profiles"),
+  url-prefix("about:policies"), url-prefix("about:config") {
+  table {
+    background-color: var(--mdbird-pane) !important;
+    border-color: var(--md-sys-color-outline-variant) !important;
+  }
+
+  thead {
+    background-color: var(--md-sys-color-surface-container) !important;
+    color: var(--md-sys-color-on-surface) !important;
+  }
+}
+
+@-moz-document url-prefix("about:config") {
+  #toolbar {
+    background-color: var(--mdbird-canvas) !important;
+  }
+
+  #prefs > tr:hover {
+    background-color: var(--md-sys-color-surface-container-high) !important;
+  }
+}

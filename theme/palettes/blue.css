@@ -1,0 +1,28 @@
+/* Google Blue with a Gmail-inspired canvas */
+@-moz-document url-prefix("chrome://"), regexp("^about:(?!blank|srcdoc).*"),
+  url("about:blank?compose"), url-prefix("mailbox:"), url-prefix("imap:"),
+  url-prefix("news:"), url-prefix("snews:") {
+  :root {
+    --md-sys-color-primary: light-dark(#0b57d0, #aac7ff);
+    --md-sys-color-on-primary: light-dark(#ffffff, #002f6c);
+    --md-sys-color-primary-container: light-dark(#d3e3fd, #0842a0);
+    --md-sys-color-on-primary-container: light-dark(#041e49, #d3e3fd);
+    --md-sys-color-secondary-container: light-dark(#dae2f9, #3e4759);
+    --md-sys-color-on-secondary-container: light-dark(#131c2b, #dae2f9);
+    --md-sys-color-error: light-dark(#b3261e, #ffb4ab);
+    --md-sys-color-on-error: light-dark(#ffffff, #690005);
+    --md-sys-color-error-container: light-dark(#f9dedc, #93000a);
+    --md-sys-color-on-error-container: light-dark(#410e0b, #ffdad6);
+    --md-sys-color-surface: light-dark(#fcfcff, #111318);
+    --md-sys-color-on-surface: light-dark(#1a1c1e, #e2e2e9);
+    --md-sys-color-surface-container-low: light-dark(#f7f9fd, #191c20);
+    --md-sys-color-surface-container: light-dark(#f1f4f9, #1d2024);
+    --md-sys-color-surface-container-high: light-dark(#e9eef5, #282a2f);
+    --md-sys-color-surface-container-highest: light-dark(#e2e7ef, #33353a);
+    --md-sys-color-on-surface-variant: light-dark(#43474e, #c3c7cf);
+    --md-sys-color-outline: light-dark(#73777f, #8d9199);
+    --md-sys-color-outline-variant: light-dark(#c3c7cf, #43474e);
+    --md-sys-color-inverse-surface: light-dark(#2f3033, #e2e2e9);
+    --md-sys-color-inverse-on-surface: light-dark(#f1f0f4, #2f3033);
+  }
+}

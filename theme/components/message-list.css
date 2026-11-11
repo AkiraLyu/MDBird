@@ -1,0 +1,116 @@
+#threadPane {
+  --thread-pane-flag-fill: var(--md-sys-color-star) !important;
+  --thread-pane-flag-stroke: var(--mdbird-star-outline) !important;
+  --thread-pane-unread-fill: var(--md-sys-color-primary) !important;
+  --thread-pane-unread-stroke: var(--md-sys-color-primary) !important;
+  --thread-line-color: var(--md-sys-color-outline-variant) !important;
+}
+
+#threadPaneHeaderBar {
+  padding: 10px 12px !important;
+  border-block-end-color: transparent !important;
+  background-color: var(--mdbird-pane) !important;
+}
+
+#threadPaneHeaderBar .list-header-title {
+  font-size: var(--md-sys-typescale-title-large-size) !important;
+  line-height: 1.25 !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.thread-pane-count-info {
+  padding: 2px 7px !important;
+  border-radius: var(--md-sys-shape-corner-full) !important;
+  background-color: var(--md-sys-color-surface-container) !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
+  font-size: var(--md-sys-typescale-label-medium-size) !important;
+}
+
+#threadPaneSelectedCount {
+  background-color: var(--mdbird-selected-container) !important;
+  color: var(--mdbird-on-selected-container) !important;
+}
+
+@container threadPane (max-width: 420px) {
+  #threadPaneHeaderBar .list-header-title {
+    font-size: var(--md-sys-typescale-title-medium-size) !important;
+  }
+}
+
+#threadTree[rows="thread-card"] {
+  --tree-card-border: transparent !important;
+  --tree-card-background-current: var(--md-sys-color-surface-container-low) !important;
+  --tree-card-background-current-unfocused: var(--tree-card-background-current) !important;
+  --tree-card-background-selected: var(--mdbird-selected-container) !important;
+  --tree-card-background-selected-current: var(--tree-card-background-selected) !important;
+  --tree-card-background-selected-unfocused: var(--tree-card-background-selected) !important;
+  --tree-card-background-selected-current-unfocused: var(--tree-card-background-selected) !important;
+  --tree-card-background-selected-current-unfocused-hover: var(--tree-card-background-selected) !important;
+  --tree-card-border-selected: transparent !important;
+  --tree-card-border-selected-unfocused: transparent !important;
+}
+
+/* The virtualized tree owns the row heights. Style the existing card box. */
+#threadTree .card-layout > td > .card-container {
+  border-radius: var(--mdbird-row-radius) !important;
+}
+
+#threadTree .card-layout:not(.selected, [data-properties~="dummy"]):hover > td > .card-container {
+  background-color: var(--md-sys-color-surface-container-high) !important;
+}
+
+#threadTree .card-layout .sender {
+  font-weight: 500 !important;
+}
+
+#threadTree .card-layout .date,
+#threadTree .card-layout:not([data-properties~="unread"]) .subject {
+  color: var(--md-sys-color-on-surface-variant) !important;
+  opacity: 1 !important;
+}
+
+#threadTree .card-layout[data-properties~="unread"] :is(.sender, .subject) {
+  font-weight: 700 !important;
+}
+
+#threadTree .card-layout[data-properties~="unread"] {
+  --read-status-fill: var(--md-sys-color-primary) !important;
+  --read-status-stroke: var(--md-sys-color-primary) !important;
+}
+
+#threadTree .card-layout.selected:not([data-properties~="junk"]) :is(.sender, .subject, .date),
+#threadTree .table-layout.selected > td {
+  color: var(--mdbird-on-selected-container) !important;
+}
+
+#threadTree:focus-within .card-layout.current > td > .card-container {
+  outline: var(--focus-outline) !important;
+  outline-offset: -2px !important;
+}
+
+#threadTree[rows="thread-row"] thead th {
+  background-color: var(--mdbird-pane) !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+#threadTree .table-layout.selected {
+  background-color: var(--mdbird-selected-container) !important;
+}
+
+#quick-filter-bar {
+  margin: 0 8px 6px !important;
+  border-radius: var(--md-sys-shape-corner-large) !important;
+  border-color: transparent !important;
+  background-color: var(--md-sys-color-surface-container-low) !important;
+}
+
+#threadPaneQuickFilterButton[aria-pressed="true"],
+#quick-filter-bar .check-button[aria-pressed="true"] {
+  background-color: var(--md-sys-color-secondary-container) !important;
+  color: var(--md-sys-color-on-secondary-container) !important;
+}
+
+:is(#placeholderNoMessages, #placeholderMultipleFolders) {
+  color: var(--md-sys-color-on-surface-variant) !important;
+}

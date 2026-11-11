@@ -1,0 +1,8 @@
+{
+  "extension_description": { "message": "Open global message search from the spaces toolbar." },
+  "search_label": { "message": "Search messages" },
+  "search_placeholder": { "message": "Search all messages…" },
+  "search_submit": { "message": "Search" },
+  "index_disabled": { "message": "Enable Global Search and Indexer in Thunderbird Settings to search your messages." },
+  "search_error": { "message": "Thunderbird could not start the search. Try again." }
+}

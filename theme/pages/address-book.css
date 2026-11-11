@@ -1,0 +1,61 @@
+@-moz-document url-prefix("about:addressbook"),
+  url("chrome://messenger/content/addressbook/aboutAddressBook.xhtml") {
+  #booksPane {
+    background-color: transparent !important;
+    padding: var(--mdbird-pane-gap) !important;
+  }
+
+  #cardsPane,
+  #detailsPane {
+    margin: var(--mdbird-pane-gap) !important;
+    background-color: var(--mdbird-pane) !important;
+    border-radius: var(--mdbird-pane-radius) !important;
+    box-shadow: var(--md-sys-elevation-1) !important;
+  }
+
+  #cardsPaneHeader {
+    margin: 8px 12px !important;
+  }
+
+  #booksSplitter,
+  #sharedSplitter {
+    border-color: transparent !important;
+  }
+
+  #cards {
+    border-block-start-color: var(--md-sys-color-outline-variant) !important;
+  }
+
+  #cards .card-container {
+    border-radius: var(--mdbird-row-radius) !important;
+  }
+
+  .contact-header {
+    border-radius: var(--md-sys-shape-corner-extra-large) !important;
+    background-color: var(--md-sys-color-surface-container-low) !important;
+  }
+
+  .contact-heading-name {
+    font-size: var(--md-sys-typescale-headline-small-size) !important;
+  }
+
+  .contact-photo[src$="/compact/user.svg"] {
+    stroke: var(--md-sys-color-on-primary-container) !important;
+    background-color: var(--md-sys-color-primary-container) !important;
+  }
+
+  #detailsBody > section {
+    border-radius: var(--md-sys-shape-corner-large) !important;
+  }
+
+  #detailsFooter {
+    border-radius: 0 0 var(--mdbird-pane-radius) var(--mdbird-pane-radius) !important;
+    background-color: var(--md-sys-color-surface-container-low) !important;
+  }
+}
+
+@-moz-document url("chrome://messenger/content/addressbook/abContactsPanel.xhtml") {
+  :root {
+    --mdbird-canvas: var(--mdbird-pane);
+  }
+}

@@ -1,0 +1,9 @@
+/* MDBird | Thunderbird windows and privileged mail panes */
+@import url("theme/interface.css");
+@import url("theme/components/topbar.css");
+@import url("theme/components/navigation.css");
+@import url("theme/components/message-list.css");
+@import url("theme/components/message-view.css");
+@import url("theme/components/compose.css");
+@import url("theme/components/spaces.css");
+@import url("theme/customization.css");

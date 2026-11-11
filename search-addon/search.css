@@ -1,0 +1,68 @@
+@-moz-document url("chrome://messenger/content/messenger.xhtml") {
+  /* Keep the sidebar popup as the search entry on result tabs as well. */
+  .glodaTabToolbar {
+    display: none !important;
+  }
+
+  #mdbird-search-button[aria-expanded="true"] {
+    background-color: var(--mdbird-selected-container, SelectedItem) !important;
+    color: var(--mdbird-on-selected-container, SelectedItemText) !important;
+    border-radius: var(--md-sys-shape-corner-full, 999px) !important;
+  }
+
+  #mdbird-search-panel {
+    --panel-padding: 0px !important;
+    --panel-background-color: var(--md-sys-color-surface-container, Canvas) !important;
+    --panel-text-color: var(--md-sys-color-on-surface, CanvasText) !important;
+    --panel-border-color: var(--md-sys-color-outline-variant, ButtonBorder) !important;
+    color-scheme: inherit !important;
+  }
+
+  #mdbird-search-form {
+    box-sizing: border-box !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    align-items: center !important;
+    gap: 8px !important;
+    inline-size: min(29rem, max(13rem, calc(100vw - 5rem))) !important;
+    padding: 12px !important;
+    font-family: var(--mdbird-font, system-ui) !important;
+  }
+
+  #mdbird-search-input {
+    box-sizing: border-box !important;
+    inline-size: 100% !important;
+    min-block-size: 2.7rem !important;
+    margin: 0 !important;
+    padding-inline: 32px 8px !important;
+    background-position: left 10px center !important;
+    border: 1px solid var(--md-sys-color-outline-variant, ButtonBorder) !important;
+    border-radius: var(--md-sys-shape-corner-full, 999px) !important;
+    background-color: var(--md-sys-color-surface-container-high, Field) !important;
+    color: var(--md-sys-color-on-surface, FieldText) !important;
+    font: inherit !important;
+  }
+
+  #mdbird-search-input:dir(rtl) {
+    background-position: right 10px center !important;
+  }
+
+  #mdbird-search-input::placeholder {
+    color: var(--md-sys-color-on-surface-variant, GrayText) !important;
+    opacity: 1 !important;
+  }
+
+  #mdbird-search-submit {
+    min-block-size: 2.7rem !important;
+    margin: 0 !important;
+    padding-inline: 16px !important;
+    border-radius: var(--md-sys-shape-corner-full, 999px) !important;
+  }
+
+  #mdbird-search-status {
+    grid-column: 1 / -1 !important;
+    margin: 0 !important;
+    padding-inline: 4px !important;
+    color: var(--md-sys-color-on-surface-variant, CanvasText) !important;
+  }
+}

@@ -1,0 +1,86 @@
+/* Material 3 roles shared by the interface and message documents. */
+@import url("palette.css");
+
+@-moz-document url-prefix("chrome://"), regexp("^about:(?!blank|srcdoc).*"),
+  url("about:blank?compose"), url-prefix("mailbox:"), url-prefix("imap:"),
+  url-prefix("news:"), url-prefix("snews:") {
+  :root {
+    --mdbird-font:
+      "Google Sans", "Inter Variable", "Inter", "Roboto", "Noto Sans",
+      "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+
+    --mdbird-canvas: var(--md-sys-color-surface-container-low);
+    --mdbird-pane: var(--md-sys-color-surface);
+    --mdbird-pane-radius: 24px;
+    --mdbird-pane-gap: 8px;
+    --mdbird-row-radius: 14px;
+    --mdbird-nav-radius: var(--md-sys-shape-corner-full);
+    --mdbird-selected-container: light-dark(
+      var(--md-sys-color-primary-container),
+      color-mix(in srgb, var(--md-sys-color-primary) 23%, var(--mdbird-canvas))
+    );
+    --mdbird-on-selected-container: light-dark(
+      var(--md-sys-color-on-primary-container), var(--md-sys-color-primary)
+    );
+
+    --md-sys-color-warning-container: light-dark(#ffdea6, #5e4200);
+    --md-sys-color-on-warning-container: light-dark(#251a00, #ffdea6);
+    --md-sys-color-success-container: light-dark(#b9f0c7, #005226);
+    --md-sys-color-on-success-container: light-dark(#00210b, #b9f0c7);
+    --md-sys-color-star: light-dark(#eaa700, #f8d26a);
+    --mdbird-star-outline: light-dark(#9a6600, #bd8823);
+
+    --md-sys-shape-corner-small: 8px;
+    --md-sys-shape-corner-medium: 12px;
+    --md-sys-shape-corner-large: 16px;
+    --md-sys-shape-corner-extra-large: 24px;
+    --md-sys-shape-corner-full: 999px;
+
+    --md-sys-elevation-1: 0 1px 3px rgb(0 0 0 / 14%);
+    --md-sys-elevation-2: 0 3px 10px rgb(0 0 0 / 16%);
+    --md-sys-elevation-3: 0 8px 24px rgb(0 0 0 / 24%);
+    --mdbird-state-hover: color-mix(in srgb, currentColor 8%, transparent);
+    --mdbird-state-pressed: color-mix(in srgb, currentColor 12%, transparent);
+    --mdbird-motion-fast: 160ms;
+    --mdbird-motion-easing: cubic-bezier(0.2, 0, 0, 1);
+
+    --md-sys-typescale-headline-small-size: 1.65rem;
+    --md-sys-typescale-title-large-size: 1.45rem;
+    --md-sys-typescale-title-medium-size: 1.15rem;
+    --md-sys-typescale-label-medium-size: 0.86rem;
+  }
+
+  @media (max-width: 800px) {
+    :root {
+      --mdbird-pane-gap: 5px;
+      --mdbird-pane-radius: 18px;
+    }
+  }
+
+  @media (forced-colors: active) {
+    :root {
+      --mdbird-selected-container: SelectedItem;
+      --mdbird-on-selected-container: SelectedItemText;
+      --md-sys-color-primary: LinkText;
+      --md-sys-color-on-primary: Canvas;
+      --md-sys-color-primary-container: SelectedItem;
+      --md-sys-color-on-primary-container: SelectedItemText;
+      --md-sys-color-secondary-container: SelectedItem;
+      --md-sys-color-on-secondary-container: SelectedItemText;
+      --md-sys-color-surface: Canvas;
+      --md-sys-color-surface-container-low: Canvas;
+      --md-sys-color-surface-container: Canvas;
+      --md-sys-color-surface-container-high: ButtonFace;
+      --md-sys-color-surface-container-highest: ButtonFace;
+      --md-sys-color-on-surface: CanvasText;
+      --md-sys-color-on-surface-variant: CanvasText;
+      --md-sys-color-outline: CanvasText;
+      --md-sys-color-outline-variant: CanvasText;
+      --md-sys-color-inverse-surface: Canvas;
+      --md-sys-color-inverse-on-surface: CanvasText;
+      --md-sys-elevation-1: none;
+      --md-sys-elevation-2: none;
+      --md-sys-elevation-3: none;
+    }
+  }
+}

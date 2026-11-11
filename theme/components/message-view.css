@@ -1,0 +1,91 @@
+/* Reading surfaces and header controls. Native header modes control layout. */
+@-moz-document url("about:message"), url("chrome://messenger/content/aboutMessage.xhtml") {
+  :root {
+    --mdbird-canvas: var(--mdbird-pane);
+    --recipient-avatar-background-color: var(--md-sys-color-primary-container) !important;
+    --recipient-avatar-color: var(--md-sys-color-on-primary-container) !important;
+  }
+}
+
+#messagepanebox,
+#singleMessage,
+#messagepane {
+  background-color: var(--mdbird-pane) !important;
+}
+
+#messageHeader {
+  --toolbarbutton-header-bordercolor: transparent !important;
+  padding: clamp(8px, 1.8vw, 22px) !important;
+  background-color: var(--mdbird-pane) !important;
+  border-block-end: 1px solid var(--md-sys-color-outline-variant) !important;
+}
+
+#expandedsubjectBox {
+  font-weight: 650 !important;
+}
+
+.message-header-large-subject #expandedsubjectBox {
+  font-size: var(--md-sys-typescale-headline-small-size) !important;
+  line-height: 1.2 !important;
+}
+
+#messageHeader .recipient-multi-line-name {
+  font-weight: 650 !important;
+}
+
+#messageHeader .message-header-datetime,
+#messageHeader .recipient-multi-line-address {
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+.message-header-view-button,
+#messageHeader :is(.toolbarbutton-menubutton-button, .toolbarbutton-menubutton-dropmarker),
+#starMessageButton {
+  border-radius: var(--md-sys-shape-corner-full) !important;
+}
+
+#messageHeader :is(.hdrJunkButton, .hdrTrashButton):not([disabled]):hover {
+  background-color: var(--md-sys-color-error-container) !important;
+  color: var(--md-sys-color-on-error-container) !important;
+}
+
+#starMessageButton.flagged {
+  fill: var(--md-sys-color-star) !important;
+  stroke: var(--mdbird-star-outline) !important;
+}
+
+#expandedtagsBox .tag {
+  border-radius: var(--md-sys-shape-corner-full) !important;
+  padding-inline: 8px !important;
+}
+
+#attachmentView,
+#attachmentList {
+  background-color: var(--mdbird-pane) !important;
+  border-block-start-color: var(--md-sys-color-outline-variant) !important;
+}
+
+#attachmentBar,
+#mail-notification-top > .notificationbox-stack {
+  background-color: var(--md-sys-color-surface-container-low) !important;
+}
+
+.attachmentItem {
+  border-radius: var(--md-sys-shape-corner-medium) !important;
+  background-color: var(--md-sys-color-surface-container-high) !important;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+.attachmentItem:hover {
+  background-color: var(--md-sys-color-surface-container-highest) !important;
+}
+
+.attachmentItem[selected="true"] {
+  background-color: var(--mdbird-selected-container) !important;
+  color: var(--mdbird-on-selected-container) !important;
+}
+
+findbar {
+  background-color: var(--md-sys-color-surface-container-low) !important;
+  border-block-start-color: var(--md-sys-color-outline-variant) !important;
+}

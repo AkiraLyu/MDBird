@@ -1,0 +1,130 @@
+/* XUL popups draw their surface in the toolkit's content part. */
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+@namespace html url("http://www.w3.org/1999/xhtml");
+
+@-moz-document url-prefix("chrome://"), url-prefix("about:") {
+  menubar,
+  menubar > menu,
+  menupopup,
+  panel,
+  tooltip {
+    color-scheme: inherit !important;
+  }
+
+  menupopup,
+  panel {
+    --panel-background-color: var(--md-sys-color-surface-container) !important;
+    --panel-text-color: var(--md-sys-color-on-surface) !important;
+    --panel-border-color: var(--md-sys-color-outline-variant) !important;
+    --panel-border-radius: var(--md-sys-shape-corner-large) !important;
+    --panel-background-color-dimmed: var(--mdbird-state-hover) !important;
+    --panel-background-color-dimmed-further: var(--mdbird-state-pressed) !important;
+    --panel-menuitem-border-radius: var(--md-sys-shape-corner-medium) !important;
+    appearance: none !important;
+    font-family: var(--mdbird-font) !important;
+  }
+
+  menupopup {
+    --panel-padding-block: 5px !important;
+    --menuitem-border-radius: var(--md-sys-shape-corner-medium) !important;
+    --menuitem-padding-block: 0.38em !important;
+    --menuitem-padding-inline: 0.85em !important;
+    --menuitem-margin: 1px 0 !important;
+  }
+
+  *|*:root[uidensity="compact"] menupopup {
+    --menuitem-padding-block: 0.24em !important;
+  }
+
+  *|*:root[uidensity="touch"] menupopup {
+    --menuitem-padding-block: 0.55em !important;
+  }
+
+  menupopup :is(menu, menuitem):not([disabled]):is([_moz-menuactive], :hover) {
+    background-color: var(--mdbird-selected-container) !important;
+    color: var(--mdbird-on-selected-container) !important;
+  }
+
+  menupopup menuitem[checked]:not([disabled], [checked="false"]) {
+    --menuitem-icon-fill: var(--md-sys-color-primary) !important;
+  }
+
+  menupopup menucaption {
+    color: var(--md-sys-color-on-surface-variant) !important;
+    font-weight: 600 !important;
+  }
+
+  menubar > menu {
+    border-radius: var(--md-sys-shape-corner-full) !important;
+  }
+
+  menubar > menu:is([_moz-menuactive], [open="true"]) {
+    background-color: var(--mdbird-selected-container) !important;
+    color: var(--mdbird-on-selected-container) !important;
+  }
+
+  #appMenu-popup {
+    --panel-border-radius: var(--md-sys-shape-corner-extra-large) !important;
+    --appmenu-icons-fill: color-mix(in srgb, currentColor 18%, transparent) !important;
+    --appmenu-icons-stroke: currentColor !important;
+    --appmenu-warning-background-color: var(--md-sys-color-warning-container) !important;
+    --appmenu-warning-color: var(--md-sys-color-on-warning-container) !important;
+  }
+
+  #appMenu-popup .panel-header html|h1 {
+    font-size: var(--md-sys-typescale-title-medium-size) !important;
+    font-weight: 600 !important;
+  }
+
+  #appMenu-popup :is(#appMenu-uiDensity-controls, #appMenu-fontSize-controls) > toolbarbutton {
+    border-radius: var(--md-sys-shape-corner-full) !important;
+  }
+
+  #appMenu-uiDensity-controls > toolbarbutton[checked]:not([checked="false"]) {
+    background-color: var(--mdbird-selected-container) !important;
+    color: var(--mdbird-on-selected-container) !important;
+  }
+
+  #tbpro-menu-id-root {
+    border-radius: var(--md-sys-shape-corner-large) !important;
+    background-color: var(--md-sys-color-surface-container-high) !important;
+  }
+
+  #tbpro-menu-id-root:hover {
+    background-color: var(--md-sys-color-surface-container-highest) !important;
+  }
+
+  #appMenu-popup html|div.tbpro-divider {
+    background: var(--md-sys-color-outline-variant) !important;
+    block-size: 1px !important;
+  }
+
+  menulist {
+    border-radius: var(--md-sys-shape-corner-medium) !important;
+  }
+
+  #PopupAutoComplete,
+  #PopupGlodaAutocomplete {
+    --autocomplete-item-radius: var(--md-sys-shape-corner-medium) !important;
+    --autocomplete-popup-highlight-background: var(--mdbird-selected-container) !important;
+    --autocomplete-popup-highlight-color: var(--mdbird-on-selected-container) !important;
+  }
+
+  tooltip {
+    appearance: none !important;
+    padding: 5px 9px !important;
+    border: 1px solid var(--md-sys-color-outline-variant) !important;
+    border-radius: var(--md-sys-shape-corner-small) !important;
+    background-color: var(--md-sys-color-inverse-surface) !important;
+    color: var(--md-sys-color-inverse-on-surface) !important;
+    font-family: var(--mdbird-font) !important;
+  }
+
+  @media (-moz-platform: linux) and (not (-moz-gtk-csd-transparency-available)) {
+    menupopup,
+    panel,
+    #appMenu-popup {
+      --panel-border-radius: 0px !important;
+    }
+  }
+}

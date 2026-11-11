@@ -1,0 +1,121 @@
+/* The unified toolbar keeps its configured actions and window controls. */
+#navigation-toolbox,
+unified-toolbar,
+#tabs-toolbar {
+  background: var(--mdbird-canvas) !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+#unifiedToolbarContent li.search-bar {
+  display: none !important;
+}
+
+#button-appmenu,
+.tabs-alltabs-button {
+  border-radius: var(--md-sys-shape-corner-full) !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+#button-appmenu[open="true"] {
+  background-color: var(--mdbird-selected-container) !important;
+  color: var(--mdbird-on-selected-container) !important;
+}
+
+#tabs-toolbar {
+  padding-inline: 8px !important;
+}
+
+.tabmail-tab {
+  color-scheme: inherit !important;
+  margin-inline-end: 3px !important;
+  border-radius: var(--md-sys-shape-corner-full) !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
+  box-shadow: none !important;
+}
+
+.tabmail-tab:hover {
+  background-color: var(--md-sys-color-surface-container-high) !important;
+}
+
+.tabmail-tab[selected] {
+  background-color: var(--mdbird-selected-container) !important;
+  color: var(--mdbird-on-selected-container) !important;
+}
+
+.tabmail-tab[selected] .tab-label-container {
+  font-weight: 600 !important;
+}
+
+.tabmail-tab :is(.tab-background, .tab-line) {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+#tabmail-arrowscrollbox {
+  --arrowscrollbox-scrollicon-border-radius: var(--md-sys-shape-corner-full) !important;
+  --arrowscrollbox-scrollicon-hover-background-color: var(--mdbird-state-hover) !important;
+}
+
+/* Tabs take the space left by the toolbar. The menubar has its own row
+ * when shown, so it stays usable with long labels and customized toolbars. */
+@media (min-width: 900px) {
+  #messengerWindow:not(.customizingUnifiedToolbar) #titlebar {
+    display: grid !important;
+    grid-template:
+      "tabs toolbar" minmax(48px, auto)
+      "menubar menubar" auto
+      / minmax(0, 1fr) auto !important;
+    align-items: center !important;
+
+    & > #tabs-toolbar {
+      grid-area: tabs !important;
+      display: flex !important;
+      visibility: visible !important;
+      min-inline-size: 0 !important;
+      padding-block: 4px !important;
+    }
+
+    & #tabmail-tabs {
+      min-inline-size: 0 !important;
+    }
+
+    & > unified-toolbar {
+      grid-area: toolbar !important;
+      max-inline-size: 50vw !important;
+    }
+
+    & #unifiedToolbarContainer {
+      inline-size: auto !important;
+    }
+
+    & > #toolbar-menubar {
+      grid-area: menubar !important;
+      background-color: var(--mdbird-canvas) !important;
+    }
+  }
+}
+
+#status-bar {
+  background-color: var(--mdbird-canvas) !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
+  font-size: var(--md-sys-typescale-label-medium-size) !important;
+  border-block-start-color: transparent !important;
+}
+
+unified-toolbar-customization {
+  background-color: var(--mdbird-canvas) !important;
+}
+
+#unifiedToolbarCustomizationContainer {
+  background-color: var(--mdbird-pane) !important;
+  border-radius: var(--mdbird-pane-radius) !important;
+  box-shadow: var(--md-sys-elevation-2) !important;
+}
+
+.in-app-notification-container {
+  border-radius: var(--md-sys-shape-corner-large) !important;
+  background-color: var(--md-sys-color-inverse-surface) !important;
+  color: var(--md-sys-color-inverse-on-surface) !important;
+}

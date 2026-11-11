@@ -1,0 +1,178 @@
+/* Calendar, tasks, agenda and chat are hosted in the main window. */
+#calendarContent,
+#chatPanel {
+  background-color: var(--mdbird-canvas) !important;
+  padding: var(--mdbird-pane-gap) !important;
+}
+
+#calendarDisplayBox,
+#today-pane-panel,
+#conversationsBox,
+#contextPane {
+  background-color: var(--mdbird-pane) !important;
+  border-radius: var(--mdbird-pane-radius) !important;
+  box-shadow: var(--md-sys-elevation-1) !important;
+}
+
+#calendarContent {
+  --viewBackground: var(--mdbird-pane) !important;
+  --viewBorderColor: var(--md-sys-color-outline-variant) !important;
+  --viewWeekendBackground: var(--md-sys-color-surface-container-low) !important;
+  --viewTodayBackground: var(--md-sys-color-secondary-container) !important;
+  --viewTodayLabelBackground: var(--md-sys-color-primary) !important;
+  --viewTodayLabelColor: var(--md-sys-color-on-primary) !important;
+  --viewDayBoxSelectedBackground: var(--mdbird-selected-container) !important;
+}
+
+#view-box,
+#unifinder-search-results-tree,
+#unifinder-todo-tree,
+#calendar-task-tree,
+#calendar-task-details-container {
+  background-color: var(--mdbird-pane) !important;
+}
+
+:is(#unifinder-search-results-tree, #unifinder-todo-tree, #calendar-task-tree) treecol {
+  background-color: var(--md-sys-color-surface-container) !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
+  border-color: var(--md-sys-color-outline-variant) !important;
+}
+
+#calendarViewHeader {
+  flex-wrap: wrap !important;
+  padding: 8px 12px !important;
+}
+
+#intervalDescription {
+  font-size: var(--md-sys-typescale-title-medium-size) !important;
+  font-weight: 600 !important;
+}
+
+#viewToggle {
+  --calendar-view-toggle-background: var(--md-sys-color-surface-container) !important;
+  --calendar-view-toggle-hover-background: var(--md-sys-color-surface-container-high) !important;
+  --calendar-view-toggle-active-background: var(--md-sys-color-surface-container-highest) !important;
+  --calendar-view-toggle-selected-background: var(--mdbird-selected-container) !important;
+  --calendar-view-toggle-selected-hover-background: var(--mdbird-selected-container) !important;
+  --calendar-view-toggle-shadow-color: transparent !important;
+  padding: 3px !important;
+  gap: 2px !important;
+}
+
+#viewToggle > .calview-toggle-item {
+  margin: 0 !important;
+  border-radius: var(--md-sys-shape-corner-small) !important;
+}
+
+#viewToggle > .calview-toggle-item:is(:first-child, :last-child, [aria-selected="true"]) {
+  border-radius: var(--md-sys-shape-corner-full) !important;
+}
+
+#viewToggle > .calview-toggle-item[aria-selected="true"] {
+  color: var(--mdbird-on-selected-container) !important;
+  font-weight: 600 !important;
+}
+
+calendar-minimonth {
+  --mmMainBackground: var(--md-sys-color-surface-container) !important;
+  --mmMainBorderColor: var(--md-sys-color-outline-variant) !important;
+  --mmMainBorderRadius: var(--md-sys-shape-corner-large) !important;
+  --mmBoxBackground: var(--md-sys-color-surface-container-high) !important;
+  --mmBoxItemColor: var(--md-sys-color-outline-variant) !important;
+  --mmDayBorderRadius: var(--md-sys-shape-corner-full) !important;
+  --mmDayColor: var(--md-sys-color-on-surface) !important;
+  --mmDayTodayColor: var(--md-sys-color-on-secondary-container) !important;
+  --mmDayTodayBackground: var(--md-sys-color-secondary-container) !important;
+  --mmDaySelectedColor: var(--mdbird-on-selected-container) !important;
+  --mmDaySelectedBackground: var(--mdbird-selected-container) !important;
+  --mmDaySelectedBorderColor: var(--md-sys-color-primary) !important;
+  --mmDaySelectedTodayBackground: var(--mdbird-selected-container) !important;
+}
+
+#calendar-list {
+  --listbox-border-radius: var(--mdbird-nav-radius) !important;
+}
+
+#today-pane-panel > .sidebar-header {
+  padding-inline: 8px !important;
+  border-radius: var(--mdbird-pane-radius) var(--mdbird-pane-radius) 0 0 !important;
+  background-color: var(--md-sys-color-surface-container) !important;
+}
+
+#status-bar #calendar-status-todaypane-button {
+  color: inherit !important;
+}
+
+#agenda .agenda-listitem-details {
+  border-radius: var(--md-sys-shape-corner-small) !important;
+}
+
+#agenda {
+  --selected-background: var(--mdbird-selected-container) !important;
+  --selected-foreground: var(--mdbird-on-selected-container) !important;
+}
+
+#unifinder-searchBox,
+#task-addition-box,
+#calendar-task-details {
+  padding: 6px 10px !important;
+  border-block-end-color: var(--md-sys-color-outline-variant) !important;
+  background-color: var(--md-sys-color-surface-container-low) !important;
+}
+
+#calendar-task-details-description {
+  background-color: var(--mdbird-pane) !important;
+}
+
+@-moz-document url("chrome://calendar/content/calendar-item-iframe.xhtml") {
+  #event-grid {
+    background-color: var(--mdbird-pane) !important;
+    border-radius: var(--mdbird-pane-radius) !important;
+  }
+
+  #event-grid-tabbox {
+    background-color: var(--md-sys-color-surface-container-low) !important;
+    border-radius: var(--md-sys-shape-corner-medium) !important;
+  }
+}
+
+#chatPanel {
+  --imbox-selected-background-color: var(--mdbird-selected-container) !important;
+  --imgroup-selected-background-color: var(--md-sys-color-surface-container) !important;
+}
+
+#chat-toolbar {
+  background-color: var(--mdbird-canvas) !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+#contactlistbox {
+  background-color: var(--mdbird-canvas) !important;
+}
+
+#contactlistbox > richlistitem {
+  border-radius: var(--mdbird-nav-radius) !important;
+}
+
+#contactlistbox > richlistitem[selected="true"] {
+  color: var(--mdbird-on-selected-container) !important;
+}
+
+#chatPanel .im-placeholder-screen {
+  background-color: transparent !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+#chatPanel .im-placeholder-title {
+  font-size: var(--md-sys-typescale-title-large-size) !important;
+  font-weight: 600 !important;
+}
+
+@media (forced-colors: active) {
+  #calendarDisplayBox,
+  #today-pane-panel,
+  #conversationsBox,
+  #contextPane {
+    border: 1px solid CanvasText !important;
+  }
+}

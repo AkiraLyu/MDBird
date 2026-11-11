@@ -1,0 +1,10 @@
+/* Local overrides for userChrome.css. The installer preserves this file.
+ * Edit the active palette to share color changes with built-in content tabs. */
+
+:root {
+  /* --mdbird-pane-radius: 20px; */
+  /* --mdbird-pane-gap: 10px; */
+  /* --mdbird-row-radius: 12px; */
+  /* --mdbird-nav-radius: 12px; */
+  /* --mdbird-font: "Inter", "Noto Sans", system-ui, sans-serif; */
+}

@@ -1,0 +1,47 @@
+/* Settings and account settings share the same navigation treatment. */
+@-moz-document url-prefix("about:preferences"), url-prefix("about:accountsettings"),
+  url("chrome://messenger/content/preferences/preferences.xhtml"),
+  url("chrome://messenger/content/AccountManager.xhtml") {
+  #preferencesContainer,
+  #contentFrame {
+    background-color: var(--mdbird-pane) !important;
+    border-radius: var(--mdbird-pane-radius) !important;
+    margin: var(--mdbird-pane-gap) !important;
+  }
+
+  /* Keep the account frame inside its grid cell when adding a gutter. */
+  #contentFrame {
+    inline-size: calc(100% - 2 * var(--mdbird-pane-gap)) !important;
+    block-size: calc(100% - 2 * var(--mdbird-pane-gap)) !important;
+  }
+
+  #paneDeck h1 {
+    font-size: var(--md-sys-typescale-headline-small-size) !important;
+    font-weight: 600 !important;
+  }
+
+  #paneDeck h2 {
+    font-size: var(--md-sys-typescale-title-medium-size) !important;
+    font-weight: 600 !important;
+  }
+
+  .info-box-container {
+    border-radius: var(--md-sys-shape-corner-medium) !important;
+  }
+}
+
+@-moz-document url-prefix("chrome://messenger/content/am-") {
+  :root {
+    --mdbird-canvas: var(--mdbird-pane);
+  }
+}
+
+/* Account Hub uses the app's semantic colors inside its shadow tree. */
+@-moz-document url("chrome://messenger/content/messenger.xhtml") {
+  account-hub-container {
+    --color-primary-default: var(--md-sys-color-primary) !important;
+    --color-primary-hover: var(--button-primary-hover-background-color) !important;
+    --color-primary-pressed: var(--button-primary-active-background-color) !important;
+    --color-text-muted: var(--md-sys-color-on-surface-variant) !important;
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "extension_description": { "message": "从应用栏打开全局邮件搜索。" },
+  "search_label": { "message": "搜索邮件" },
+  "search_placeholder": { "message": "搜索全部邮件…" },
+  "search_submit": { "message": "搜索" },
+  "index_disabled": { "message": "请在 Thunderbird 设置中启用全局搜索和索引器。" },
+  "search_error": { "message": "Thunderbird 无法启动搜索。请重试。" }
+}
