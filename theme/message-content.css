@@ -7,7 +7,7 @@
   }
 
   body {
-    margin: clamp(12px, 3vw, 28px);
+    margin: 16px var(--mdbird-compose-inset);
   }
 
   body:not([bgcolor], [background], [style]) {

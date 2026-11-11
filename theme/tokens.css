@@ -1,6 +1,13 @@
 /* Material 3 roles shared by the interface and message documents. */
 @import url("palette.css");
 
+@-moz-document url("chrome://messenger/content/messengercompose/messengercompose.xhtml"),
+  url("about:blank?compose") {
+  :root {
+    --mdbird-compose-inset: 20px;
+  }
+}
+
 @-moz-document url-prefix("chrome://"), regexp("^about:(?!blank|srcdoc).*"),
   url("about:blank?compose"), url-prefix("mailbox:"), url-prefix("imap:"),
   url-prefix("news:"), url-prefix("snews:") {

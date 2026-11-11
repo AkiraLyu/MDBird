@@ -1,123 +1,316 @@
-/* Compose keeps the original toolbar modes, splitters and formatting commands. */
-#compose-toolbox,
-#composeToolbar2,
-#composeContentBox {
-  background-color: var(--mdbird-canvas) !important;
-  box-shadow: none !important;
-}
+@-moz-document url("chrome://messenger/content/messengercompose/messengercompose.xhtml") {
+  :root {
+    --mdbird-compose-divider: color-mix(
+      in srgb, var(--md-sys-color-outline-variant) 40%, var(--mdbird-pane)
+    );
+  }
 
-#composeToolbar2 {
-  padding: 4px 8px !important;
-}
+  body,
+  #composeContentBox,
+  #composeToolbar2,
+  #MsgHeadersToolbar,
+  #messageArea,
+  #messageEditor,
+  #FormatToolbox,
+  #attachmentArea,
+  #status-bar {
+    background: var(--mdbird-pane) !important;
+  }
 
-#composeToolbar2 .toolbarbutton-1 {
-  border-radius: var(--md-sys-shape-corner-full) !important;
-}
+  /* Thunderbird anchors its customization popup to the toolbox. Keep the
+   * toolbox's own box while the customization command is in progress. */
+  :root:not(:has(#CustomizeComposeToolbar[disabled])) {
+    & #compose-toolbox {
+      display: contents !important;
 
-#composeToolbar2 #button-send {
-  background-color: var(--button-primary-background-color) !important;
-  color: var(--button-primary-text-color) !important;
-  padding-inline: 14px !important;
-}
+      &::after {
+        content: none !important;
+      }
+    }
 
-#composeToolbar2 #button-send:not([disabled]):hover {
-  background-color: var(--button-primary-hover-background-color) !important;
-}
+    & #composeToolbar2 {
+      order: 1 !important;
+    }
 
-#composeToolbar2 #button-send[disabled] {
-  background-color: var(--md-sys-color-surface-container-high) !important;
-  color: var(--md-sys-color-on-surface-variant) !important;
-}
+    & #status-bar {
+      order: 2 !important;
+    }
+  }
 
-#composeContentBox {
-  margin-inline: 0 !important;
-  padding: var(--mdbird-pane-gap) !important;
-}
+  #compose-toolbar-menubar2 {
+    appearance: none !important;
+    background: var(--md-sys-color-surface-container) !important;
+    border: 0 !important;
+    padding-inline: calc(var(--mdbird-compose-inset) - 8px) !important;
+  }
 
-#MsgHeadersToolbar,
-#messageArea,
-#attachmentArea,
-#contactsSidebar {
-  background-color: var(--mdbird-pane) !important;
-  border-radius: var(--mdbird-pane-radius) !important;
-}
+  #composeToolbar2 {
+    appearance: none !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    padding: 6px var(--mdbird-compose-inset) 8px !important;
 
-#MsgHeadersToolbar {
-  padding: 8px clamp(6px, 1.8vw, 20px) !important;
-}
+    & .toolbarbutton-1 {
+      border-radius: var(--md-sys-shape-corner-full) !important;
+      min-block-size: 32px !important;
+    }
 
-#messageArea {
-  overflow: clip !important;
-}
+    & #button-send {
+      min-block-size: 38px !important;
+      padding-inline: 20px !important;
+      border: 1px solid var(--button-primary-border-color) !important;
+      font-weight: 600 !important;
+      background-color: var(--button-primary-background-color) !important;
+      color: var(--button-primary-text-color) !important;
 
-#messageEditor,
-#attachmentBucket,
-#contactsBrowser {
-  background-color: var(--mdbird-pane) !important;
-}
+      &:not([disabled]):hover {
+        background-color: var(--button-primary-hover-background-color) !important;
+      }
 
-#msgIdentity,
-#msgSubject,
-#MsgHeadersToolbar .address-container {
-  border: 0 !important;
-  border-block-end: 1px solid var(--md-sys-color-outline-variant) !important;
-  border-radius: 0 !important;
-  background-color: transparent !important;
-  color: var(--md-sys-color-on-surface) !important;
-}
+      &:not([disabled]):active {
+        background-color: var(--button-primary-active-background-color) !important;
+      }
 
-#msgSubject {
-  min-block-size: 1.8em !important;
-  font-size: var(--md-sys-typescale-title-medium-size) !important;
-  font-weight: 600 !important;
-}
+      &[disabled] {
+        background-color: var(--md-sys-color-surface-container-high) !important;
+        color: var(--md-sys-color-on-surface-variant) !important;
+      }
+    }
+  }
 
-#MsgHeadersToolbar :is(#msgIdentity, #msgSubject, .address-container):focus-within {
-  border-block-end-color: var(--md-sys-color-primary) !important;
-  box-shadow: inset 0 -1px var(--md-sys-color-primary) !important;
-}
+  #compose-toolbox[labelalign="end"] > #composeToolbar2[mode="full"] #button-send > .toolbarbutton-icon {
+    display: none !important;
+  }
 
-#MsgHeadersToolbar .address-input {
-  background-color: transparent !important;
-}
+  #status-bar {
+    min-block-size: 0 !important;
+    border-block-start: 0 !important;
+    padding-inline: var(--mdbird-compose-inset) !important;
+  }
 
-#MsgHeadersToolbar .address-input:focus-visible {
-  outline-offset: -2px !important;
-}
+  #composeContentBox {
+    /* Keep the native splitters' areas and sizing variables. */
+    grid-template:
+      "contacts contacts-splitter headers" minmax(auto, var(--headersSplitter-height))
+      "contacts contacts-splitter headers-splitter" min-content
+      "contacts contacts-splitter message" minmax(4rem, 1fr)
+      "contacts contacts-splitter attachment-splitter" min-content
+      "contacts contacts-splitter attachment-area" min-content
+      "contacts contacts-splitter format-toolbar" min-content
+      / minmax(auto, var(--contactsSplitter-width)) min-content minmax(0, 1fr) !important;
+    margin-inline: 0 !important;
+    padding-inline: 0 !important;
+    box-shadow: none !important;
+    overflow: hidden auto !important;
+  }
 
-#recipientsContainer .address-pill:not(.editing, .invalid-address, .key-issue) {
-  border-radius: var(--md-sys-shape-corner-full) !important;
-  background-color: var(--md-sys-color-secondary-container) !important;
-  color: var(--md-sys-color-on-secondary-container) !important;
-}
+  #MsgHeadersToolbar {
+    --mdbird-compose-row-size: 44px;
 
-#recipientsContainer .address-pill[selected]:not(.editing, .invalid-address, .key-issue) {
-  background-color: var(--mdbird-selected-container) !important;
-  color: var(--mdbird-on-selected-container) !important;
-}
+    grid-template-columns: fit-content(11.5rem) minmax(0, 1fr) auto !important;
+    max-block-size: 42vh !important;
+    padding: 0 var(--mdbird-compose-inset) !important;
 
-#FormatToolbox {
-  background-color: var(--mdbird-canvas) !important;
-  margin-block-start: 4px !important;
-}
+    & :is(#top-gradient-box, .address-row, #subject-box) {
+      align-items: center !important;
+      min-block-size: var(--mdbird-compose-row-size) !important;
+      margin-inline: 0 !important;
+      border-block-end: 1px solid var(--mdbird-compose-divider) !important;
 
-#FormatToolbar {
-  padding: 3px 6px !important;
-  border-radius: var(--md-sys-shape-corner-large) !important;
-  background-color: var(--md-sys-color-surface-container) !important;
-}
+      &:has(:is(#msgIdentity, #msgSubject, .address-container:not(.drag-address-container)):focus-within) {
+        border-block-end-color: var(--focus-outline-color) !important;
+        box-shadow: inset 0 -1px var(--focus-outline-color) !important;
 
-#FormatToolbar :is(toolbarbutton, menulist) {
-  border-radius: var(--md-sys-shape-corner-full) !important;
-}
+        @media (forced-colors: active) {
+          outline: var(--focus-outline) !important;
+          outline-offset: -2px !important;
+        }
+      }
+    }
 
-#attachmentArea > summary {
-  padding-inline: 12px !important;
-  border-radius: inherit !important;
-  color: var(--md-sys-color-on-surface-variant) !important;
-}
+    & :is(#identityLabel-box, #subjectLabel-box, .address-label-container) {
+      grid-area: 1 / 1 !important;
+      justify-self: start !important;
+      align-items: center !important;
+      margin: 0 !important;
+      padding-block: 0 !important;
+      padding-inline: 0 12px !important;
+      color: var(--md-sys-color-on-surface-variant) !important;
 
-#contactsSidebar > .sidebar-header {
-  background-color: var(--md-sys-color-surface-container) !important;
-  border-radius: var(--mdbird-pane-radius) var(--mdbird-pane-radius) 0 0 !important;
+      & > label {
+        margin: 0 !important;
+        text-align: start !important;
+      }
+    }
+
+    & .address-label-container {
+      align-self: start !important;
+      min-block-size: calc(var(--mdbird-compose-row-size) - 1px) !important;
+    }
+
+    & :is(#identity-container, #msgSubjectContainer) {
+      grid-area: 1 / 2 / 2 / -1 !important;
+    }
+
+    & .address-container {
+      grid-area: 1 / 2 !important;
+    }
+
+    & .aw-firstColBox {
+      grid-area: 1 / 3 !important;
+    }
+
+    & :is(#msgIdentity, #msgSubject, .address-container) {
+      border: 0 !important;
+      border-radius: 0 !important;
+      margin: 0 !important;
+      background: transparent !important;
+      color: var(--md-sys-color-on-surface) !important;
+
+      &:focus-within:not(.drag-address-container) {
+        outline: none !important;
+      }
+    }
+
+    & #msgSubject {
+      font: inherit !important;
+    }
+
+    & .address-container > .address-input {
+      background: transparent !important;
+      outline: none !important;
+    }
+
+    & .address-container.drag-address-container {
+      outline-offset: -1px !important;
+    }
+
+    & :is(.recipient-button, .remove-field-button, #extraAddressRowsMenuButton) {
+      border-radius: var(--md-sys-shape-corner-full) !important;
+      outline-offset: -2px !important;
+    }
+  }
+
+  #msgIdentity {
+    --mdbird-compose-sender-description-display: none;
+  }
+
+  /* The menulist's shadow label inherits this setting from the sender control. */
+  #label-box > label[part="description"] {
+    display: var(--mdbird-compose-sender-description-display, revert) !important;
+  }
+
+  #extraAddressRowsArea {
+    align-items: center !important;
+    gap: 4px !important;
+    margin-inline: auto 0 !important;
+
+    &.addressingWidget-separator::before {
+      display: none !important;
+    }
+
+    & > button {
+      min-block-size: 28px !important;
+      padding-inline: 8px !important;
+    }
+  }
+
+  #recipientsContainer {
+    row-gap: 0 !important;
+    padding-block: 0 !important;
+
+    & .address-pill:not(.editing, .invalid-address, .key-issue) {
+      border-radius: var(--md-sys-shape-corner-full) !important;
+      background-color: var(--md-sys-color-secondary-container) !important;
+      color: var(--md-sys-color-on-secondary-container) !important;
+
+      &[selected] {
+        background-color: var(--mdbird-selected-container) !important;
+        color: var(--mdbird-on-selected-container) !important;
+      }
+    }
+  }
+
+  #headersSplitter {
+    border-color: transparent !important;
+
+    &:is(:hover, .splitter-resizing) {
+      border-color: var(--md-sys-color-outline-variant) !important;
+    }
+  }
+
+  #messageArea {
+    overflow: clip !important;
+  }
+
+  #FormatToolbox:has(> #FormatToolbar:not([collapsed="true"], [hidden])) {
+    padding: 6px var(--mdbird-compose-inset) 2px !important;
+  }
+
+  #FormatToolbar {
+    inline-size: fit-content !important;
+    max-inline-size: 100% !important;
+    box-sizing: border-box !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 2px !important;
+    margin: 0 !important;
+    padding: 6px 8px !important;
+    border: 0 !important;
+    border-radius: var(--md-sys-shape-corner-extra-large) !important;
+    background: var(--md-sys-color-surface-container) !important;
+    color: var(--md-sys-color-on-surface-variant) !important;
+
+    & > spacer {
+      display: none !important;
+    }
+
+    & :is(toolbarbutton, menulist) {
+      border-radius: var(--md-sys-shape-corner-full) !important;
+    }
+
+    & > menulist {
+      border-color: transparent !important;
+      background: transparent !important;
+
+      &:not([disabled]):is(:hover, [open="true"]) {
+        background: var(--mdbird-state-hover) !important;
+      }
+    }
+  }
+
+  #attachmentArea {
+    margin-inline: var(--mdbird-compose-inset) !important;
+
+    & > summary {
+      padding-inline: 10px !important;
+      border-radius: var(--md-sys-shape-corner-small) !important;
+      background: var(--md-sys-color-surface-container) !important;
+      color: var(--md-sys-color-on-surface-variant) !important;
+    }
+  }
+
+  #attachmentSplitter {
+    margin-inline: var(--mdbird-compose-inset) !important;
+    border-color: var(--mdbird-compose-divider) !important;
+  }
+
+  #contactsSidebar,
+  #contactsBrowser {
+    background: var(--mdbird-pane) !important;
+  }
+
+  #contactsSidebar > .sidebar-header {
+    background: var(--md-sys-color-surface-container) !important;
+    color: var(--md-sys-color-on-surface) !important;
+  }
+
+  @media (forced-colors: active) {
+    :root {
+      --mdbird-compose-divider: CanvasText;
+    }
+  }
 }
