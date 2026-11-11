@@ -2,26 +2,13 @@
 
 MDBird is a Material Design 3 Expressive theme for Thunderbird. Its default palette is inspired by Gmail.
 
-MDBird replaces the top toolbar search box with a button in the sidebar. Click the magnifying glass in the Spaces Toolbar on the left or press `Ctrl+K` (`⌘K` on macOS) to open the MDBird search box. Type a keyword and press Enter to see global search results in a new Thunderbird tab.
-
-![MDBird sidebar search](preview/search.png)
+In windows at least 900 CSS pixels wide, MDBird places the tabs in the top toolbar row to save vertical space. It replaces the toolbar search box with a button in the sidebar. Click the magnifying glass in the Spaces Toolbar on the left or press `Ctrl+K` (`⌘K` on macOS) to open the MDBird search box. Type a keyword and press Enter to see global search results in a new Thunderbird tab.
 
 ![MDBird light theme](preview/light.png)
 
 ![MDBird dark theme](preview/dark.png)
 
-![MDBird application menu](preview/menus-dark.png)
-
-![MDBird message context menu](preview/context-menu-light.png)
-
-![MDBird compose window](preview/compose-dark.png)
-
-## Interface coverage
-
-- **Mail** covers folders, card and table views of the message list, sidebar search, Quick Filter, the message pane, the compose window, and attachments. At window widths of 900 CSS pixels or more, the tab bar shares a row with the unified toolbar.
-- **Spaces** include Address Book, Calendar, Tasks, the Today Pane, and Chat.
-- **Management pages** include Settings, Account Settings, Account Central, the Add-ons Manager, import, downloads, Activity Manager, Message Filters, and Troubleshooting Information.
-- **Popups and controls** include the application menu and its submenus, menu bar drop-downs, context menus, autocomplete, HTML popups, and in-app dialogs.
+![MDBird compose window in the light theme](preview/compose-light.png)
 
 ## Installation
 
@@ -39,7 +26,7 @@ The script locates the default profile. You can specify a profile path and use `
 ./install.sh --profile ~/.thunderbird/xxxxxxxx.default-release --accent violet
 ```
 
-After restarting Thunderbird, open the MDBird Search installation prompt from the application menu in the upper-right corner and select **Enable**. The previews show the vertical layout and Cards View. Light and dark colors follow the default, light, or dark theme selected in Thunderbird.
+After restarting Thunderbird, open the MDBird Search installation prompt from the application menu in the upper-right corner and select **Enable**. Light and dark colors follow the default, light, or dark theme selected in Thunderbird.
 
 To uninstall MDBird, run `./install.sh --uninstall` and restart Thunderbird. See the [installation guide](docs/installation.md) for profile paths, updates, and troubleshooting.
 
