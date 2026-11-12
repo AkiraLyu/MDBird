@@ -1,4 +1,4 @@
-/* Reading surfaces and header controls. Native header modes control layout. */
+/* Reading surfaces and header controls. */
 @-moz-document url("about:message"), url("chrome://messenger/content/aboutMessage.xhtml") {
   :root {
     --mdbird-canvas: var(--mdbird-pane);
@@ -14,13 +14,44 @@
 }
 
 #messageHeader {
+  --mdbird-message-header-inset: clamp(8px, 1.8vw, 22px);
   --toolbarbutton-header-bordercolor: transparent !important;
-  padding: clamp(8px, 1.8vw, 22px) !important;
+
+  /* The subject and other header fields share one scroll area. */
+  box-sizing: border-box !important;
+  max-block-size: 50vh !important;
+  overflow: hidden auto !important;
+  padding: 0 var(--mdbird-message-header-inset) var(--mdbird-message-header-inset) !important;
   background-color: var(--mdbird-pane) !important;
   border-block-end: 1px solid var(--md-sys-color-outline-variant) !important;
+
+  & > #headerSenderToolbarContainer {
+    padding-block-start: var(--mdbird-message-header-inset) !important;
+  }
+
+  @media (min-width: 360px) and (min-height: 420px) {
+    /* A list of senders can grow taller than the scroll area. */
+    &:not(:has(#expandedfromBox .header-recipient + .header-recipient)) {
+      scroll-padding-block-start: min(8em, 30vh) !important;
+
+      & > #headerSenderToolbarContainer {
+        position: sticky !important;
+        inset-block-start: 0 !important;
+        z-index: 1 !important;
+        background-color: var(--mdbird-pane) !important;
+      }
+    }
+  }
+}
+
+#expandedsubjectRow {
+  min-inline-size: 0 !important;
 }
 
 #expandedsubjectBox {
+  display: block !important;
+  -webkit-line-clamp: none !important;
+  overflow: visible !important;
   font-weight: 650 !important;
 }
 
