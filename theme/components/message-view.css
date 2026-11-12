@@ -65,8 +65,20 @@
 }
 
 #messageHeader .message-header-datetime,
-#messageHeader .recipient-multi-line-address {
+#messageHeader .header-recipient:not(:hover) .recipient-multi-line-address {
   color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+#messageHeader :is(.header-recipient, .header-newsgroup, .header-message-id) {
+  border-radius: var(--md-sys-shape-corner-extra-small) !important;
+}
+
+@media (forced-colors: none) {
+  #messageHeader :is(.header-recipient, .header-newsgroup):hover {
+    /* Thunderbird uses its selection colors for the recipient hover state. */
+    --selected-item-color: var(--mdbird-state-hover) !important;
+    --selected-item-text-color: var(--md-sys-color-on-surface) !important;
+  }
 }
 
 .message-header-view-button,

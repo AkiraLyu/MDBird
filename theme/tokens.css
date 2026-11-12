@@ -37,6 +37,7 @@
     --md-sys-color-star: light-dark(#eaa700, #f8d26a);
     --mdbird-star-outline: light-dark(#9a6600, #bd8823);
 
+    --md-sys-shape-corner-extra-small: 4px;
     --md-sys-shape-corner-small: 8px;
     --md-sys-shape-corner-medium: 12px;
     --md-sys-shape-corner-large: 16px;
