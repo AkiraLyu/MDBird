@@ -1,7 +1,8 @@
 /* The unified toolbar keeps its configured actions and window controls. */
 #navigation-toolbox,
 unified-toolbar,
-#tabs-toolbar {
+#tabs-toolbar,
+#mail-bar3 {
   background: var(--mdbird-canvas) !important;
   border-color: transparent !important;
   box-shadow: none !important;
@@ -12,14 +13,25 @@ unified-toolbar,
 }
 
 #button-appmenu,
+.tabs-alltabs-button,
+.unified-toolbar-button,
+#unifiedToolbarContent .toolbarbutton-1 {
+  border-radius: var(--mdbird-shape-pill) !important;
+}
+
+#button-appmenu,
 .tabs-alltabs-button {
-  border-radius: var(--md-sys-shape-corner-full) !important;
   color: var(--md-sys-color-on-surface-variant) !important;
 }
 
 #button-appmenu[open="true"] {
   background-color: var(--mdbird-selected-container) !important;
   color: var(--mdbird-on-selected-container) !important;
+}
+
+.unified-toolbar-button:not([disabled]):active,
+#unifiedToolbarContent .toolbarbutton-1:not([disabled]):active {
+  border-radius: var(--md-sys-shape-corner-small) !important;
 }
 
 #tabs-toolbar {
@@ -34,8 +46,9 @@ unified-toolbar,
   box-shadow: none !important;
 }
 
-.tabmail-tab:hover {
+.tabmail-tab:not([selected]):hover {
   background-color: var(--md-sys-color-surface-container-high) !important;
+  color: var(--md-sys-color-on-surface) !important;
 }
 
 .tabmail-tab[selected] {
@@ -43,8 +56,26 @@ unified-toolbar,
   color: var(--mdbird-on-selected-container) !important;
 }
 
+.tabmail-tab[selected]:hover {
+  background-color: color-mix(
+    in srgb, var(--mdbird-selected-container) 92%, var(--mdbird-on-selected-container)
+  ) !important;
+}
+
 .tabmail-tab[selected] .tab-label-container {
   font-weight: 600 !important;
+}
+
+.tabmail-tab .tab-close-button {
+  border-radius: var(--md-sys-shape-corner-full) !important;
+}
+
+.tabmail-tab .tab-close-button:hover {
+  background-color: var(--mdbird-state-hover) !important;
+}
+
+.tabmail-tab .tab-close-button:active {
+  background-color: var(--mdbird-state-pressed) !important;
 }
 
 .tabmail-tab :is(.tab-background, .tab-line) {
@@ -114,8 +145,39 @@ unified-toolbar-customization {
   box-shadow: var(--md-sys-elevation-2) !important;
 }
 
-.in-app-notification-container {
+/* Host styling for the Shadow DOM in-app notification card */
+in-app-notification-container {
   border-radius: var(--md-sys-shape-corner-large) !important;
-  background-color: var(--md-sys-color-inverse-surface) !important;
-  color: var(--md-sys-color-inverse-on-surface) !important;
+  box-shadow: var(--md-sys-elevation-2) !important;
+}
+
+/* Standalone message window */
+@-moz-document url("chrome://messenger/content/messageWindow.xhtml") {
+  #messengerBody {
+    background-color: var(--mdbird-canvas) !important;
+    padding: 0 var(--mdbird-pane-gap) var(--mdbird-pane-gap) !important;
+  }
+
+  #messageBrowser {
+    border-radius: var(--mdbird-pane-radius) !important;
+    box-shadow: var(--md-sys-elevation-1) !important;
+    overflow: hidden !important;
+  }
+
+  @media (forced-colors: active) {
+    #messageBrowser {
+      border: 1px solid CanvasText !important;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tabmail-tab,
+  .unified-toolbar-button,
+  #unifiedToolbarContent .toolbarbutton-1 {
+    transition:
+      border-radius var(--md-sys-motion-spring-fast-spatial-duration) var(--md-sys-motion-spring-fast-spatial),
+      background-color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects),
+      color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects) !important;
+  }
 }

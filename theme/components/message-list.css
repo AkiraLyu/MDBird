@@ -79,12 +79,13 @@
   --read-status-stroke: var(--md-sys-color-primary) !important;
 }
 
-#threadTree .card-layout.selected:not([data-properties~="junk"]) :is(.sender, .subject, .date),
+#threadTree .card-layout.selected:not([data-properties~="junk"]) :is(.sender, .subject, .date, .recipient, .thread-replies),
 #threadTree .table-layout.selected > td {
   color: var(--mdbird-on-selected-container) !important;
 }
 
-#threadTree:focus-within .card-layout.current > td > .card-container {
+/* Only display the card focus ring during keyboard navigation, not mouse selection. */
+#threadTree:has(:focus-visible) .card-layout.current > td > .card-container {
   outline: var(--focus-outline) !important;
   outline-offset: -2px !important;
 }
@@ -94,23 +95,77 @@
   color: var(--md-sys-color-on-surface-variant) !important;
 }
 
+#threadTree .table-layout:not(.selected, [data-properties~="dummy"]):hover {
+  background-color: var(--md-sys-color-surface-container-high) !important;
+}
+
 #threadTree .table-layout.selected {
   background-color: var(--mdbird-selected-container) !important;
 }
 
+#threadTree :is(.card-layout, .table-layout)[data-properties~="dummy"] {
+  color: var(--md-sys-color-on-surface-variant) !important;
+  font-weight: 600 !important;
+}
+
 #quick-filter-bar {
   margin: 0 8px 6px !important;
+  padding: 4px 6px !important;
   border-radius: var(--md-sys-shape-corner-large) !important;
   border-color: transparent !important;
   background-color: var(--md-sys-color-surface-container-low) !important;
 }
 
+#qfb-qs-textbox {
+  border-radius: var(--md-sys-shape-corner-full) !important;
+  background-color: var(--md-sys-color-surface-container-high) !important;
+  border-color: transparent !important;
+}
+
+#qfb-results-label {
+  color: var(--md-sys-color-on-surface-variant) !important;
+  font-size: var(--md-sys-typescale-label-medium-size) !important;
+}
+
+/* Material 3 Expressive filter chips: rounded-square resting, pill when active */
+#quick-filter-bar .check-button {
+  border-radius: var(--md-sys-shape-corner-small) !important;
+  border: 1px solid var(--md-sys-color-outline-variant) !important;
+  background-color: transparent !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+#quick-filter-bar .check-button:not([aria-pressed="true"]):hover {
+  background-color: var(--mdbird-state-hover) !important;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
 #threadPaneQuickFilterButton[aria-pressed="true"],
 #quick-filter-bar .check-button[aria-pressed="true"] {
+  border-radius: var(--mdbird-shape-pill) !important;
+  border-color: transparent !important;
   background-color: var(--md-sys-color-secondary-container) !important;
   color: var(--md-sys-color-on-secondary-container) !important;
 }
 
+#quick-filter-bar .check-button:enabled:active {
+  border-radius: var(--md-sys-shape-corner-extra-small) !important;
+}
+
 :is(#placeholderNoMessages, #placeholderMultipleFolders) {
   color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #threadTree .card-layout > td > .card-container {
+    transition:
+      background-color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects) !important;
+  }
+
+  #quick-filter-bar .check-button {
+    transition:
+      border-radius var(--md-sys-motion-spring-fast-spatial-duration) var(--md-sys-motion-spring-fast-spatial),
+      background-color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects),
+      border-color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects) !important;
+  }
 }

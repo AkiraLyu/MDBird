@@ -3,6 +3,21 @@
 @namespace html url("http://www.w3.org/1999/xhtml");
 
 @-moz-document url-prefix("chrome://"), url-prefix("about:") {
+  *|*:root {
+    --menu-item-margin: 1px 6px !important;
+    --menu-item-padding: 5px !important;
+  }
+
+  *|*:root[uidensity="compact"] {
+    --menu-item-margin: 1px 4px !important;
+    --menu-item-padding: 3px !important;
+  }
+
+  *|*:root[uidensity="touch"] {
+    --menu-item-margin: 2px 6px !important;
+    --menu-item-padding: 8px !important;
+  }
+
   menubar,
   menubar > menu,
   menupopup,
@@ -17,6 +32,7 @@
     --panel-text-color: var(--md-sys-color-on-surface) !important;
     --panel-border-color: var(--md-sys-color-outline-variant) !important;
     --panel-border-radius: var(--md-sys-shape-corner-large) !important;
+    --panel-box-shadow: var(--md-sys-elevation-2) !important;
     --panel-background-color-dimmed: var(--mdbird-state-hover) !important;
     --panel-background-color-dimmed-further: var(--mdbird-state-pressed) !important;
     --panel-menuitem-border-radius: var(--md-sys-shape-corner-medium) !important;
@@ -25,7 +41,8 @@
   }
 
   menupopup {
-    --panel-padding-block: 5px !important;
+    --panel-padding: 6px 0 !important;
+    --panel-padding-block: 6px !important;
     --menuitem-border-radius: var(--md-sys-shape-corner-medium) !important;
     --menuitem-padding-block: 0.38em !important;
     --menuitem-padding-inline: 0.85em !important;
@@ -33,11 +50,17 @@
   }
 
   *|*:root[uidensity="compact"] menupopup {
+    --panel-padding: 4px 0 !important;
     --menuitem-padding-block: 0.24em !important;
   }
 
   *|*:root[uidensity="touch"] menupopup {
     --menuitem-padding-block: 0.55em !important;
+  }
+
+  /* Thunderbird's contextMenu.css hardcodes 3px on menupopup items. */
+  menupopup > :is(menu, menuitem) {
+    border-radius: var(--md-sys-shape-corner-medium) !important;
   }
 
   menupopup :is(menu, menuitem):not([disabled]):is([_moz-menuactive], :hover) {
@@ -54,6 +77,21 @@
     font-weight: 600 !important;
   }
 
+  menupopup > menuseparator {
+    margin-block: 4px !important;
+    padding-inline: 10px !important;
+  }
+
+  /* Quick-action icon bar at the top of message/browser context menus */
+  :is(#context-navigation, #mailContext-navigation) > .menuitem-iconic {
+    border-radius: var(--mdbird-shape-pill) !important;
+    min-block-size: 32px !important;
+  }
+
+  :is(#context-navigation, #mailContext-navigation) > .menuitem-iconic:not([disabled]):active {
+    border-radius: var(--md-sys-shape-corner-small) !important;
+  }
+
   menubar > menu {
     border-radius: var(--md-sys-shape-corner-full) !important;
   }
@@ -64,7 +102,8 @@
   }
 
   #appMenu-popup {
-    --panel-border-radius: var(--md-sys-shape-corner-extra-large) !important;
+    --panel-border-radius: var(--md-sys-shape-corner-large-increased) !important;
+    --panel-box-shadow: var(--md-sys-elevation-3) !important;
     --appmenu-icons-fill: color-mix(in srgb, currentColor 18%, transparent) !important;
     --appmenu-icons-stroke: currentColor !important;
     --appmenu-warning-background-color: var(--md-sys-color-warning-container) !important;
@@ -76,11 +115,31 @@
     font-weight: 600 !important;
   }
 
+  /* Connected button groups for UI density and font size controls */
+  #appMenu-popup :is(#appMenu-uiDensity-controls, #appMenu-fontSize-controls) {
+    gap: 2px !important;
+  }
+
   #appMenu-popup :is(#appMenu-uiDensity-controls, #appMenu-fontSize-controls) > toolbarbutton {
-    border-radius: var(--md-sys-shape-corner-full) !important;
+    border-radius: var(--md-sys-shape-corner-small) !important;
+  }
+
+  #appMenu-popup :is(#appMenu-uiDensity-controls, #appMenu-fontSize-controls) > toolbarbutton:first-of-type {
+    border-start-start-radius: var(--mdbird-shape-pill) !important;
+    border-end-start-radius: var(--mdbird-shape-pill) !important;
+  }
+
+  #appMenu-popup :is(#appMenu-uiDensity-controls, #appMenu-fontSize-controls) > toolbarbutton:last-of-type {
+    border-start-end-radius: var(--mdbird-shape-pill) !important;
+    border-end-end-radius: var(--mdbird-shape-pill) !important;
+  }
+
+  #appMenu-popup :is(#appMenu-uiDensity-controls, #appMenu-fontSize-controls) > toolbarbutton:not([disabled]):active {
+    border-radius: var(--md-sys-shape-corner-extra-small) !important;
   }
 
   #appMenu-uiDensity-controls > toolbarbutton[checked]:not([checked="false"]) {
+    border-radius: var(--mdbird-shape-pill) !important;
     background-color: var(--mdbird-selected-container) !important;
     color: var(--mdbird-on-selected-container) !important;
   }
@@ -112,12 +171,21 @@
 
   tooltip {
     appearance: none !important;
-    padding: 5px 9px !important;
+    padding: 5px 10px !important;
     border: 1px solid var(--md-sys-color-outline-variant) !important;
     border-radius: var(--md-sys-shape-corner-small) !important;
     background-color: var(--md-sys-color-inverse-surface) !important;
     color: var(--md-sys-color-inverse-on-surface) !important;
     font-family: var(--mdbird-font) !important;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :is(#context-navigation, #mailContext-navigation) > .menuitem-iconic,
+    #appMenu-popup :is(#appMenu-uiDensity-controls, #appMenu-fontSize-controls) > toolbarbutton {
+      transition:
+        border-radius var(--md-sys-motion-spring-fast-spatial-duration) var(--md-sys-motion-spring-fast-spatial),
+        background-color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects) !important;
+    }
   }
 
   @media (-moz-platform: linux) and (not (-moz-gtk-csd-transparency-available)) {

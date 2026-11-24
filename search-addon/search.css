@@ -7,14 +7,16 @@
   #mdbird-search-button[aria-expanded="true"] {
     background-color: var(--mdbird-selected-container, SelectedItem) !important;
     color: var(--mdbird-on-selected-container, SelectedItemText) !important;
-    border-radius: var(--md-sys-shape-corner-full, 999px) !important;
+    border-radius: var(--mdbird-shape-pill, 24px) !important;
   }
 
   #mdbird-search-panel {
     --panel-padding: 0px !important;
-    --panel-background-color: var(--md-sys-color-surface-container, Canvas) !important;
+    --panel-border-radius: var(--md-sys-shape-corner-extra-large, 28px) !important;
+    --panel-background-color: var(--md-sys-color-surface-container-high, Canvas) !important;
     --panel-text-color: var(--md-sys-color-on-surface, CanvasText) !important;
     --panel-border-color: var(--md-sys-color-outline-variant, ButtonBorder) !important;
+    --panel-box-shadow: var(--md-sys-elevation-3, 0 8px 24px rgb(0 0 0 / 24%)) !important;
     color-scheme: inherit !important;
   }
 
@@ -34,11 +36,11 @@
     inline-size: 100% !important;
     min-block-size: 2.7rem !important;
     margin: 0 !important;
-    padding-inline: 32px 8px !important;
+    padding-inline: 32px 12px !important;
     background-position: left 10px center !important;
     border: 1px solid var(--md-sys-color-outline-variant, ButtonBorder) !important;
     border-radius: var(--md-sys-shape-corner-full, 999px) !important;
-    background-color: var(--md-sys-color-surface-container-high, Field) !important;
+    background-color: var(--mdbird-pane, Field) !important;
     color: var(--md-sys-color-on-surface, FieldText) !important;
     font: inherit !important;
   }
@@ -55,8 +57,13 @@
   #mdbird-search-submit {
     min-block-size: 2.7rem !important;
     margin: 0 !important;
-    padding-inline: 16px !important;
-    border-radius: var(--md-sys-shape-corner-full, 999px) !important;
+    padding-inline: 18px !important;
+    border-radius: var(--mdbird-shape-pill, 24px) !important;
+    font-weight: 600 !important;
+  }
+
+  #mdbird-search-submit:enabled:active {
+    border-radius: var(--md-sys-shape-corner-small, 8px) !important;
   }
 
   #mdbird-search-status {
@@ -64,5 +71,21 @@
     margin: 0 !important;
     padding-inline: 4px !important;
     color: var(--md-sys-color-on-surface-variant, CanvasText) !important;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    #mdbird-search-submit {
+      transition:
+        border-radius var(--md-sys-motion-spring-fast-spatial-duration, 350ms)
+          var(--md-sys-motion-spring-fast-spatial, cubic-bezier(0.42, 1.67, 0.21, 0.9)),
+        background-color var(--md-sys-motion-spring-fast-effects-duration, 150ms)
+          var(--md-sys-motion-spring-fast-effects, cubic-bezier(0.31, 0.94, 0.34, 1)) !important;
+    }
+  }
+
+  @media (-moz-platform: linux) and (not (-moz-gtk-csd-transparency-available)) {
+    #mdbird-search-panel {
+      --panel-border-radius: 0px !important;
+    }
   }
 }

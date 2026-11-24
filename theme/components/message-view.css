@@ -81,10 +81,30 @@
   }
 }
 
-.message-header-view-button,
-#messageHeader :is(.toolbarbutton-menubutton-button, .toolbarbutton-menubutton-dropmarker),
+.message-header-view-button:not([type="menu-button"]),
 #starMessageButton {
-  border-radius: var(--md-sys-shape-corner-full) !important;
+  border-radius: var(--mdbird-shape-pill) !important;
+}
+
+.message-header-view-button:not([type="menu-button"], [disabled]):active,
+#starMessageButton:not([disabled]):active {
+  border-radius: var(--md-sys-shape-corner-small) !important;
+}
+
+/* Material 3 Expressive split button geometry for header menu-buttons */
+#messageHeader .toolbarbutton-menubutton-button {
+  border-start-start-radius: var(--md-sys-shape-corner-full) !important;
+  border-end-start-radius: var(--md-sys-shape-corner-full) !important;
+  border-start-end-radius: var(--md-sys-shape-corner-extra-small) !important;
+  border-end-end-radius: var(--md-sys-shape-corner-extra-small) !important;
+}
+
+#messageHeader .toolbarbutton-menubutton-dropmarker {
+  margin-inline-start: 2px !important;
+  border-start-start-radius: var(--md-sys-shape-corner-extra-small) !important;
+  border-end-start-radius: var(--md-sys-shape-corner-extra-small) !important;
+  border-start-end-radius: var(--md-sys-shape-corner-full) !important;
+  border-end-end-radius: var(--md-sys-shape-corner-full) !important;
 }
 
 #messageHeader :is(.hdrJunkButton, .hdrTrashButton):not([disabled]):hover {
@@ -130,5 +150,42 @@
 
 findbar {
   background-color: var(--md-sys-color-surface-container-low) !important;
-  border-block-start-color: var(--md-sys-color-outline-variant) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  border-block-start: 1px solid var(--md-sys-color-outline-variant) !important;
+  padding-inline: 8px !important;
+}
+
+findbar .findbar-textbox {
+  border-radius: var(--md-sys-shape-corner-full) !important;
+  background-color: var(--md-sys-color-surface-container-high) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  border-color: transparent !important;
+}
+
+findbar .findbar-find-previous {
+  border-start-start-radius: var(--md-sys-shape-corner-full) !important;
+  border-end-start-radius: var(--md-sys-shape-corner-full) !important;
+  border-start-end-radius: var(--md-sys-shape-corner-extra-small) !important;
+  border-end-end-radius: var(--md-sys-shape-corner-extra-small) !important;
+}
+
+findbar .findbar-find-next {
+  margin-inline-start: 2px !important;
+  border-start-start-radius: var(--md-sys-shape-corner-extra-small) !important;
+  border-end-start-radius: var(--md-sys-shape-corner-extra-small) !important;
+  border-start-end-radius: var(--md-sys-shape-corner-full) !important;
+  border-end-end-radius: var(--md-sys-shape-corner-full) !important;
+}
+
+findbar .findbar-closebutton {
+  border-radius: var(--md-sys-shape-corner-full) !important;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .message-header-view-button:not([type="menu-button"]),
+  #starMessageButton {
+    transition:
+      border-radius var(--md-sys-motion-spring-fast-spatial-duration) var(--md-sys-motion-spring-fast-spatial),
+      background-color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects) !important;
+  }
 }

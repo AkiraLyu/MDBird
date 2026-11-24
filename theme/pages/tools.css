@@ -4,14 +4,23 @@
     background: var(--mdbird-pane) !important;
   }
 
+  .account-central-header {
+    background-color: var(--md-sys-color-surface-container-low) !important;
+    border-block-end: 1px solid var(--md-sys-color-outline-variant) !important;
+  }
+
   .account-central-section {
-    border-radius: var(--mdbird-pane-radius) !important;
+    border-radius: var(--md-sys-shape-corner-large-increased) !important;
     background-color: var(--md-sys-color-surface-container-low) !important;
   }
 
   .section-title {
     color: var(--md-sys-color-on-surface) !important;
     font-weight: 600 !important;
+  }
+
+  .btn-hub {
+    border-radius: var(--md-sys-shape-corner-medium) !important;
   }
 }
 
@@ -28,16 +37,42 @@
     grid-template-columns: minmax(min-content, 16em) minmax(0, 1fr) !important;
   }
 
+  .facets-sidebar {
+    background-color: var(--mdbird-canvas) !important;
+    color: var(--md-sys-color-on-surface) !important;
+  }
+
+  .barry {
+    border-block-start-color: var(--md-sys-color-outline-variant) !important;
+  }
+
+  .bar {
+    border-block-end-color: var(--md-sys-color-outline-variant) !important;
+    border-radius: var(--md-sys-shape-corner-small) !important;
+  }
+
+  .bar[selected],
+  .bar:is(:hover, :focus) {
+    background-color: var(--mdbird-selected-container) !important;
+    color: var(--mdbird-on-selected-container) !important;
+  }
+
   #main-column {
     background-color: var(--mdbird-pane) !important;
     border-radius: var(--mdbird-pane-radius) !important;
+    box-shadow: var(--md-sys-elevation-1) !important;
     box-sizing: border-box !important;
     margin: var(--mdbird-pane-gap) !important;
+    padding-inline: 16px !important;
+  }
+
+  .results-message-header {
+    border-block-end-color: var(--md-sys-color-outline-variant) !important;
   }
 
   #results .message {
     padding: 10px 14px !important;
-    margin-block-end: 4px !important;
+    margin-block-end: 6px !important;
     border: 1px solid var(--md-sys-color-outline-variant) !important;
     border-radius: var(--mdbird-row-radius) !important;
     font: inherit !important;
@@ -51,6 +86,12 @@
   #results .message:focus-visible {
     outline: var(--focus-outline) !important;
     outline-offset: -2px !important;
+  }
+
+  @media (forced-colors: active) {
+    #main-column {
+      border: 1px solid CanvasText !important;
+    }
   }
 }
 
@@ -67,21 +108,57 @@
   #messageList > li {
     border-radius: var(--mdbird-row-radius) !important;
     background-color: var(--md-sys-color-surface-container-low) !important;
+    border: 1px solid transparent !important;
+  }
+
+  #messageList > li:hover {
+    background-color: var(--md-sys-color-surface-container-high) !important;
+  }
+
+  #messageList .tag {
+    border-radius: var(--md-sys-shape-corner-full) !important;
+    padding-inline: 8px !important;
   }
 }
 
-/* Add-ons, import, downloads and activity */
+/* Add-ons, import, downloads, filters, search and management windows */
 @-moz-document url-prefix("about:addons"), url("chrome://mozapps/content/extensions/aboutaddons.html") {
+  .sticky-container {
+    background-color: var(--mdbird-canvas) !important;
+  }
+
   .addon.card {
     border-radius: var(--mdbird-pane-radius) !important;
+    box-shadow: var(--md-sys-elevation-1) !important;
+  }
+
+  @media (forced-colors: active) {
+    .addon.card {
+      border: 1px solid CanvasText !important;
+    }
   }
 }
 
 @-moz-document url-prefix("about:import"), url("chrome://messenger/content/aboutImport.xhtml") {
+  body {
+    background-color: var(--mdbird-canvas) !important;
+  }
+
   .tabPane {
     border-radius: var(--mdbird-pane-radius) !important;
     background-color: var(--mdbird-pane) !important;
+    box-shadow: var(--md-sys-elevation-1) !important;
     padding: clamp(16px, 3vw, 28px) !important;
+  }
+
+  /* Restore dashed connector lines because --button-border-color is transparent. */
+  #stepNav li:not(:first-child, .completed, .current)::before {
+    border-block-start-color: var(--md-sys-color-outline-variant) !important;
+  }
+
+  .item-description {
+    border-color: var(--md-sys-color-outline-variant) !important;
+    border-radius: var(--md-sys-shape-corner-medium) !important;
   }
 }
 
@@ -89,32 +166,99 @@
   url("chrome://messenger/content/downloads/aboutDownloads.xhtml"),
   url("chrome://messenger/content/activity.xhtml"),
   url("chrome://messenger/content/FilterListDialog.xhtml"),
-  url("chrome://messenger/content/SearchDialog.xhtml") {
+  url("chrome://messenger/content/FilterEditor.xhtml"),
+  url("chrome://messenger/content/searchDialog.xhtml"),
+  url("chrome://messenger/content/SearchDialog.xhtml"),
+  url("chrome://messenger/content/addressbook/abSearchDialog.xhtml"),
+  url("chrome://messenger/content/chat/imAccounts.xhtml") {
+  #downloadTopBox {
+    background-color: var(--mdbird-canvas) !important;
+    border-block-end-color: transparent !important;
+  }
+
   #msgDownloadsRichListBox,
   #activityView,
   #filterList,
-  #searchResultListBox {
+  #searchResultListBox,
+  #accountlist,
+  #searchTermListBox,
+  #filterActionList {
     background-color: var(--mdbird-pane) !important;
     border: 1px solid var(--md-sys-color-outline-variant) !important;
     border-radius: var(--mdbird-pane-radius) !important;
+    overflow: hidden !important;
+  }
+
+  #msgDownloadsRichListBox > richlistitem,
+  #filterList > richlistitem,
+  #accountlist > richlistitem {
+    border-radius: var(--mdbird-row-radius) !important;
+    margin: 2px 6px !important;
+  }
+
+  #msgDownloadsRichListBox > richlistitem:not([selected="true"]):hover,
+  #filterList > richlistitem:not([selected="true"]):hover,
+  #accountlist > richlistitem:not([selected="true"]):hover {
+    background-color: var(--md-sys-color-surface-container-high) !important;
   }
 
   #msgDownloadsRichListBox > richlistitem[selected="true"],
-  #filterList > richlistitem[selected="true"] {
+  #filterList > richlistitem[selected="true"],
+  #accountlist > richlistitem[selected="true"] {
     background-color: var(--mdbird-selected-container) !important;
     color: var(--mdbird-on-selected-container) !important;
   }
 }
 
-/* Troubleshooting, profiles and advanced preferences */
-@-moz-document url-prefix("about:support"), url-prefix("about:profiles"),
-  url-prefix("about:policies"), url-prefix("about:config") {
-  table {
-    background-color: var(--mdbird-pane) !important;
+/* Folder properties, subscriptions, OpenPGP Key Manager, Certificates, About */
+@-moz-document url("chrome://messenger/content/folderProps.xhtml"),
+  url("chrome://messenger/content/subscribe.xhtml"),
+  url("chrome://openpgp/content/ui/enigmailKeyManager.xhtml"),
+  url("chrome://pippki/content/certManager.xhtml"),
+  url("chrome://messenger/content/aboutDialog.xhtml") {
+  .enigmailGroupbox,
+  groupbox {
+    border-radius: var(--md-sys-shape-corner-large) !important;
     border-color: var(--md-sys-color-outline-variant) !important;
   }
 
-  thead {
+  tree {
+    background-color: var(--mdbird-pane) !important;
+    border: 1px solid var(--md-sys-color-outline-variant) !important;
+    border-radius: var(--md-sys-shape-corner-large) !important;
+    overflow: hidden !important;
+  }
+
+  treecol {
+    background-color: var(--md-sys-color-surface-container) !important;
+    color: var(--md-sys-color-on-surface-variant) !important;
+    border-color: var(--md-sys-color-outline-variant) !important;
+  }
+}
+
+/* Chat conversation content frame */
+@-moz-document url("chrome://chat/content/chat/conv.html") {
+  :root,
+  body {
+    background-color: var(--mdbird-pane) !important;
+    color: var(--md-sys-color-on-surface) !important;
+    font-family: var(--mdbird-font) !important;
+  }
+}
+
+/* Troubleshooting, profiles, policies, logging, certificates, and advanced preferences */
+@-moz-document url-prefix("about:support"), url-prefix("about:profiles"),
+  url-prefix("about:policies"), url-prefix("about:config"),
+  url-prefix("about:logging"), url-prefix("about:certificate"),
+  url-prefix("about:processes"), url-prefix("about:memory") {
+  table {
+    background-color: var(--mdbird-pane) !important;
+    border-color: var(--md-sys-color-outline-variant) !important;
+    border-radius: var(--md-sys-shape-corner-large) !important;
+  }
+
+  thead,
+  th {
     background-color: var(--md-sys-color-surface-container) !important;
     color: var(--md-sys-color-on-surface) !important;
   }
@@ -125,7 +269,28 @@
     background-color: var(--mdbird-canvas) !important;
   }
 
+  #about-config-search {
+    border-radius: var(--md-sys-shape-corner-full) !important;
+  }
+
   #prefs > tr:hover {
     background-color: var(--md-sys-color-surface-container-high) !important;
+  }
+}
+
+/* Built-in error pages */
+@-moz-document url-prefix("about:neterror"), url-prefix("about:certerror"),
+  url-prefix("about:newserror") {
+  body {
+    background-color: var(--mdbird-canvas) !important;
+    color: var(--md-sys-color-on-surface) !important;
+  }
+
+  .container,
+  #errorPageContainer {
+    background-color: var(--mdbird-pane) !important;
+    border-radius: var(--mdbird-pane-radius) !important;
+    box-shadow: var(--md-sys-elevation-1) !important;
+    padding: clamp(20px, 4vw, 36px) !important;
   }
 }

@@ -44,29 +44,39 @@
 .spaces-toolbar-button.current {
   background-color: var(--mdbird-selected-container) !important;
   color: var(--mdbird-on-selected-container) !important;
-  border-radius: var(--md-sys-shape-corner-full) !important;
+  border-radius: var(--mdbird-shape-pill) !important;
 }
 
 .spaces-toolbar-button:not(.current, :disabled):hover {
   background-color: var(--mdbird-state-hover) !important;
 }
 
+.spaces-toolbar-button:not(:disabled):active {
+  border-radius: var(--md-sys-shape-corner-medium) !important;
+}
+
 #folderPane {
   --folderpane-unread-count-background: var(--md-sys-color-primary) !important;
   --folderpane-unread-count-text: var(--md-sys-color-on-primary) !important;
   --folderpane-unread-new-count-background: var(--md-sys-color-primary) !important;
-  --folderpane-total-count-background: var(--md-sys-color-secondary-container) !important;
-  --folderpane-total-count-text: var(--md-sys-color-on-secondary-container) !important;
+  --folderpane-total-count-background: var(--md-sys-color-surface-container-high) !important;
+  --folderpane-total-count-text: var(--md-sys-color-on-surface-variant) !important;
 }
 
+#folderPaneGetMessages,
+#folderPaneMoreButton {
+  border-radius: var(--md-sys-shape-corner-full) !important;
+}
+
+/* Material 3 Expressive Extended FAB (primary container, distinct from nav selection) */
 #folderPaneWriteMessage {
-  --button-primary-background-color: var(--mdbird-selected-container) !important;
-  --button-primary-text-color: var(--mdbird-on-selected-container) !important;
+  --button-primary-background-color: var(--md-sys-color-primary-container) !important;
+  --button-primary-text-color: var(--md-sys-color-on-primary-container) !important;
   --button-primary-hover-background-color: color-mix(
-    in srgb, var(--mdbird-selected-container) 92%, var(--mdbird-on-selected-container)
+    in srgb, var(--md-sys-color-primary-container) 92%, var(--md-sys-color-on-primary-container)
   ) !important;
   --button-primary-active-background-color: color-mix(
-    in srgb, var(--mdbird-selected-container) 86%, var(--mdbird-on-selected-container)
+    in srgb, var(--md-sys-color-primary-container) 88%, var(--md-sys-color-on-primary-container)
   ) !important;
   flex: 1 1 auto !important;
   min-inline-size: 0 !important;
@@ -77,11 +87,20 @@
 }
 
 #folderPaneWriteMessage:enabled:is(:hover, :focus-visible) {
-  border-radius: var(--md-sys-shape-corner-full) !important;
+  border-radius: var(--mdbird-shape-pill) !important;
+  box-shadow: var(--md-sys-elevation-2) !important;
+}
+
+#folderPaneWriteMessage:enabled:active {
+  border-radius: var(--md-sys-shape-corner-medium) !important;
+  box-shadow: var(--md-sys-elevation-1) !important;
 }
 
 #folderTree {
   --listbox-border-radius: var(--mdbird-nav-radius) !important;
+  --treeitem-background-hover: var(--md-sys-color-surface-container-high) !important;
+  --treeitem-background-selected: var(--mdbird-selected-container) !important;
+  --treeitem-background-active: var(--mdbird-selected-container) !important;
   --treeitem-text-active: var(--mdbird-on-selected-container) !important;
 }
 
@@ -98,8 +117,10 @@
 @media (prefers-reduced-motion: no-preference) {
   #folderPaneWriteMessage,
   .spaces-toolbar-button {
-    transition: border-radius var(--mdbird-motion-fast) var(--mdbird-motion-easing),
-      background-color var(--mdbird-motion-fast) var(--mdbird-motion-easing) !important;
+    transition:
+      border-radius var(--md-sys-motion-spring-fast-spatial-duration) var(--md-sys-motion-spring-fast-spatial),
+      background-color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects),
+      box-shadow var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects) !important;
   }
 }
 

@@ -5,7 +5,7 @@
 @import url("pages/address-book.css");
 @import url("pages/tools.css");
 
-@-moz-document regexp("^(chrome://(messenger|calendar|chat|global|mozapps|openpgp|pippki)/content/.*|about:(3pane|message|addressbook|preferences|accountsettings|import|addons|downloads|config|support|profiles|policies|certificate|logging)([?#].*)?)$") {
+@-moz-document regexp("^(chrome://(messenger|calendar|chat|global|mozapps|openpgp|pippki)/content/.*|about:(3pane|message|addressbook|preferences|accountsettings|import|addons|downloads|config|support|profiles|policies|certificate|logging|newserror|neterror|certerror|processes|memory|about)([?#].*)?)$") {
   :root {
     color-scheme: light dark !important;
     background-color: var(--mdbird-canvas) !important;
@@ -31,6 +31,8 @@
     --selected-item-color: var(--md-sys-color-primary) !important;
     --selected-item-text-color: var(--md-sys-color-on-primary) !important;
     --item-focus-selected-border-color: var(--focus-outline-color) !important;
+    --primary: var(--md-sys-color-primary) !important;
+    --new-folder-color: var(--md-sys-color-primary) !important;
 
     --sidebar-background-color: var(--mdbird-canvas) !important;
     --sidebar-text-color: var(--md-sys-color-on-surface) !important;
@@ -39,28 +41,71 @@
     --toolbar-text-color: var(--md-sys-color-on-surface) !important;
     --chrome-content-separator-color: transparent !important;
 
+    /* Thunderbird Bolt semantic palette (inherited by Account Hub, notifications, and widgets) */
+    --color-primary-soft: var(--md-sys-color-primary-container) !important;
+    --color-primary-default: var(--md-sys-color-primary) !important;
+    --color-primary-hover: var(--button-primary-hover-background-color) !important;
+    --color-primary-pressed: var(--button-primary-active-background-color) !important;
+    --color-secondary-soft: var(--md-sys-color-secondary-container) !important;
+    --color-secondary-default: var(--md-sys-color-secondary) !important;
+    --color-secondary-hover: color-mix(
+      in srgb, var(--md-sys-color-secondary) 92%, var(--md-sys-color-on-secondary)
+    ) !important;
+    --color-secondary-pressed: color-mix(
+      in srgb, var(--md-sys-color-secondary) 86%, var(--md-sys-color-on-secondary)
+    ) !important;
+    --color-success-soft: var(--md-sys-color-success-container) !important;
+    --color-success-default: var(--md-sys-color-on-success-container) !important;
+    --color-warning-soft: var(--md-sys-color-warning-container) !important;
+    --color-warning-default: var(--md-sys-color-on-warning-container) !important;
+    --color-critical-soft: var(--md-sys-color-error-container) !important;
+    --color-critical-default: var(--md-sys-color-error) !important;
+    --color-critical-hover: color-mix(
+      in srgb, var(--md-sys-color-error) 92%, var(--md-sys-color-on-error)
+    ) !important;
+    --color-critical-pressed: color-mix(
+      in srgb, var(--md-sys-color-error) 86%, var(--md-sys-color-on-error)
+    ) !important;
+    --color-surface-base: var(--mdbird-pane) !important;
+    --color-surface-raised: var(--md-sys-color-surface-container-high) !important;
+    --color-surface-lower: var(--mdbird-canvas) !important;
+    --color-surface-subtle: var(--md-sys-color-surface-container) !important;
+    --color-surface-deep: var(--md-sys-color-surface-container-highest) !important;
+    --color-surface-border: var(--md-sys-color-outline-variant) !important;
+    --color-surface-border-intense: var(--md-sys-color-outline) !important;
+    --color-text-base: var(--md-sys-color-on-surface) !important;
+    --color-text-base-inverted: var(--md-sys-color-inverse-on-surface) !important;
+    --color-text-secondary: var(--md-sys-color-on-surface-variant) !important;
+    --color-text-muted: var(--md-sys-color-on-surface-variant) !important;
+    --color-text-brand: var(--md-sys-color-primary) !important;
+    --color-text-highlight: var(--md-sys-color-primary) !important;
+    --color-text-critical: var(--md-sys-color-error) !important;
+    --color-text-warning: var(--md-sys-color-on-warning-container) !important;
+    --color-text-success: var(--md-sys-color-on-success-container) !important;
+
     /* Gecko design tokens used by internal pages and shadow controls */
     --color-accent-primary: var(--md-sys-color-primary) !important;
     --color-accent-primary-hover: var(--button-primary-hover-background-color) !important;
     --color-accent-primary-active: var(--button-primary-active-background-color) !important;
     --color-accent-primary-selected: var(--mdbird-selected-container) !important;
-    --color-surface-base: var(--mdbird-pane) !important;
-    --color-surface-lower: var(--mdbird-canvas) !important;
-    --color-surface-subtle: var(--md-sys-color-surface-container) !important;
-    --color-surface-border: var(--md-sys-color-outline-variant) !important;
-    --color-surface-border-intense: var(--md-sys-color-outline) !important;
-    --color-text-base: var(--md-sys-color-on-surface) !important;
+    --text-color-accent-primary-selected: var(--mdbird-on-selected-container) !important;
     --text-color: var(--md-sys-color-on-surface) !important;
     --text-color-deemphasized: var(--md-sys-color-on-surface-variant) !important;
     --background-color-canvas: var(--mdbird-canvas) !important;
     --background-color-box: var(--mdbird-pane) !important;
     --background-color-box-info: var(--md-sys-color-surface-container) !important;
+    --background-color-list-item-hover: var(--md-sys-color-surface-container-high) !important;
+    --border-color: var(--md-sys-color-outline-variant) !important;
+    --border-color-interactive: var(--md-sys-color-outline) !important;
     --border-radius-small: var(--md-sys-shape-corner-small) !important;
     --border-radius-medium: var(--md-sys-shape-corner-medium) !important;
     --border-radius-large: var(--md-sys-shape-corner-large) !important;
     --card-border-radius: var(--mdbird-pane-radius) !important;
     --card-background-color: var(--mdbird-pane) !important;
     --card-box-shadow: var(--md-sys-elevation-1) !important;
+    --table-header-background-color: var(--md-sys-color-surface-container) !important;
+    --table-header-text-color: var(--md-sys-color-on-surface) !important;
+    --table-row-background-color-alternate: var(--md-sys-color-surface-container-low) !important;
     --font-family: var(--mdbird-font) !important;
     --link-color: var(--md-sys-color-primary) !important;
     --link-color-hover: var(--link-color) !important;
@@ -68,13 +113,13 @@
     --link-color-visited: var(--link-color) !important;
 
     /* Buttons and form fields */
-    --button-border-radius: var(--md-sys-shape-corner-full) !important;
+    --button-border-radius: var(--mdbird-shape-pill) !important;
     --button-border-color: transparent !important;
     --button-text-color: var(--md-sys-color-on-surface) !important;
     --button-background-color: var(--md-sys-color-surface-container-high) !important;
     --button-hover-background-color: var(--md-sys-color-surface-container-highest) !important;
     --button-active-background-color: color-mix(
-      in srgb, var(--button-background-color) 84%, var(--button-text-color)
+      in srgb, var(--button-background-color) 88%, var(--button-text-color)
     ) !important;
     --button-background-color-hover: var(--button-hover-background-color) !important;
     --button-background-color-active: var(--button-active-background-color) !important;
@@ -85,26 +130,54 @@
       in srgb, var(--button-primary-background-color) 92%, var(--button-primary-text-color)
     ) !important;
     --button-primary-active-background-color: color-mix(
-      in srgb, var(--button-primary-background-color) 86%, var(--button-primary-text-color)
+      in srgb, var(--button-primary-background-color) 88%, var(--button-primary-text-color)
     ) !important;
     --button-background-color-primary: var(--button-primary-background-color) !important;
+    --button-background-color-primary-hover: var(--button-primary-hover-background-color) !important;
+    --button-background-color-primary-active: var(--button-primary-active-background-color) !important;
+    --button-border-color-primary: var(--button-primary-border-color) !important;
     --button-text-color-primary: var(--button-primary-text-color) !important;
     --button-destructive-background-color: var(--md-sys-color-error) !important;
+    --button-destructive-hover-background-color: color-mix(
+      in srgb, var(--button-destructive-background-color) 92%, var(--button-destructive-text-color)
+    ) !important;
+    --button-destructive-active-background-color: color-mix(
+      in srgb, var(--button-destructive-background-color) 88%, var(--button-destructive-text-color)
+    ) !important;
     --button-destructive-text-color: var(--md-sys-color-on-error) !important;
+    --button-destructive-border-color: transparent !important;
     --button-background-color-destructive: var(--button-destructive-background-color) !important;
+    --button-background-color-destructive-hover: var(--button-destructive-hover-background-color) !important;
+    --button-background-color-destructive-active: var(--button-destructive-active-background-color) !important;
     --button-text-color-destructive: var(--button-destructive-text-color) !important;
     --button-link-text-color: var(--link-color) !important;
+
+    /* Switches (moz-toggle) */
+    --toggle-background-color: var(--md-sys-color-surface-container-highest) !important;
+    --toggle-background-color-hover: color-mix(
+      in srgb, var(--md-sys-color-surface-container-highest) 92%, var(--md-sys-color-on-surface)
+    ) !important;
+    --toggle-background-color-active: color-mix(
+      in srgb, var(--md-sys-color-surface-container-highest) 88%, var(--md-sys-color-on-surface)
+    ) !important;
+    --toggle-background-color-pressed: var(--md-sys-color-primary) !important;
+    --toggle-background-color-pressed-hover: var(--button-primary-hover-background-color) !important;
+    --toggle-background-color-pressed-active: var(--button-primary-active-background-color) !important;
+    --toggle-border-color: var(--md-sys-color-outline) !important;
+    --toggle-border-radius: var(--md-sys-shape-corner-full) !important;
+    --toggle-dot-background-color: var(--md-sys-color-outline) !important;
+    --toggle-dot-background-color-on-pressed: var(--md-sys-color-on-primary) !important;
 
     --focus-outline-color: var(--md-sys-color-primary) !important;
     --focus-outline: 2px solid var(--focus-outline-color) !important;
     --in-content-focus-outline-color: var(--focus-outline-color) !important;
     --in-content-accent-color: var(--md-sys-color-primary) !important;
     --in-content-deemphasized-text: var(--md-sys-color-on-surface-variant) !important;
-    --input-bgcolor: var(--md-sys-color-surface-container-high) !important;
-    --input-background-color: var(--input-bgcolor) !important;
+    --input-background-color: var(--md-sys-color-surface-container-high) !important;
     --input-color: var(--md-sys-color-on-surface) !important;
     --input-text-color: var(--input-color) !important;
     --input-border-color: var(--md-sys-color-outline) !important;
+    --input-text-border-radius: var(--md-sys-shape-corner-medium) !important;
     --input-search-border-radius: var(--md-sys-shape-corner-full) !important;
 
     --search-bar-color: var(--md-sys-color-on-surface) !important;
@@ -130,11 +203,19 @@
     --listbox-selected-bg: var(--mdbird-selected-container) !important;
     --listbox-focused-selected-bg: var(--listbox-selected-bg) !important;
     --listbox-selected-color: var(--mdbird-on-selected-container) !important;
+    --list-container-border: transparent !important;
+    --list-container-border-hover: transparent !important;
+    --list-container-border-selected: transparent !important;
+    --list-container-border-selected-current: transparent !important;
+    --list-container-border-selected-focused: transparent !important;
+    --list-container-border-selected-current-focused: transparent !important;
     --list-container-background-hover: var(--listbox-hover) !important;
     --list-container-background-selected: var(--listbox-selected-bg) !important;
     --list-container-background-selected-current: var(--listbox-selected-bg) !important;
     --list-container-background-selected-focused: var(--listbox-selected-bg) !important;
     --list-container-background-selected-current-focused: var(--listbox-selected-bg) !important;
+    --row-grouped-header-bg-color: var(--md-sys-color-surface-container-low) !important;
+    --row-grouped-header-bg-color-selected: var(--mdbird-selected-container) !important;
     --tree-view-bg: var(--mdbird-pane) !important;
     --tree-view-color: var(--md-sys-color-on-surface) !important;
     --tree-pane-background: var(--mdbird-pane) !important;
@@ -159,7 +240,13 @@
     outline-offset: 2px !important;
   }
 
-  /* Keep the native checkboxes, switches, color pickers and number steppers. */
+  /* Material 3 Expressive button press shape morph (pill to rounded square) */
+  .button:not(.icon-only, .button-flat):enabled:active,
+  button:is(.primary, .button-primary, .button-destructive, .dialog-button):enabled:active {
+    border-radius: var(--md-sys-shape-corner-small) !important;
+  }
+
+  /* Keep the native checkboxes, color pickers and number steppers; refine toggle-checkbox switches. */
   input:where(:not([type]), [type="text"], [type="email"], [type="url"], [type="tel"], [type="password"]),
   textarea,
   select {
@@ -168,6 +255,70 @@
 
   input[type="search"] {
     border-radius: var(--md-sys-shape-corner-full) !important;
+  }
+
+  .toggle-checkbox {
+    background-color: var(--md-sys-color-surface-container-highest) !important;
+    border-color: var(--md-sys-color-outline) !important;
+    border-radius: var(--md-sys-shape-corner-full) !important;
+
+    &::before {
+      background-color: var(--md-sys-color-outline) !important;
+      border-color: transparent !important;
+      border-radius: var(--md-sys-shape-corner-full) !important;
+      box-shadow: none !important;
+    }
+
+    &:checked {
+      background-color: var(--md-sys-color-primary) !important;
+      border-color: var(--md-sys-color-primary) !important;
+
+      &::before {
+        background-color: var(--md-sys-color-on-primary) !important;
+        border-color: transparent !important;
+      }
+
+      &:is(:hover, :active) {
+        background-color: var(--button-primary-hover-background-color) !important;
+        border-color: var(--button-primary-hover-background-color) !important;
+      }
+    }
+  }
+
+  /* Material 3 linear progress indicator */
+  progress {
+    border: 0 !important;
+    border-radius: var(--md-sys-shape-corner-full) !important;
+    background-color: var(--md-sys-color-secondary-container) !important;
+    overflow: hidden !important;
+
+    &::-moz-progress-bar {
+      background-color: var(--md-sys-color-primary) !important;
+      border-radius: var(--md-sys-shape-corner-full) !important;
+    }
+  }
+
+  /* Material 3 Expressive primary tabs in dialogs and settings (exclude main tab bar) */
+  tabs:not(#tabmail-tabs) {
+    border-block-end: 1px solid var(--md-sys-color-outline-variant) !important;
+  }
+
+  tab:not(.tabmail-tab) {
+    border-radius: var(--md-sys-shape-corner-small) var(--md-sys-shape-corner-small) 0 0 !important;
+    border-block-end: 3px solid transparent !important;
+    color: var(--md-sys-color-on-surface-variant) !important;
+    font-weight: 500 !important;
+
+    &:hover:not([selected]) {
+      background-color: var(--mdbird-state-hover) !important;
+      color: var(--md-sys-color-on-surface) !important;
+    }
+
+    &[selected] {
+      color: var(--md-sys-color-primary) !important;
+      border-block-end-color: var(--md-sys-color-primary) !important;
+      font-weight: 600 !important;
+    }
   }
 
   a:any-link:not(.button, [role="button"]) {
@@ -189,6 +340,7 @@
   .sidebar-panel-scroll li.selected > .container {
     background-color: var(--mdbird-selected-container) !important;
     color: var(--mdbird-on-selected-container) !important;
+    font-weight: 600 !important;
   }
 
   .sidebar-panel-scroll:focus-visible li.current > .container {
@@ -209,13 +361,15 @@
     --panel-list-background-color: var(--md-sys-color-surface-container) !important;
     --panel-list-text-color: var(--md-sys-color-on-surface) !important;
     --panel-list-border-color: var(--md-sys-color-outline-variant) !important;
+    --panel-list-border-radius: var(--md-sys-shape-corner-large) !important;
+    --panel-list-padding-block: 6px !important;
     --panel-list-box-shadow: var(--md-sys-elevation-3) !important;
     font-family: var(--mdbird-font) !important;
   }
 
   panel-item {
-    --panel-item-button-border-radius: var(--md-sys-shape-corner-small) !important;
-    --panel-item-button-margin: 1px 4px !important;
+    --panel-item-button-border-radius: var(--md-sys-shape-corner-medium) !important;
+    --panel-item-button-margin: 1px 6px !important;
     --button-background-color-menu-hover: var(--mdbird-state-hover) !important;
     --button-background-color-menu-active: var(--mdbird-state-pressed) !important;
   }
@@ -223,11 +377,28 @@
   /* Native dialog windows, in-tab subdialogs and HTML modal dialogs */
   dialog,
   .dialogBox {
-    --background-color-box: var(--md-sys-color-surface-container) !important;
-    background-color: var(--md-sys-color-surface-container) !important;
+    --background-color-box: var(--md-sys-color-surface-container-high) !important;
+    --dialog-background-color: var(--md-sys-color-surface-container-high) !important;
+    --dialog-text-color: var(--md-sys-color-on-surface) !important;
+    --dialog-box-background-color: var(--mdbird-pane) !important;
+    --dialog-box-text-color: var(--md-sys-color-on-surface) !important;
+    --dialog-box-border-color: var(--md-sys-color-outline-variant) !important;
+    --dialog-box-border-hover-color: var(--md-sys-color-outline) !important;
+    --dialog-button-background-color: var(--md-sys-color-surface-container-highest) !important;
+    --dialog-button-background-color-hover: color-mix(
+      in srgb, var(--md-sys-color-surface-container-highest) 92%, var(--md-sys-color-on-surface)
+    ) !important;
+    --dialog-button-background-color-active: color-mix(
+      in srgb, var(--md-sys-color-surface-container-highest) 88%, var(--md-sys-color-on-surface)
+    ) !important;
+    --dialog-highlight-color: var(--md-sys-color-primary) !important;
+    --dialog-highlight-text-color: var(--md-sys-color-on-primary) !important;
+    --dialog-primary-background-hover: var(--button-primary-hover-background-color) !important;
+    --dialog-primary-background-active: var(--button-primary-active-background-color) !important;
+    background-color: var(--md-sys-color-surface-container-high) !important;
     color: var(--md-sys-color-on-surface) !important;
     border-color: var(--md-sys-color-outline-variant) !important;
-    border-radius: var(--mdbird-pane-radius) !important;
+    border-radius: var(--md-sys-shape-corner-extra-large) !important;
   }
 
   dialog:modal,
@@ -237,12 +408,12 @@
 
   dialog:modal::backdrop,
   .dialogOverlay[topmost="true"] {
-    background-color: rgb(0 0 0 / 40%) !important;
+    background-color: color-mix(in srgb, var(--md-sys-color-scrim) 36%, transparent) !important;
   }
 
   .dialogTitleBar {
-    padding-block: 8px !important;
-    padding-inline: 12px !important;
+    padding-block: 10px 6px !important;
+    padding-inline: 16px !important;
   }
 
   .dialogTitle {
@@ -250,8 +421,9 @@
     font-weight: 600 !important;
   }
 
-  moz-message-bar {
-    --message-bar-border-radius: var(--md-sys-shape-corner-medium) !important;
+  moz-message-bar,
+  notification-message {
+    --message-bar-border-radius: var(--md-sys-shape-corner-large) !important;
     --message-bar-background-color: var(--md-sys-color-secondary-container) !important;
     --message-bar-text-color: var(--md-sys-color-on-secondary-container) !important;
     --message-bar-background-color-critical: var(--md-sys-color-error-container) !important;
@@ -262,15 +434,58 @@
     --message-bar-text-color-success: var(--md-sys-color-on-success-container) !important;
   }
 
+  notification-message[type="warning"] {
+    --message-bar-background-color: var(--md-sys-color-warning-container) !important;
+    --message-bar-text-color: var(--md-sys-color-on-warning-container) !important;
+  }
+
+  notification-message[type="success"] {
+    --message-bar-background-color: var(--md-sys-color-success-container) !important;
+    --message-bar-text-color: var(--md-sys-color-on-success-container) !important;
+  }
+
+  notification-message:is([type="error"], [type="critical"]) {
+    --message-bar-background-color: var(--md-sys-color-error-container) !important;
+    --message-bar-text-color: var(--md-sys-color-on-error-container) !important;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .button:not(.icon-only, .button-flat),
+    button:is(.primary, .button-primary, .button-destructive, .dialog-button) {
+      transition:
+        border-radius var(--md-sys-motion-spring-fast-spatial-duration) var(--md-sys-motion-spring-fast-spatial),
+        background-color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects),
+        color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects),
+        box-shadow var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects) !important;
+    }
+
+    .toggle-checkbox::before {
+      transition:
+        translate var(--md-sys-motion-spring-fast-spatial-duration) var(--md-sys-motion-spring-fast-spatial),
+        background-color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects) !important;
+    }
+  }
+
   @media (forced-colors: active) {
     :root {
       --focus-outline-color: Highlight !important;
       --selected-item-color: SelectedItem !important;
       --selected-item-text-color: SelectedItemText !important;
+      --text-color-accent-primary-selected: SelectedItemText !important;
       --button-border-color: ButtonText !important;
       --button-primary-border-color: ButtonText !important;
       --search-bar-border-color: ButtonText !important;
+      --list-container-border-hover: SelectedItem !important;
+      --list-container-border-selected: CanvasText !important;
+      --list-container-border-selected-current: CanvasText !important;
+      --list-container-border-selected-focused: SelectedItem !important;
+      --list-container-border-selected-current-focused: SelectedItem !important;
       scrollbar-color: auto !important;
+    }
+
+    dialog,
+    .dialogBox {
+      border: 1px solid CanvasText !important;
     }
   }
 }

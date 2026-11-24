@@ -5,16 +5,49 @@
     padding: var(--mdbird-pane-gap) !important;
   }
 
+  #booksPaneCreateBook,
+  #booksPaneCreateList {
+    border-radius: var(--md-sys-shape-corner-full) !important;
+  }
+
+  /* Material 3 Expressive Extended FAB matching Mail, Calendar, and Tasks */
+  #booksPaneCreateContact {
+    --button-primary-background-color: var(--md-sys-color-primary-container) !important;
+    --button-primary-text-color: var(--md-sys-color-on-primary-container) !important;
+    --button-primary-hover-background-color: color-mix(
+      in srgb, var(--md-sys-color-primary-container) 92%, var(--md-sys-color-on-primary-container)
+    ) !important;
+    --button-primary-active-background-color: color-mix(
+      in srgb, var(--md-sys-color-primary-container) 88%, var(--md-sys-color-on-primary-container)
+    ) !important;
+    min-block-size: max(var(--button-min-height), 2.8em) !important;
+    border-radius: var(--md-sys-shape-corner-large) !important;
+    box-shadow: var(--md-sys-elevation-1) !important;
+    font-weight: 650 !important;
+  }
+
+  #booksPaneCreateContact:enabled:is(:hover, :focus-visible) {
+    border-radius: var(--mdbird-shape-pill) !important;
+    box-shadow: var(--md-sys-elevation-2) !important;
+  }
+
+  #booksPaneCreateContact:enabled:active {
+    border-radius: var(--md-sys-shape-corner-medium) !important;
+    box-shadow: var(--md-sys-elevation-1) !important;
+  }
+
   #cardsPane,
   #detailsPane {
     margin: var(--mdbird-pane-gap) !important;
     background-color: var(--mdbird-pane) !important;
     border-radius: var(--mdbird-pane-radius) !important;
     box-shadow: var(--md-sys-elevation-1) !important;
+    overflow: hidden !important;
   }
 
   #cardsPaneHeader {
-    margin: 8px 12px !important;
+    margin: 10px 12px !important;
+    gap: 6px !important;
   }
 
   #booksSplitter,
@@ -30,27 +63,73 @@
     border-radius: var(--mdbird-row-radius) !important;
   }
 
-  .contact-header {
-    border-radius: var(--md-sys-shape-corner-extra-large) !important;
+  #cards .card-layout:not(.selected):hover > td > .card-container {
+    background-color: var(--md-sys-color-surface-container-high) !important;
+  }
+
+  #cards .card-layout.selected > td > .card-container {
+    background-color: var(--mdbird-selected-container) !important;
+    color: var(--mdbird-on-selected-container) !important;
+  }
+
+  #cards:has(:focus-visible) .card-layout.current > td > .card-container {
+    outline: var(--focus-outline) !important;
+    outline-offset: -2px !important;
+  }
+
+  /* Concentric inner radius inside the 24px details card */
+  .contact-header,
+  .list-header,
+  .selection-header {
+    border-radius: var(--md-sys-shape-corner-large-increased) !important;
     background-color: var(--md-sys-color-surface-container-low) !important;
+    padding: 14px 16px !important;
   }
 
   .contact-heading-name {
     font-size: var(--md-sys-typescale-headline-small-size) !important;
+    font-weight: 600 !important;
   }
 
-  .contact-photo[src$="/compact/user.svg"] {
+  .contact-photo[src$="/compact/user.svg"],
+  .list-header .recipient-avatar {
     stroke: var(--md-sys-color-on-primary-container) !important;
     background-color: var(--md-sys-color-primary-container) !important;
+    color: var(--md-sys-color-on-primary-container) !important;
+  }
+
+  #detailsActions .button:not(:active) {
+    border-radius: var(--mdbird-shape-pill) !important;
   }
 
   #detailsBody > section {
     border-radius: var(--md-sys-shape-corner-large) !important;
+    background-color: var(--md-sys-color-surface-container-low) !important;
   }
 
   #detailsFooter {
-    border-radius: 0 0 var(--mdbird-pane-radius) var(--mdbird-pane-radius) !important;
     background-color: var(--md-sys-color-surface-container-low) !important;
+    border-block-start: 1px solid var(--md-sys-color-outline-variant) !important;
+  }
+
+  #detailsPaneBackdrop {
+    background-color: color-mix(in srgb, var(--md-sys-color-scrim) 36%, transparent) !important;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    #booksPaneCreateContact {
+      transition:
+        border-radius var(--md-sys-motion-spring-fast-spatial-duration) var(--md-sys-motion-spring-fast-spatial),
+        background-color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects),
+        box-shadow var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects) !important;
+    }
+  }
+
+  @media (forced-colors: active) {
+    #cardsPane,
+    #detailsPane {
+      border: 1px solid CanvasText !important;
+    }
   }
 }
 

@@ -6,11 +6,61 @@
 }
 
 #calendarDisplayBox,
+#calendar-task-box,
 #today-pane-panel,
 #conversationsBox,
 #contextPane {
   background-color: var(--mdbird-pane) !important;
   border-radius: var(--mdbird-pane-radius) !important;
+  box-shadow: var(--md-sys-elevation-1) !important;
+  overflow: clip !important;
+}
+
+/* Splitters across calendar, tasks, today pane, and chat */
+#calsidebar_splitter,
+#calendar-view-splitter,
+#calendar-task-view-splitter,
+#today-splitter,
+#today-pane-splitter,
+#listSplitter,
+#contextSplitter,
+#logsSplitter {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+:is(#calsidebar_splitter, #today-splitter, #listSplitter, #contextSplitter) {
+  min-inline-size: var(--mdbird-pane-gap) !important;
+}
+
+:is(#calendar-view-splitter, #calendar-task-view-splitter, #today-pane-splitter, #logsSplitter) {
+  min-block-size: var(--mdbird-pane-gap) !important;
+}
+
+/* Extended FAB treatment for New Event and New Task (matches Mail Compose FAB) */
+#sidePanelNewEvent,
+#sidePanelNewTask {
+  --button-primary-background-color: var(--md-sys-color-primary-container) !important;
+  --button-primary-text-color: var(--md-sys-color-on-primary-container) !important;
+  --button-primary-hover-background-color: color-mix(
+    in srgb, var(--md-sys-color-primary-container) 92%, var(--md-sys-color-on-primary-container)
+  ) !important;
+  --button-primary-active-background-color: color-mix(
+    in srgb, var(--md-sys-color-primary-container) 88%, var(--md-sys-color-on-primary-container)
+  ) !important;
+  min-block-size: max(var(--button-min-height), 2.8em) !important;
+  border-radius: var(--md-sys-shape-corner-large) !important;
+  box-shadow: var(--md-sys-elevation-1) !important;
+  font-weight: 650 !important;
+}
+
+:is(#sidePanelNewEvent, #sidePanelNewTask):enabled:is(:hover, :focus-visible) {
+  border-radius: var(--mdbird-shape-pill) !important;
+  box-shadow: var(--md-sys-elevation-2) !important;
+}
+
+:is(#sidePanelNewEvent, #sidePanelNewTask):enabled:active {
+  border-radius: var(--md-sys-shape-corner-medium) !important;
   box-shadow: var(--md-sys-elevation-1) !important;
 }
 
@@ -18,10 +68,13 @@
   --viewBackground: var(--mdbird-pane) !important;
   --viewBorderColor: var(--md-sys-color-outline-variant) !important;
   --viewWeekendBackground: var(--md-sys-color-surface-container-low) !important;
-  --viewTodayBackground: var(--md-sys-color-secondary-container) !important;
+  --viewTodayBackground: color-mix(
+    in srgb, var(--md-sys-color-secondary-container) 48%, var(--mdbird-pane)
+  ) !important;
   --viewTodayLabelBackground: var(--md-sys-color-primary) !important;
   --viewTodayLabelColor: var(--md-sys-color-on-primary) !important;
   --viewDayBoxSelectedBackground: var(--mdbird-selected-container) !important;
+  --viewHighlightBorderColor: var(--md-sys-color-primary) !important;
 }
 
 #view-box,
@@ -40,7 +93,7 @@
 
 #calendarViewHeader {
   flex-wrap: wrap !important;
-  padding: 8px 12px !important;
+  padding: 10px 14px !important;
 }
 
 #intervalDescription {
@@ -48,29 +101,65 @@
   font-weight: 600 !important;
 }
 
+/* Connected navigation controls (Previous / Today / Next) */
+#calendarControls {
+  gap: 2px !important;
+}
+
+#calendarControls > .button {
+  border-radius: var(--md-sys-shape-corner-small) !important;
+}
+
+#previousViewButton {
+  border-start-start-radius: var(--mdbird-shape-pill) !important;
+  border-end-start-radius: var(--mdbird-shape-pill) !important;
+}
+
+#nextViewButton {
+  border-start-end-radius: var(--mdbird-shape-pill) !important;
+  border-end-end-radius: var(--mdbird-shape-pill) !important;
+}
+
+/* Material 3 Expressive connected button group for calendar view switcher */
 #viewToggle {
   --calendar-view-toggle-background: var(--md-sys-color-surface-container) !important;
   --calendar-view-toggle-hover-background: var(--md-sys-color-surface-container-high) !important;
   --calendar-view-toggle-active-background: var(--md-sys-color-surface-container-highest) !important;
   --calendar-view-toggle-selected-background: var(--mdbird-selected-container) !important;
-  --calendar-view-toggle-selected-hover-background: var(--mdbird-selected-container) !important;
+  --calendar-view-toggle-selected-hover-background: color-mix(
+    in srgb, var(--mdbird-selected-container) 92%, var(--mdbird-on-selected-container)
+  ) !important;
+  --calendar-view-toggle-border-color: transparent !important;
   --calendar-view-toggle-shadow-color: transparent !important;
+  border-radius: var(--md-sys-shape-corner-full) !important;
   padding: 3px !important;
   gap: 2px !important;
 }
 
 #viewToggle > .calview-toggle-item {
   margin: 0 !important;
+  border-color: transparent !important;
   border-radius: var(--md-sys-shape-corner-small) !important;
 }
 
-#viewToggle > .calview-toggle-item:is(:first-child, :last-child, [aria-selected="true"]) {
-  border-radius: var(--md-sys-shape-corner-full) !important;
+#viewToggle > .calview-toggle-item:first-child {
+  border-start-start-radius: var(--mdbird-shape-pill) !important;
+  border-end-start-radius: var(--mdbird-shape-pill) !important;
+}
+
+#viewToggle > .calview-toggle-item:last-child {
+  border-start-end-radius: var(--mdbird-shape-pill) !important;
+  border-end-end-radius: var(--mdbird-shape-pill) !important;
 }
 
 #viewToggle > .calview-toggle-item[aria-selected="true"] {
+  border-radius: var(--mdbird-shape-pill) !important;
   color: var(--mdbird-on-selected-container) !important;
   font-weight: 600 !important;
+}
+
+#viewToggle > .calview-toggle-item:enabled:active {
+  border-radius: var(--md-sys-shape-corner-extra-small) !important;
 }
 
 calendar-minimonth {
@@ -81,8 +170,8 @@ calendar-minimonth {
   --mmBoxItemColor: var(--md-sys-color-outline-variant) !important;
   --mmDayBorderRadius: var(--md-sys-shape-corner-full) !important;
   --mmDayColor: var(--md-sys-color-on-surface) !important;
-  --mmDayTodayColor: var(--md-sys-color-on-secondary-container) !important;
-  --mmDayTodayBackground: var(--md-sys-color-secondary-container) !important;
+  --mmDayTodayColor: var(--md-sys-color-on-primary-container) !important;
+  --mmDayTodayBackground: var(--md-sys-color-primary-container) !important;
   --mmDaySelectedColor: var(--mdbird-on-selected-container) !important;
   --mmDaySelectedBackground: var(--mdbird-selected-container) !important;
   --mmDaySelectedBorderColor: var(--md-sys-color-primary) !important;
@@ -94,8 +183,7 @@ calendar-minimonth {
 }
 
 #today-pane-panel > .sidebar-header {
-  padding-inline: 8px !important;
-  border-radius: var(--mdbird-pane-radius) var(--mdbird-pane-radius) 0 0 !important;
+  padding-inline: 10px !important;
   background-color: var(--md-sys-color-surface-container) !important;
 }
 
@@ -104,7 +192,7 @@ calendar-minimonth {
 }
 
 #agenda .agenda-listitem-details {
-  border-radius: var(--md-sys-shape-corner-small) !important;
+  border-radius: var(--md-sys-shape-corner-medium) !important;
 }
 
 #agenda {
@@ -115,35 +203,103 @@ calendar-minimonth {
 #unifinder-searchBox,
 #task-addition-box,
 #calendar-task-details {
-  padding: 6px 10px !important;
+  padding: 8px 12px !important;
   border-block-end-color: var(--md-sys-color-outline-variant) !important;
   background-color: var(--md-sys-color-surface-container-low) !important;
+}
+
+#unifinder-task-edit-field,
+#view-task-edit-field {
+  border-radius: var(--md-sys-shape-corner-full) !important;
+  border-color: var(--md-sys-color-outline-variant) !important;
+  background-color: var(--md-sys-color-surface-container-high) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  padding-inline: 12px !important;
+}
+
+#calendar-add-task-button,
+#task-actions-toolbar > toolbarbutton {
+  border-radius: var(--md-sys-shape-corner-full) !important;
 }
 
 #calendar-task-details-description {
   background-color: var(--mdbird-pane) !important;
 }
 
-@-moz-document url("chrome://calendar/content/calendar-item-iframe.xhtml") {
-  #event-grid {
+/* Calendar event, task, and summary dialogs */
+@-moz-document url("chrome://calendar/content/calendar-event-dialog.xhtml"),
+  url("chrome://calendar/content/calendar-summary-dialog.xhtml") {
+  :root,
+  body,
+  #calendar-event-dialog,
+  #calendar-task-dialog,
+  #calendar-event-summary-dialog,
+  #event-toolbox,
+  #summary-toolbox,
+  #event-toolbar,
+  #summary-toolbar {
+    background: var(--mdbird-canvas) !important;
+    color: var(--md-sys-color-on-surface) !important;
+  }
+
+  #event-toolbar toolbarbutton,
+  #summary-toolbar toolbarbutton {
+    border-radius: var(--md-sys-shape-corner-full) !important;
+  }
+
+  #calendar-item-panel-iframe,
+  #calendar-item-summary {
     background-color: var(--mdbird-pane) !important;
     border-radius: var(--mdbird-pane-radius) !important;
+    box-shadow: var(--md-sys-elevation-1) !important;
+    margin: var(--mdbird-pane-gap) !important;
+    overflow: hidden !important;
+  }
+}
+
+@-moz-document url("chrome://calendar/content/calendar-item-iframe.xhtml") {
+  :root,
+  body,
+  #calendar-event-dialog-inner,
+  #calendar-task-dialog-inner {
+    background: var(--mdbird-pane) !important;
+    color: var(--md-sys-color-on-surface) !important;
+  }
+
+  #event-grid {
+    background-color: var(--mdbird-pane) !important;
+    padding: 8px 12px !important;
   }
 
   #event-grid-tabbox {
     background-color: var(--md-sys-color-surface-container-low) !important;
-    border-radius: var(--md-sys-shape-corner-medium) !important;
+    border-radius: var(--md-sys-shape-corner-large) !important;
+    overflow: hidden !important;
   }
 }
 
+/* Chat space */
+#chatTabPanel,
 #chatPanel {
   --imbox-selected-background-color: var(--mdbird-selected-container) !important;
+  --imbox-selected-text-color: var(--mdbird-on-selected-container) !important;
   --imgroup-selected-background-color: var(--md-sys-color-surface-container) !important;
 }
 
+#chat-view-toolbox,
 #chat-toolbar {
   background-color: var(--mdbird-canvas) !important;
   color: var(--md-sys-color-on-surface-variant) !important;
+  border-color: transparent !important;
+}
+
+#chat-toolbar toolbarbutton {
+  border-radius: var(--md-sys-shape-corner-full) !important;
+}
+
+#listPaneBox {
+  background-color: var(--mdbird-canvas) !important;
+  border-inline-end-color: transparent !important;
 }
 
 #contactlistbox {
@@ -152,9 +308,15 @@ calendar-minimonth {
 
 #contactlistbox > richlistitem {
   border-radius: var(--mdbird-nav-radius) !important;
+  margin-inline: 4px !important;
+}
+
+#contactlistbox > richlistitem:not([selected="true"]):hover {
+  background-color: var(--md-sys-color-surface-container-high) !important;
 }
 
 #contactlistbox > richlistitem[selected="true"] {
+  background-color: var(--mdbird-selected-container) !important;
   color: var(--mdbird-on-selected-container) !important;
 }
 
@@ -168,8 +330,21 @@ calendar-minimonth {
   font-weight: 600 !important;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  #sidePanelNewEvent,
+  #sidePanelNewTask,
+  #viewToggle > .calview-toggle-item,
+  #calendarControls > .button {
+    transition:
+      border-radius var(--md-sys-motion-spring-fast-spatial-duration) var(--md-sys-motion-spring-fast-spatial),
+      background-color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects),
+      box-shadow var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects) !important;
+  }
+}
+
 @media (forced-colors: active) {
   #calendarDisplayBox,
+  #calendar-task-box,
   #today-pane-panel,
   #conversationsBox,
   #contextPane {

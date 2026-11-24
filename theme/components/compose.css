@@ -54,8 +54,31 @@
     padding: 6px var(--mdbird-compose-inset) 8px !important;
 
     & .toolbarbutton-1 {
-      border-radius: var(--md-sys-shape-corner-full) !important;
+      border-radius: var(--mdbird-shape-pill) !important;
       min-block-size: 32px !important;
+    }
+
+    & .toolbarbutton-1:not([type="menu-button"], [disabled]):active {
+      border-radius: var(--md-sys-shape-corner-small) !important;
+    }
+
+    /* Material 3 Expressive split button geometry (Attach, Save, Spelling) */
+    & toolbarbutton[type="menu-button"] {
+      gap: 2px !important;
+
+      & > .toolbarbutton-menubutton-button {
+        border-start-start-radius: var(--md-sys-shape-corner-full) !important;
+        border-end-start-radius: var(--md-sys-shape-corner-full) !important;
+        border-start-end-radius: var(--md-sys-shape-corner-extra-small) !important;
+        border-end-end-radius: var(--md-sys-shape-corner-extra-small) !important;
+      }
+
+      & > .toolbarbutton-menubutton-dropmarker {
+        border-start-start-radius: var(--md-sys-shape-corner-extra-small) !important;
+        border-end-start-radius: var(--md-sys-shape-corner-extra-small) !important;
+        border-start-end-radius: var(--md-sys-shape-corner-full) !important;
+        border-end-end-radius: var(--md-sys-shape-corner-full) !important;
+      }
     }
 
     & #button-send {
@@ -71,6 +94,7 @@
       }
 
       &:not([disabled]):active {
+        border-radius: var(--md-sys-shape-corner-medium) !important;
         background-color: var(--button-primary-active-background-color) !important;
       }
 
@@ -260,7 +284,8 @@
     margin: 0 !important;
     padding: 6px 8px !important;
     border: 0 !important;
-    border-radius: var(--md-sys-shape-corner-extra-large) !important;
+    border-radius: var(--md-sys-shape-corner-large-increased) !important;
+    box-shadow: var(--md-sys-elevation-1) !important;
     background: var(--md-sys-color-surface-container) !important;
     color: var(--md-sys-color-on-surface-variant) !important;
 
@@ -287,15 +312,42 @@
 
     & > summary {
       padding-inline: 10px !important;
-      border-radius: var(--md-sys-shape-corner-small) !important;
+      border-radius: var(--md-sys-shape-corner-medium) !important;
       background: var(--md-sys-color-surface-container) !important;
       color: var(--md-sys-color-on-surface-variant) !important;
+    }
+  }
+
+  /* Keep the size pill tonal so the primary Send button remains the sole CTA. */
+  #attachmentBucketSize {
+    border-radius: var(--md-sys-shape-corner-full) !important;
+    background-color: var(--md-sys-color-secondary-container) !important;
+    color: var(--md-sys-color-on-secondary-container) !important;
+  }
+
+  #attachmentBucket .attachmentItem {
+    border-radius: var(--md-sys-shape-corner-medium) !important;
+    background-color: var(--md-sys-color-surface-container-high) !important;
+    color: var(--md-sys-color-on-surface) !important;
+
+    &[selected="true"] {
+      background-color: var(--mdbird-selected-container) !important;
+      color: var(--mdbird-on-selected-container) !important;
     }
   }
 
   #attachmentSplitter {
     margin-inline: var(--mdbird-compose-inset) !important;
     border-color: var(--mdbird-compose-divider) !important;
+  }
+
+  #contactsSplitter {
+    border-color: transparent !important;
+
+    &::after {
+      border-radius: var(--md-sys-shape-corner-full) !important;
+      background-color: var(--md-sys-color-primary) !important;
+    }
   }
 
   #contactsSidebar,
@@ -306,6 +358,14 @@
   #contactsSidebar > .sidebar-header {
     background: var(--md-sys-color-surface-container) !important;
     color: var(--md-sys-color-on-surface) !important;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    #composeToolbar2 .toolbarbutton-1 {
+      transition:
+        border-radius var(--md-sys-motion-spring-fast-spatial-duration) var(--md-sys-motion-spring-fast-spatial),
+        background-color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects) !important;
+    }
   }
 
   @media (forced-colors: active) {
