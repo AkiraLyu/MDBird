@@ -32,17 +32,6 @@
     border-radius: var(--md-sys-shape-corner-full) !important;
   }
 
-  #accountTreeCreateAccount {
-    --button-primary-background-color: var(--md-sys-color-primary-container) !important;
-    --button-primary-text-color: var(--md-sys-color-on-primary-container) !important;
-    border-radius: var(--md-sys-shape-corner-large) !important;
-    font-weight: 600 !important;
-  }
-
-  #accountTreeCreateAccount:enabled:is(:hover, :focus-visible) {
-    border-radius: var(--mdbird-shape-pill) !important;
-  }
-
   .info-box-container {
     border-radius: var(--md-sys-shape-corner-large) !important;
     background-color: var(--md-sys-color-surface-container) !important;

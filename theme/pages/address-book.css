@@ -10,32 +10,6 @@
     border-radius: var(--md-sys-shape-corner-full) !important;
   }
 
-  /* Material 3 Expressive Extended FAB matching Mail, Calendar, and Tasks */
-  #booksPaneCreateContact {
-    --button-primary-background-color: var(--md-sys-color-primary-container) !important;
-    --button-primary-text-color: var(--md-sys-color-on-primary-container) !important;
-    --button-primary-hover-background-color: color-mix(
-      in srgb, var(--md-sys-color-primary-container) 92%, var(--md-sys-color-on-primary-container)
-    ) !important;
-    --button-primary-active-background-color: color-mix(
-      in srgb, var(--md-sys-color-primary-container) 88%, var(--md-sys-color-on-primary-container)
-    ) !important;
-    min-block-size: max(var(--button-min-height), 2.8em) !important;
-    border-radius: var(--md-sys-shape-corner-large) !important;
-    box-shadow: var(--md-sys-elevation-1) !important;
-    font-weight: 650 !important;
-  }
-
-  #booksPaneCreateContact:enabled:is(:hover, :focus-visible) {
-    border-radius: var(--mdbird-shape-pill) !important;
-    box-shadow: var(--md-sys-elevation-2) !important;
-  }
-
-  #booksPaneCreateContact:enabled:active {
-    border-radius: var(--md-sys-shape-corner-medium) !important;
-    box-shadow: var(--md-sys-elevation-1) !important;
-  }
-
   #cardsPane,
   #detailsPane {
     margin: var(--mdbird-pane-gap) !important;
@@ -114,15 +88,6 @@
 
   #detailsPaneBackdrop {
     background-color: color-mix(in srgb, var(--md-sys-color-scrim) 36%, transparent) !important;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    #booksPaneCreateContact {
-      transition:
-        border-radius var(--md-sys-motion-spring-fast-spatial-duration) var(--md-sys-motion-spring-fast-spatial),
-        background-color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects),
-        box-shadow var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects) !important;
-    }
   }
 
   @media (forced-colors: active) {

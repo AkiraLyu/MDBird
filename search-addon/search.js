@@ -22,16 +22,25 @@ this.mdbirdSearch = (() => {
       this.listeners = new window.AbortController();
       this.styleURL = extension.getURL("search.css");
 
+      this.mounted = false;
       this.window.windowUtils.loadSheetUsingURIString(
         this.styleURL,
         this.window.windowUtils.USER_SHEET
       );
-      this.createControls();
-      this.connectControls();
+      if (this.createControls()) {
+        this.mounted = true;
+        this.connectControls();
+      }
     }
 
     createControls() {
       const { document } = this;
+      const popupSet = document.getElementById("spacesToolbarPopupSet");
+      const mailButton = document.getElementById("mailButton");
+      if (!popupSet || !mailButton) {
+        return false;
+      }
+
       const html = (tag, id) => {
         const element = document.createElementNS(htmlNamespace, tag);
         element.id = id;
@@ -83,8 +92,9 @@ this.mdbirdSearch = (() => {
 
       this.form.append(this.input, this.submit, this.status);
       this.panel.append(this.form);
-      document.getElementById("spacesToolbarPopupSet").append(this.panel);
-      document.getElementById("mailButton").after(this.button);
+      popupSet.append(this.panel);
+      mailButton.after(this.button);
+      return true;
     }
 
     connectControls() {
@@ -105,7 +115,7 @@ this.mdbirdSearch = (() => {
         this.open();
       };
       for (const id of ["key_quickSearchFocus", "glodaSearchCmd"]) {
-        this.document.getElementById(id).addEventListener("command", openFromCommand, {
+        this.document.getElementById(id)?.addEventListener("command", openFromCommand, {
           ...options,
           capture: true,
         });
@@ -144,7 +154,7 @@ this.mdbirdSearch = (() => {
     }
 
     open(fromButton = false) {
-      if (this.tabmail.globalOverlay ||
+      if (!this.mounted || this.tabmail?.globalOverlay ||
           this.document.documentElement.classList.contains("customizingUnifiedToolbar")) {
         return;
       }
@@ -158,8 +168,11 @@ this.mdbirdSearch = (() => {
 
       const buttonVisible = this.button.getClientRects().length > 0;
       const anchor = buttonVisible ? this.button : this.document.getElementById("spacesPinnedButton");
+      if (!anchor) {
+        return;
+      }
       this.returnFocusTo = fromButton ? this.button : this.document.activeElement;
-      if (fromButton && this.toolbar.isLoaded) {
+      if (fromButton && this.toolbar?.isLoaded) {
         this.toolbar.setFocusButton(this.button);
       }
       this.updateControls();
@@ -219,12 +232,17 @@ this.mdbirdSearch = (() => {
 
     destroy() {
       this.listeners.abort();
-      this.panel.hidePopup();
-      if (this.toolbar.focusButton === this.button) {
-        this.toolbar.setFocusButton(this.document.getElementById("mailButton"));
+      if (this.mounted) {
+        this.panel?.hidePopup();
+        if (this.toolbar?.focusButton === this.button) {
+          const mailButton = this.document.getElementById("mailButton");
+          if (mailButton) {
+            this.toolbar.setFocusButton(mailButton);
+          }
+        }
+        this.button?.remove();
+        this.panel?.remove();
       }
-      this.button.remove();
-      this.panel.remove();
       this.window.windowUtils.removeSheetUsingURIString(
         this.styleURL,
         this.window.windowUtils.USER_SHEET

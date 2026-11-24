@@ -37,33 +37,6 @@
   min-block-size: var(--mdbird-pane-gap) !important;
 }
 
-/* Extended FAB treatment for New Event and New Task (matches Mail Compose FAB) */
-#sidePanelNewEvent,
-#sidePanelNewTask {
-  --button-primary-background-color: var(--md-sys-color-primary-container) !important;
-  --button-primary-text-color: var(--md-sys-color-on-primary-container) !important;
-  --button-primary-hover-background-color: color-mix(
-    in srgb, var(--md-sys-color-primary-container) 92%, var(--md-sys-color-on-primary-container)
-  ) !important;
-  --button-primary-active-background-color: color-mix(
-    in srgb, var(--md-sys-color-primary-container) 88%, var(--md-sys-color-on-primary-container)
-  ) !important;
-  min-block-size: max(var(--button-min-height), 2.8em) !important;
-  border-radius: var(--md-sys-shape-corner-large) !important;
-  box-shadow: var(--md-sys-elevation-1) !important;
-  font-weight: 650 !important;
-}
-
-:is(#sidePanelNewEvent, #sidePanelNewTask):enabled:is(:hover, :focus-visible) {
-  border-radius: var(--mdbird-shape-pill) !important;
-  box-shadow: var(--md-sys-elevation-2) !important;
-}
-
-:is(#sidePanelNewEvent, #sidePanelNewTask):enabled:active {
-  border-radius: var(--md-sys-shape-corner-medium) !important;
-  box-shadow: var(--md-sys-elevation-1) !important;
-}
-
 #calendarContent {
   --viewBackground: var(--mdbird-pane) !important;
   --viewBorderColor: var(--md-sys-color-outline-variant) !important;
@@ -331,14 +304,11 @@ calendar-minimonth {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  #sidePanelNewEvent,
-  #sidePanelNewTask,
   #viewToggle > .calview-toggle-item,
   #calendarControls > .button {
     transition:
-      border-radius var(--md-sys-motion-spring-fast-spatial-duration) var(--md-sys-motion-spring-fast-spatial),
-      background-color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects),
-      box-shadow var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects) !important;
+      border-radius var(--mdbird-transition-shape),
+      background-color var(--mdbird-transition-effects) !important;
   }
 }
 

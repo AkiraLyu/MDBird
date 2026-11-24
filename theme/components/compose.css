@@ -363,8 +363,8 @@
   @media (prefers-reduced-motion: no-preference) {
     #composeToolbar2 .toolbarbutton-1 {
       transition:
-        border-radius var(--md-sys-motion-spring-fast-spatial-duration) var(--md-sys-motion-spring-fast-spatial),
-        background-color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects) !important;
+        border-radius var(--mdbird-transition-shape),
+        background-color var(--mdbird-transition-effects) !important;
     }
   }
 

@@ -5,7 +5,34 @@
 @import url("pages/address-book.css");
 @import url("pages/tools.css");
 
-@-moz-document regexp("^(chrome://(messenger|calendar|chat|global|mozapps|openpgp|pippki)/content/.*|about:(3pane|message|addressbook|preferences|accountsettings|import|addons|downloads|config|support|profiles|policies|certificate|logging|newserror|neterror|certerror|processes|memory|about)([?#].*)?)$") {
+@-moz-document
+  url-prefix("chrome://messenger/content/"),
+  url-prefix("chrome://calendar/content/"),
+  url-prefix("chrome://chat/content/"),
+  url-prefix("chrome://global/content/"),
+  url-prefix("chrome://mozapps/content/"),
+  url-prefix("chrome://openpgp/content/"),
+  url-prefix("chrome://pippki/content/"),
+  url-prefix("about:3pane"),
+  url-prefix("about:message"),
+  url-prefix("about:addressbook"),
+  url-prefix("about:preferences"),
+  url-prefix("about:accountsettings"),
+  url-prefix("about:import"),
+  url-prefix("about:addons"),
+  url-prefix("about:downloads"),
+  url-prefix("about:config"),
+  url-prefix("about:support"),
+  url-prefix("about:profiles"),
+  url-prefix("about:policies"),
+  url-prefix("about:certificate"),
+  url-prefix("about:logging"),
+  url-prefix("about:newserror"),
+  url-prefix("about:neterror"),
+  url-prefix("about:certerror"),
+  url-prefix("about:processes"),
+  url-prefix("about:memory"),
+  url("about:about") {
   :root {
     color-scheme: light dark !important;
     background-color: var(--mdbird-canvas) !important;
@@ -246,6 +273,50 @@
     border-radius: var(--md-sys-shape-corner-small) !important;
   }
 
+  /* Shared Extended FAB treatment for primary creation buttons */
+  :is(
+    #folderPaneWriteMessage,
+    #sidePanelNewEvent,
+    #sidePanelNewTask,
+    #booksPaneCreateContact,
+    #accountTreeCreateAccount
+  ) {
+    --button-primary-background-color: var(--md-sys-color-primary-container) !important;
+    --button-primary-text-color: var(--md-sys-color-on-primary-container) !important;
+    --button-primary-hover-background-color: color-mix(
+      in srgb, var(--md-sys-color-primary-container) 92%, var(--md-sys-color-on-primary-container)
+    ) !important;
+    --button-primary-active-background-color: color-mix(
+      in srgb, var(--md-sys-color-primary-container) 88%, var(--md-sys-color-on-primary-container)
+    ) !important;
+    min-block-size: max(var(--button-min-height), 2.8em) !important;
+    border-radius: var(--md-sys-shape-corner-large) !important;
+    box-shadow: var(--md-sys-elevation-1) !important;
+    font-weight: 650 !important;
+  }
+
+  :is(
+    #folderPaneWriteMessage,
+    #sidePanelNewEvent,
+    #sidePanelNewTask,
+    #booksPaneCreateContact,
+    #accountTreeCreateAccount
+  ):enabled:is(:hover, :focus-visible) {
+    border-radius: var(--mdbird-shape-pill) !important;
+    box-shadow: var(--md-sys-elevation-2) !important;
+  }
+
+  :is(
+    #folderPaneWriteMessage,
+    #sidePanelNewEvent,
+    #sidePanelNewTask,
+    #booksPaneCreateContact,
+    #accountTreeCreateAccount
+  ):enabled:active {
+    border-radius: var(--md-sys-shape-corner-medium) !important;
+    box-shadow: var(--md-sys-elevation-1) !important;
+  }
+
   /* Keep the native checkboxes, color pickers and number steppers; refine toggle-checkbox switches. */
   input:where(:not([type]), [type="text"], [type="email"], [type="url"], [type="tel"], [type="password"]),
   textarea,
@@ -451,18 +522,23 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .button:not(.icon-only, .button-flat),
-    button:is(.primary, .button-primary, .button-destructive, .dialog-button) {
+    button:is(.primary, .button-primary, .button-destructive, .dialog-button),
+    #folderPaneWriteMessage,
+    #sidePanelNewEvent,
+    #sidePanelNewTask,
+    #booksPaneCreateContact,
+    #accountTreeCreateAccount {
       transition:
-        border-radius var(--md-sys-motion-spring-fast-spatial-duration) var(--md-sys-motion-spring-fast-spatial),
-        background-color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects),
-        color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects),
-        box-shadow var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects) !important;
+        border-radius var(--mdbird-transition-shape),
+        background-color var(--mdbird-transition-effects),
+        color var(--mdbird-transition-effects),
+        box-shadow var(--mdbird-transition-effects) !important;
     }
 
     .toggle-checkbox::before {
       transition:
-        translate var(--md-sys-motion-spring-fast-spatial-duration) var(--md-sys-motion-spring-fast-spatial),
-        background-color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects) !important;
+        translate var(--mdbird-transition-shape),
+        background-color var(--mdbird-transition-effects) !important;
     }
   }
 

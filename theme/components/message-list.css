@@ -79,7 +79,8 @@
   --read-status-stroke: var(--md-sys-color-primary) !important;
 }
 
-#threadTree .card-layout.selected:not([data-properties~="junk"]) :is(.sender, .subject, .date, .recipient, .thread-replies),
+#threadTree .card-layout.selected:not([data-properties~="junk"])
+  :is(.sender, .subject, .date, .recipient, .thread-replies),
 #threadTree .table-layout.selected > td {
   color: var(--mdbird-on-selected-container) !important;
 }
@@ -158,14 +159,13 @@
 
 @media (prefers-reduced-motion: no-preference) {
   #threadTree .card-layout > td > .card-container {
-    transition:
-      background-color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects) !important;
+    transition: background-color var(--mdbird-transition-effects) !important;
   }
 
   #quick-filter-bar .check-button {
     transition:
-      border-radius var(--md-sys-motion-spring-fast-spatial-duration) var(--md-sys-motion-spring-fast-spatial),
-      background-color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects),
-      border-color var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects) !important;
+      border-radius var(--mdbird-transition-shape),
+      background-color var(--mdbird-transition-effects),
+      border-color var(--mdbird-transition-effects) !important;
   }
 }

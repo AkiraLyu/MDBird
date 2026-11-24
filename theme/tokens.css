@@ -39,14 +39,12 @@
     --mdbird-star-outline: light-dark(#9a6600, #bd8823);
 
     /* Material 3 Expressive corner scale */
-    --md-sys-shape-corner-none: 0px;
     --md-sys-shape-corner-extra-small: 4px;
     --md-sys-shape-corner-small: 8px;
     --md-sys-shape-corner-medium: 12px;
     --md-sys-shape-corner-large: 16px;
     --md-sys-shape-corner-large-increased: 20px;
     --md-sys-shape-corner-extra-large: 28px;
-    --md-sys-shape-corner-extra-large-increased: 32px;
     --md-sys-shape-corner-full: 999px;
     /* Bounded pill radius for spring border-radius transitions so overshoot
      * never crosses zero into sharp corners or stalls at 999px. */
@@ -63,22 +61,21 @@
       0 1px 3px light-dark(rgb(0 0 0 / 18%), rgb(0 0 0 / 50%)),
       0 4px 10px 3px light-dark(rgb(0 0 0 / 12%), rgb(0 0 0 / 38%));
 
-    /* Material 3 state layers (8% hover, 10% focus, 10–12% pressed) */
+    /* Material 3 state layers (8% hover, 12% pressed) */
     --mdbird-state-hover: color-mix(in srgb, currentColor 8%, transparent);
-    --mdbird-state-focus: color-mix(in srgb, currentColor 10%, transparent);
     --mdbird-state-pressed: color-mix(in srgb, currentColor 12%, transparent);
 
     /* Material 3 Expressive spring motion tokens (CSS curve equivalents) */
     --md-sys-motion-spring-fast-spatial-duration: 350ms;
     --md-sys-motion-spring-fast-spatial: cubic-bezier(0.42, 1.67, 0.21, 0.9);
-    --md-sys-motion-spring-default-spatial-duration: 500ms;
-    --md-sys-motion-spring-default-spatial: cubic-bezier(0.38, 1.21, 0.22, 1);
     --md-sys-motion-spring-fast-effects-duration: 150ms;
     --md-sys-motion-spring-fast-effects: cubic-bezier(0.31, 0.94, 0.34, 1);
-    --md-sys-motion-spring-default-effects-duration: 200ms;
-    --md-sys-motion-spring-default-effects: cubic-bezier(0.34, 0.8, 0.34, 1);
 
-    /* Backwards-compatible motion aliases */
+    /* Shared transition shorthands and backwards-compatible aliases */
+    --mdbird-transition-shape:
+      var(--md-sys-motion-spring-fast-spatial-duration) var(--md-sys-motion-spring-fast-spatial);
+    --mdbird-transition-effects:
+      var(--md-sys-motion-spring-fast-effects-duration) var(--md-sys-motion-spring-fast-effects);
     --mdbird-motion-fast: var(--md-sys-motion-spring-fast-effects-duration);
     --mdbird-motion-easing: var(--md-sys-motion-spring-fast-effects);
 
@@ -86,8 +83,6 @@
     --md-sys-typescale-headline-small-size: 1.65rem;
     --md-sys-typescale-title-large-size: 1.45rem;
     --md-sys-typescale-title-medium-size: 1.15rem;
-    --md-sys-typescale-title-small-size: 0.95rem;
-    --md-sys-typescale-label-large-size: 0.93rem;
     --md-sys-typescale-label-medium-size: 0.86rem;
   }
 
