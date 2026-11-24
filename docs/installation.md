@@ -1,169 +1,83 @@
 # Installation
 
-MDBird loads through Thunderbird's `userChrome.css` and `userContent.css`. The MDBird Search add-on provides global search in the sidebar. The installer puts the files in your Thunderbird profile directory.
+MDBird loads through Thunderbird's `userChrome.css` and `userContent.css` stylesheets and pairs with the bundled MDBird Search add-on for sidebar global search. On Linux and macOS, `./install.sh` handles profile discovery, backups, stylesheet wiring, add-on packaging, and cache cleanup automatically; on Windows, copy the files into your profile directory manually.
 
-## Profile directory
+## Locating your profile directory
 
-In Thunderbird, open **Help > Troubleshooting Information** and find **Profile Directory** or **Profile Folder**. Click the button beside it to open the profile. This directory contains `prefs.js`. The installer creates `user.js` and the `chrome` directory as needed.
+Open **Help > Troubleshooting Information** in Thunderbird and look up **Profile Directory** (or **Profile Folder**), which contains `prefs.js`. Common default profile roots by platform are:
 
-The following profile root directories are common on Linux.
+| Platform | Profile root |
+| --- | --- |
+| Linux (native) | `~/.thunderbird` or `~/.mozilla-thunderbird` |
+| Linux (Snap) | `~/snap/thunderbird/common/.thunderbird` |
+| Linux (Flatpak) | `~/.var/app/org.mozilla.Thunderbird/.thunderbird` |
+| macOS | `~/Library/Thunderbird` |
+| Windows | `%APPDATA%\Thunderbird\Profiles` |
 
-```text
-~/.thunderbird
-~/.mozilla-thunderbird
-~/snap/thunderbird/common/.thunderbird
-~/.var/app/org.mozilla.Thunderbird/.thunderbird
-```
+## Automatic installation (Linux and macOS)
 
-The profile root is `~/Library/Thunderbird` on macOS and `%APPDATA%\Thunderbird` on Windows.
-
-## Automatic installation
-
-Run the installer from the repository root.
+Quit Thunderbird completely, then run the installer from the repository root:
 
 ```bash
 ./install.sh
 ```
 
-The installer looks for `profiles.ini` and selects the default profile in this order.
-
-1. The directory specified by the `THUNDERBIRD_PROFILE_ROOT` environment variable.
-2. Common profile root directories on Linux and macOS.
-3. The `Default` value in the `[Install...]` section of `profiles.ini`.
-4. The sole profile, if only one exists.
-
-If the installer finds multiple profiles and cannot determine the default, it shows a numbered list and asks you to choose one. If Thunderbird is running, the installer reminds you to restart it.
-
-Use `--profile` to specify a profile directory.
+When `--profile` is omitted, the script checks `THUNDERBIRD_PROFILE_ROOT` first, then scans the standard Linux and macOS profile roots for `profiles.ini`, choosing the default entry under `[Install...]` or the sole profile if only one exists. If multiple profiles exist without a single default, it prompts you interactively to pick one. You can pass `--profile` to target a directory directly, `--accent` (`blue`, `violet`, or `mint`) to select a palette, and `--yes` to avoid prompts:
 
 ```bash
-./install.sh --profile ~/.thunderbird/xxxxxxxx.default-release
+./install.sh --profile ~/.thunderbird/xxxxxxxx.default-release --accent mint
 ```
 
-Use `--accent` to choose a palette.
+During installation, the script backs up any pre-existing `userChrome.css`, `userContent.css`, `chrome/mdbird/`, and MDBird Search XPI into `chrome/.mdbird-backup-<timestamp>`, installs the theme into `<profile>/chrome/mdbird`, prepends a single managed `@import` block to `<profile>/chrome/userChrome.css` and `userContent.css` while preserving any custom rules below it, writes `user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);` into `<profile>/user.js`, packages `search-addon/` to `<profile>/extensions/mdbird-search@mdbird.local.xpi`, and deletes `<profile>/startupCache` so Thunderbird compiles the fresh stylesheets on next launch.
 
-```bash
-./install.sh --accent blue
-./install.sh --accent violet
-./install.sh --accent mint
-```
-
-If you omit `--accent`, the installer uses the palette already configured in the profile.
-
-The installer performs these steps.
-
-- Copies `userChrome.css`, `userContent.css`, and `theme/` to `<profile>/chrome/mdbird`.
-- Packages MDBird Search as `<profile>/extensions/mdbird-search@mdbird.local.xpi`.
-- Rewrites the managed `@import` block at the top of `<profile>/chrome/userChrome.css` and `userContent.css` so each stylesheet imports MDBird once.
-- Adds the `toolkit.legacyUserProfileCustomizations.stylesheets` preference to `<profile>/user.js`.
-- Clears `<profile>/startupCache` so Thunderbird reloads all theme files on its next launch.
-- Copies existing files to `chrome/.mdbird-backup-<timestamp>` before replacing the theme directory.
-- Preserves local changes in `chrome/mdbird/theme/customization.css`.
-
-If `userChrome.css` or `userContent.css` already exists, the installer preserves its contents and inserts the managed block at the top. The block goes first because `@import` must appear before other rules.
-
-After installation, quit Thunderbird completely and restart it. On first installation, open the MDBird Search installation prompt from the application menu in the upper-right corner and select **Enable**. If you dismiss the prompt, you can enable MDBird Search in the Add-ons Manager. The add-on uses Thunderbird's Experiment API to access the main window and mail index.
+Restart Thunderbird after the script finishes. On the first launch, open the application menu in the upper-right corner and select **Enable** on the MDBird Search installation notice (or enable **MDBird Search** directly inside the Add-ons Manager).
 
 ## Manual installation
 
-### Linux and macOS
+Manual installation works identically on Linux, macOS, and Windows. Replace `<profile>` with the path to your Thunderbird profile folder.
 
-Replace `<profile>` with the path to your profile directory and run the following commands.
+1. Copy `userChrome.css`, `userContent.css`, and `theme/` from this repository into `<profile>/chrome/mdbird/`. (Copying them directly into `<profile>/chrome/` also works because internal `@import url("theme/...")` paths resolve relative to each entry file, though keeping a `mdbird/` subdirectory makes updates and removal cleaner.)
+2. Add the matching import line to the very top of `<profile>/chrome/userChrome.css` and `<profile>/chrome/userContent.css`, before any other CSS rules so Gecko honors the `@import` statements:
 
-```bash
-mkdir -p "<profile>/chrome/mdbird"
-cp -R userChrome.css userContent.css theme "<profile>/chrome/mdbird/"
-```
+   ```css
+   /* <profile>/chrome/userChrome.css */
+   @import url("mdbird/userChrome.css");
+   ```
 
-Create or edit `<profile>/chrome/userChrome.css` and add this line at the top.
+   ```css
+   /* <profile>/chrome/userContent.css */
+   @import url("mdbird/userContent.css");
+   ```
 
-```css
-@import url("mdbird/userChrome.css");
-```
+3. Enable custom stylesheets either by adding the line below to `<profile>/user.js` or by toggling `toolkit.legacyUserProfileCustomizations.stylesheets` to `true` in **Settings > General > Config Editor**:
 
-Create or edit `<profile>/chrome/userContent.css` and add this line at the top.
+   ```js
+   user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+   ```
 
-```css
-@import url("mdbird/userContent.css");
-```
+4. To install the sidebar search add-on manually, compress the contents of `search-addon/` (with `manifest.json` at the root of the ZIP archive, alongside `schema.json`, `search.js`, `search.css`, and `_locales/`), rename the archive to `mdbird-search.xpi`, and install it from **Add-ons and Themes > Gear menu > Install Add-on From File…**.
+5. Quit Thunderbird completely and restart it.
 
-Keep any existing rules below the `@import` statements. Thunderbird ignores imports that appear after ordinary style rules.
+## Verification and troubleshooting
 
-Create or edit `<profile>/user.js` and add this preference.
+After restarting, confirm that the three-pane workspace displays rounded content cards over a tinted canvas, the **New Message** button stands out in the primary container color and morphs smoothly on hover and press, the tab bar shares the top row with the unified toolbar on windows 900px or wider, the magnifying glass in the Spaces Toolbar opens the search popup, and menus, Calendar, Tasks, Address Book, Settings, and Compose share the active palette. To match the repository screenshots, select **View > Layout > Vertical View** and enable **Cards View** in the message list display options. If global search reports that indexing is disabled, turn on **Enable Global Search and Indexer** in **Settings > General**.
 
-```js
-user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
-```
+If Thunderbird still renders its default appearance after a restart, verify these five conditions:
 
-You can also open **Settings > General > Config Editor**, search for `toolkit.legacyUserProfileCustomizations.stylesheets`, and set it to `true`. On each launch, Thunderbird applies the value from `user.js` over the corresponding value in `prefs.js`.
+1. Thunderbird launched with the same profile directory where you installed MDBird.
+2. `toolkit.legacyUserProfileCustomizations.stylesheets` is `true` in Config Editor.
+3. The `@import` line is placed above all ordinary CSS rules in `chrome/userChrome.css` and `chrome/userContent.css`.
+4. Thunderbird was fully terminated rather than minimized to the tray before restarting.
+5. Thunderbird is not running in Troubleshoot Mode, which disables user stylesheets and add-ons.
 
-### Windows
+## Updating and uninstalling
 
-The profile directory on Windows is usually at the following path.
+To update MDBird after pulling new changes, quit Thunderbird and run `./install.sh` again. The script backs up the previous installation, refreshes the theme files and search XPI, rewrites the managed import blocks, clears `startupCache`, and preserves your custom rules in `userChrome.css` and `userContent.css`, local overrides in `chrome/mdbird/theme/customization.css`, and your previously selected or custom palette whenever `--accent` is omitted. To reset local overrides to defaults, remove `chrome/mdbird/theme/customization.css` before reinstalling.
 
-```text
-%APPDATA%\Thunderbird\Profiles\xxxxxxxx.default-release
-```
-
-Create `chrome\mdbird` inside the profile directory and copy the same files as on Linux. Place `userChrome.css` and `userContent.css` in the `chrome` directory and the theme files in `chrome\mdbird`. Enable the custom stylesheets preference using the same steps as on Linux.
-
-### Direct installation in `chrome`
-
-You can also copy `userChrome.css`, `userContent.css`, and `theme/` from the repository directly into `<profile>/chrome/`. The `@import url("theme/...")` paths resolve relative to each entry stylesheet, so this layout works as well. The automatic installer uses the `chrome/mdbird` layout to make it easier to preserve and uninstall the theme.
-
-### Search add-on
-
-Create a ZIP archive from the files in `search-addon/`, including the `_locales/` directory, and change the file extension to `.xpi`. Place `manifest.json` at the root of the archive. In Thunderbird's Add-ons Manager, choose **Install Add-on From File…** from the gear menu. Select the XPI and confirm the installation. [Installing a Thunderbird add-on from a file](https://support.mozilla.org/en-US/kb/installing-addon-thunderbird)
-
-## Verification
-
-After restarting Thunderbird, check the following areas.
-
-- Selected folders have a pill-shaped highlight. The message list and message pane appear as rounded cards.
-- The top toolbar hides the global search box by default. At window widths of 900 CSS pixels or more, the tab bar shares a row with the unified toolbar. Open Quick Filter from the message list header.
-- Click the magnifying glass in the Spaces Toolbar on the left or use the global search shortcut. Type a keyword and press Enter to view matching messages in a new tab. If the popup says indexing is disabled, select **Turn on search across all email accounts** in **Settings > General**.
-- The application menu, message context menu, and attachment menu in the compose window use tonal surfaces.
-- Selection colors in Settings, Account Settings, Address Book, and the Add-ons Manager match the active palette.
-
-The screenshots use the vertical three-pane layout and Cards View. To match them, choose **View > Layout > Vertical View**, then select **Cards View** from the message list display options.
-
-If Thunderbird still shows its default appearance, check the following.
-
-1. Thunderbird is running with the profile where you installed MDBird.
-2. `toolkit.legacyUserProfileCustomizations.stylesheets` is set to `true`.
-3. The `@import` statement in `chrome/userChrome.css` is at the top of the file.
-4. Thunderbird was fully quit and restarted.
-5. Thunderbird is running in normal mode. Troubleshoot Mode disables custom stylesheets.
-
-## Updates
-
-Run the installer again from the repository directory.
-
-```bash
-./install.sh
-```
-
-The installer backs up the previous theme directory, replaces the theme files, rewrites the managed import blocks, and clears the startup cache. It preserves the following items.
-
-- Existing rules in `userChrome.css` and `userContent.css`.
-- Local overrides in `chrome/mdbird/theme/customization.css`.
-- The last selected palette and custom palette files in `theme/palettes/` when you omit `--accent`.
-
-To reset all theme-level overrides, delete `chrome/mdbird/theme/customization.css` and reinstall.
-
-## Uninstallation
+To uninstall MDBird, run:
 
 ```bash
 ./install.sh --uninstall
 ```
 
-The uninstaller performs these steps.
-
-- Removes the `chrome/mdbird` directory.
-- Removes the MDBird Search XPI from the profile's `extensions/` directory.
-- Removes the managed blocks from `chrome/userChrome.css` and `chrome/userContent.css`.
-- Clears `<profile>/startupCache` so Thunderbird discards cached theme styles on its next launch.
-- Preserves other rules in the stylesheet files and the custom stylesheet preference in `user.js`.
-- Preserves the `chrome/.mdbird-backup-*` directories.
-
-Restart Thunderbird after uninstalling. To remove the remaining MDBird settings and backups, delete the corresponding preference line in `user.js` and the backup directories.
+Uninstalling removes `chrome/mdbird/`, the MDBird Search XPI, the managed `@import` blocks, and `startupCache`, while leaving unrelated stylesheet rules, backup folders (`chrome/.mdbird-backup-*`), and `user.js` preferences intact. Restart Thunderbird to return to the stock theme, and delete the `user.js` preference entry or backup directories manually if you no longer need them.

@@ -1,32 +1,32 @@
 # Customization
 
-Choose a palette with the installer or edit the local overrides file in your profile directory. After saving your changes, quit Thunderbird completely and restart it.
+MDBird supports switching between built-in color palettes, authoring custom palettes, and overriding layout tokens without modifying the core theme stylesheets. After editing any stylesheet in your profile directory, quit Thunderbird completely and restart it so Gecko reloads `userChrome.css` and `userContent.css`.
 
-## Palettes
+## Color palettes
+
+Switch among the bundled palettes by passing `--accent` to the installer:
 
 ```bash
 ./install.sh --accent violet
 ```
 
-| Name | Color |
+| Accent | Description |
 | --- | --- |
-| `blue` | Google Blue (default) |
-| `violet` | Material 3 violet |
-| `mint` | Mint green |
+| `blue` | Google Blue with a cool neutral surface ramp (default) |
+| `violet` | Material 3 baseline violet |
+| `mint` | Teal-mint primary with cool green-tinted surfaces |
 
-To create a custom palette, copy `chrome/mdbird/theme/palettes/blue.css` to `custom.css` in the same directory. Keep the `@-moz-document` scope and the existing color roles. Change the light and dark values you want to customize. Selections, primary actions, and error states each have their own foreground and background colors. When you change a background, check that its foreground color remains readable.
-
-Import the custom palette in `chrome/mdbird/theme/palette.css`.
+To define a custom palette, copy `chrome/mdbird/theme/palettes/blue.css` inside your profile directory to `custom.css` in the same folder, keep the `@-moz-document` wrapper and all `--md-sys-color-*` role names intact, and update each `light-dark(<light>, <dark>)` pair. Every container role pairs with a matching `--md-sys-color-on-*` foreground role, so verify readable contrast in both light and dark modes whenever you adjust primary, secondary, tertiary, error, or surface colors. Point `chrome/mdbird/theme/palette.css` to your file:
 
 ```css
 @import url("palettes/custom.css");
 ```
 
-When you run the installer again without `--accent`, it keeps the current palette import and any custom palette files.
+Re-running `./install.sh` without `--accent` preserves both your current `theme/palette.css` import and any custom files in `theme/palettes/`.
 
-## Window appearance
+## Window layout and typography
 
-The installer preserves `chrome/mdbird/theme/customization.css`. Use this file to adjust corner radii, spacing, and fonts in windows and mail panes styled by `userChrome.css`.
+The installer preserves `chrome/mdbird/theme/customization.css` across updates. Add `:root` overrides there to adjust card geometry, pane spacing, typography, or selection colors across chrome windows and mail panes:
 
 ```css
 :root {
@@ -34,23 +34,24 @@ The installer preserves `chrome/mdbird/theme/customization.css`. Use this file t
   --mdbird-pane-gap: 10px;
   --mdbird-row-radius: 12px;
   --mdbird-nav-radius: 16px;
-  --mdbird-font: "Inter", "Noto Sans", system-ui, sans-serif;
+  --mdbird-font: "Google Sans Flex", "Inter", "Noto Sans", system-ui, sans-serif;
 }
 ```
 
-| Variable | Purpose |
-| --- | --- |
-| `--mdbird-pane-radius` | Corner radius of content cards |
-| `--mdbird-pane-gap` | Spacing between mail panes |
-| `--mdbird-row-radius` | Corner radius of message cards |
-| `--mdbird-nav-radius` | Corner radius of folder and navigation items |
-| `--mdbird-font` | Interface font stack |
-| `--mdbird-selected-container` | Selection background |
-| `--mdbird-on-selected-container` | Selection text color |
+| Token | Default | Effect |
+| --- | --- | --- |
+| `--mdbird-pane-radius` | `24px` (`18px` at ≤ 800px) | Corner radius of major workspace cards |
+| `--mdbird-pane-gap` | `8px` (`5px` at ≤ 800px) | Outer margin around panes and splitter spacing between them |
+| `--mdbird-row-radius` | `14px` | Corner radius of message cards and list rows |
+| `--mdbird-nav-radius` | `var(--md-sys-shape-corner-full)` | Corner radius of folder tree, category, and sidebar items |
+| `--mdbird-shape-pill` | `max(24px, 1.5em)` | Bounded pill radius used by spring-morphing buttons and chips |
+| `--mdbird-font` | `"Google Sans Flex", "Google Sans", ...` | UI font stack across windows, menus, and built-in pages |
+| `--mdbird-selected-container` | `var(--md-sys-color-secondary-container)` | Fill color for selected tabs, folders, and list items |
+| `--mdbird-on-selected-container` | `var(--md-sys-color-on-secondary-container)` | Text and icon color on selected containers |
 
-## Built-in tabs
+## Built-in content tabs
 
-In your profile's `chrome/userContent.css`, add content-page overrides after the MDBird import. Scope the rules to the relevant built-in URL. Use `about:preferences` to target Settings.
+Because `theme/customization.css` is imported only by `userChrome.css`, overrides for built-in content pages such as Settings, Account Settings, Address Book, or Add-ons belong in `<profile>/chrome/userContent.css` below the managed MDBird import block. Scope those rules to the target `about:` document so they never leak into rendered email messages:
 
 ```css
 @import url("mdbird/userContent.css");
@@ -62,4 +63,4 @@ In your profile's `chrome/userContent.css`, add content-page overrides after the
 }
 ```
 
-Thunderbird's dark mode setting for reading messages controls the appearance of HTML messages. Its display and composition settings control the fonts used to read and compose messages.
+HTML email rendering remains governed by Thunderbird's own display, font, composition, and dark reading settings rather than MDBird's UI tokens.

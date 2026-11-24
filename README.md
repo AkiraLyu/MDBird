@@ -1,37 +1,35 @@
 # MDBird
 
-MDBird is a Material Design 3 Expressive theme for Thunderbird. Its default palette is inspired by Gmail.
+MDBird brings a Material Design 3 Expressive interface to Thunderbird, pairing a Gmail-inspired three-pane workspace with tonal surfaces, rounded content cards, spring-driven shape morphing, and full light and dark color schemes. The theme covers the main mail window, standalone message and compose windows, Calendar, Tasks, Address Book, Chat, menus, dialogs, and built-in settings and utility tabs.
 
-In windows at least 900 CSS pixels wide, MDBird places the tabs in the top toolbar row to save vertical space. It replaces the toolbar search box with a button in the sidebar. Click the magnifying glass in the Spaces Toolbar on the left or press `Ctrl+K` (`⌘K` on macOS) to open the MDBird search box. Type a keyword and press Enter to see global search results in a new Thunderbird tab.
+On windows that are at least 900 CSS pixels wide, MDBird places the tab bar alongside the unified toolbar to reclaim vertical reading space and moves global mail search out of the top bar into the Spaces Toolbar on the left. Clicking the search icon in the sidebar or pressing `Ctrl+K` (`⌘K` on macOS) opens the MDBird Search popup, which forwards queries to Thunderbird's global index and displays results in a standard search tab.
 
-![MDBird light theme](preview/light.png)
+![MDBird light theme showing the three-pane mail layout](preview/light.png)
 
-![MDBird dark theme](preview/dark.png)
+![MDBird dark theme showing tonal contrast between the Compose button and selected items](preview/dark.png)
 
-![MDBird compose window in the light theme](preview/compose-light.png)
+![MDBird calendar view with connected navigation controls and Today Pane](preview/calendar-light.png)
+
+![MDBird compose window with bottom action bar and floating formatting toolbar](preview/compose-light.png)
 
 ## Installation
 
-The installer supports common profile locations on Linux and macOS. On Windows, follow the [manual installation steps](docs/installation.md#manual-installation).
-
-Quit Thunderbird, then run the installer from the project directory.
+Quit Thunderbird completely before running the installer from the repository root on Linux or macOS. For Windows or step-by-step setup without the script, follow the [manual installation guide](docs/installation.md#manual-installation).
 
 ```bash
 ./install.sh
 ```
 
-The script locates the default profile. You can specify a profile path and use `--accent` to choose `blue`, `violet`, or `mint`.
+The installer detects the default profile from `profiles.ini`, copies the stylesheets into `<profile>/chrome/mdbird`, adds the managed `@import` blocks to `userChrome.css` and `userContent.css`, enables `toolkit.legacyUserProfileCustomizations.stylesheets` in `user.js`, packages the sidebar search add-on, and clears `startupCache` so Thunderbird reads the updated files on launch. Pass `--profile` to target a specific profile directory or `--accent` to select `blue` (default), `violet`, or `mint`:
 
 ```bash
 ./install.sh --profile ~/.thunderbird/xxxxxxxx.default-release --accent violet
 ```
 
-After restarting Thunderbird, open the MDBird Search installation prompt from the application menu in the upper-right corner and select **Enable**. Light and dark colors follow the default, light, or dark theme selected in Thunderbird.
-
-To uninstall MDBird, run `./install.sh --uninstall` and restart Thunderbird. See the [installation guide](docs/installation.md) for profile paths, updates, and troubleshooting.
+After restarting Thunderbird, open the application menu in the upper-right corner and confirm **Enable** on the MDBird Search prompt so the sidebar search button and `Ctrl+K` shortcut activate. Light and dark surfaces follow the theme selected in Thunderbird's Add-ons and Themes manager. To remove MDBird cleanly, run `./install.sh --uninstall` and restart Thunderbird; see the [installation guide](docs/installation.md) for profile locations, update behavior, and troubleshooting.
 
 ## Customization
 
-Edit `chrome/mdbird/theme/customization.css` in your profile to adjust fonts, corner radii, and panel spacing. Both stylesheet entry points use `theme/palette.css`, so changing the palette updates the main window and built-in content tabs. See the [customization guide](docs/customization.md) for details.
+Edit `chrome/mdbird/theme/customization.css` inside your profile directory to override fonts, pane gaps, corner radii, or selection colors for chrome windows; the installer preserves this file across updates. Because both `userChrome.css` and `userContent.css` import the same active palette through `theme/palette.css`, switching accents or defining a custom palette keeps the main window, popups, dialogs, and built-in content tabs synchronized.
 
-The main window loads its styles from `userChrome.css`. Settings and other built-in tabs use `userContent.css`, as do plain-text messages and the compose editor. HTML messages use the sender's formatting and Thunderbird's dark mode setting for reading messages. See the [design guide](docs/design.md) for the interface structure, selector scope, and platform controls.
+Plain-text email bodies and the compose editor inherit only canvas margins and quote styling through `userContent.css`, while HTML messages retain the sender's formatting and respect Thunderbird's built-in dark reading toggle. See the [customization guide](docs/customization.md) for variable references and palette authoring, and the [design guide](docs/design.md) for architecture, Material 3 Expressive token mapping, and scope boundaries.
